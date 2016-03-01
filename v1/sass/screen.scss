@@ -1,0 +1,55 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+$full-color: #FDFCEA;
+$body-font: 'Roboto Mono', monospaced;
+
+body {
+	background: #fff;
+	font-family: $body-font;
+	font-weight: 300;
+	font-size: 14px;
+	line-height: 150%;
+}
+
+.full {
+	background: $full-color;
+}
+
+.row {
+	
+	padding: 0.75em 0;
+
+	.content {
+		width: 50%;
+		margin: 0 auto;
+		p {
+			padding: 0.75em 0;
+		}
+	}
+	
+
+	.directions {
+		float: left;
+		background: #fff;
+		width: 50%;
+
+		.content {
+			font-size: 2em;
+		}
+	}
+
+	.terminal {
+		float: left;
+		background: #000;
+		color: #fff;
+		width: 50%;
+	}
+}
+
+
+
