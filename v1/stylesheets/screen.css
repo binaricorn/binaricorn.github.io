@@ -77,37 +77,59 @@ body {
 }
 
 /* line 19, ../sass/screen.scss */
+input {
+  outline: none;
+}
+
+/* line 23, ../sass/screen.scss */
 .full {
   background: #FDFCEA;
 }
 
-/* line 23, ../sass/screen.scss */
+/* line 27, ../sass/screen.scss */
 .row {
   padding: 0.75em 0;
 }
-/* line 27, ../sass/screen.scss */
+/* line 31, ../sass/screen.scss */
 .row .content {
   width: 50%;
   margin: 0 auto;
 }
-/* line 30, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 .row .content p {
   padding: 0.75em 0;
 }
-/* line 36, ../sass/screen.scss */
+/* line 37, ../sass/screen.scss */
+.row .content code {
+  color: red;
+  font-style: italic;
+}
+/* line 44, ../sass/screen.scss */
 .row .directions {
   float: left;
   background: #fff;
   width: 50%;
 }
-/* line 41, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 .row .directions .content {
-  font-size: 2em;
+  width: 85%;
 }
-/* line 46, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 .row .terminal {
   float: left;
   background: #000;
   color: #fff;
   width: 50%;
+  height: 100%;
+}
+/* line 61, ../sass/screen.scss */
+.row .terminal .content {
+  width: 85%;
+}
+/* line 64, ../sass/screen.scss */
+.row .terminal .content input {
+  background: transparent;
+  border: none;
+  font-family: "Roboto Mono", monospaced;
+  color: white;
 }
