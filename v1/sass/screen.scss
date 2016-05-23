@@ -5,15 +5,15 @@
 
 @import "compass/reset";
 
-$full-color: #FDFCEA;
+$full-color: #9EE5FA;
 $body-font: 'Roboto Mono', monospaced;
 
 body {
 	background: #fff;
 	font-family: $body-font;
 	font-weight: 300;
-	font-size: 14px;
-	line-height: 150%;
+	font-size: 16px;
+	line-height: 180%;
 }
 
 input {
@@ -22,6 +22,8 @@ input {
 
 .full {
 	background: $full-color;
+	//font-size: 1.25em;
+	line-height: auto;
 }
 
 .row {
@@ -39,6 +41,13 @@ input {
 			font-style: italic;
 		}
 	}
+
+	.story {
+		height: 50%;
+		overflow: hidden;
+		font-size: 2em;
+		line-height: 150%;
+	}
 	
 
 	.directions {
@@ -48,6 +57,7 @@ input {
 
 		.content {
 			width: 85%;
+			padding: 1em;
 		}
 	}
 
@@ -56,10 +66,11 @@ input {
 		background: #000;
 		color: #fff;
 		width: 50%;
-		height: 100%;
+		height: 50%;
 
 		.content {
 			width: 85%;
+			padding: 1em;
 
 			input {
 				background: transparent;
