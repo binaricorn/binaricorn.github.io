@@ -1,5 +1,5 @@
 ---
-title: The use of simulation
+title: CCPM
 subtitle: Website Design
 layout: default
 modal-id: 5
@@ -10,6 +10,6 @@ alt: image-alt
 project-date: April 2014
 client: Start Bootstrap
 category: Web Development
-description: March, 2016 residency with artist and developer Francis Tseng at the DBSR Innovation Lab.
+description: CCPM proposes an alternative way of looking at the way we use the devices we rely on the most. What if the the energy we expend and “waste” can be harvested and stored into a battery for later use? Could these typing-powered batteries then be treated as designed objects with their own narratives and sentimental purposes?
 
 ---
