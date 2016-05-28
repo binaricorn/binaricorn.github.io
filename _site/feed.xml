@@ -3,10 +3,10 @@
   <channel>
     <title>Awesome Title</title>
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</description>
-    <link>https://y7kim.github.io/portfolio/</link>
-    <atom:link href="https://y7kim.github.io/portfolio/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 28 May 2016 00:57:25 -0400</pubDate>
-    <lastBuildDate>Sat, 28 May 2016 00:57:25 -0400</lastBuildDate>
+    <link>https://y7kim.github.io/</link>
+    <atom:link href="https://y7kim.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sat, 28 May 2016 01:00:09 -0400</pubDate>
+    <lastBuildDate>Sat, 28 May 2016 01:00:09 -0400</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -14,8 +14,8 @@
         <description>
 </description>
         <pubDate>Fri, 18 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/18/project-1/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/18/project-1/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/18/project-1/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/18/project-1/</guid>
         
         
         <category>Web Development</category>
@@ -27,8 +27,8 @@
         <description>
 </description>
         <pubDate>Tue, 15 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/15/project-3/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/15/project-3/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/15/project-3/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/15/project-3/</guid>
         
         
         <category>Web Development</category>
@@ -40,8 +40,8 @@
         <description>
 </description>
         <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-2/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-2/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/14/project-2/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-2/</guid>
         
         
         <category>Web Development</category>
@@ -53,8 +53,8 @@
         <description>
 </description>
         <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-4/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-4/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/14/project-4/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-4/</guid>
         
         
         <category>Web Development</category>
@@ -66,8 +66,8 @@
         <description>
 </description>
         <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-5/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-5/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/14/project-5/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-5/</guid>
         
         
         <category>Web Development</category>
@@ -79,8 +79,8 @@
         <description>
 </description>
         <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-6/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/portfolio/web%20development/2014/07/14/project-6/</guid>
+        <link>https://y7kim.github.io/web%20development/2014/07/14/project-6/</link>
+        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-6/</guid>
         
         
         <category>Web Development</category>
