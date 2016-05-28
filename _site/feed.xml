@@ -5,8 +5,8 @@
     <description>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</description>
     <link>https://y7kim.github.io/</link>
     <atom:link href="https://y7kim.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 28 May 2016 01:42:20 -0400</pubDate>
-    <lastBuildDate>Sat, 28 May 2016 01:42:20 -0400</lastBuildDate>
+    <pubDate>Sat, 28 May 2016 01:54:46 -0400</pubDate>
+    <lastBuildDate>Sat, 28 May 2016 01:54:46 -0400</lastBuildDate>
     <generator>Jekyll v3.1.6</generator>
     
       <item>
@@ -42,32 +42,6 @@
         <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
         <link>https://y7kim.github.io/web%20development/2014/07/14/project-2/</link>
         <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-2/</guid>
-        
-        
-        <category>Web Development</category>
-        
-      </item>
-    
-      <item>
-        <title>The use of simulation</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/web%20development/2014/07/14/project-4/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-4/</guid>
-        
-        
-        <category>Web Development</category>
-        
-      </item>
-    
-      <item>
-        <title>The use of simulation</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://y7kim.github.io/web%20development/2014/07/14/project-5/</link>
-        <guid isPermaLink="true">https://y7kim.github.io/web%20development/2014/07/14/project-5/</guid>
         
         
         <category>Web Development</category>

@@ -4,7 +4,7 @@ subtitle: Website Design
 layout: default
 modal-id: 5
 date: 2014-07-14
-img: startup-framework.png
+img: 1-mNXHIfbn8q292oXXCFzIFg.gif
 thumbnail: 1-mNXHIfbn8q292oXXCFzIFg.gif
 alt: image-alt
 project-date: April 2014
