@@ -1,0 +1,15 @@
+---
+title: TRYTOBEGOOD on Bel-Air
+subtitle: 
+layout: default
+modal-id: 4
+date: 2014-07-14
+img: qualifiedself1.jpg
+thumbnail: qualifiedself1.jpg
+alt: image-alt
+project-date: April 2016
+client: 
+category: 
+description: An embodied Dystopian experience that re-imagines the relationship between ourselves and our work, between the Quantified Self and the Quantified Other, and between quantification and qualification.
+
+---

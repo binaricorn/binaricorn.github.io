@@ -1,0 +1,15 @@
+---
+title: Humans of Simulated New York
+subtitle: 
+layout: default
+modal-id: 2
+date: 2014-07-14
+img: 1-mNXHIfbn8q292oXXCFzIFg.gif
+thumbnail: 1-mNXHIfbn8q292oXXCFzIFg.gif
+alt: image-alt
+project-date: April 2016
+client: 
+category: 
+description: Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.
+
+---

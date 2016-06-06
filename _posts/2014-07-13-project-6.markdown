@@ -1,11 +1,11 @@
 ---
-title: CCPM
+title: Crystal Keyboard, CCPM
 subtitle: Website Design
 layout: default
-modal-id: 5
+modal-id: 4
 date: 2014-07-14
-img: Amliquidface.png
-thumbnail: Amliquidface.png
+img: ccpm2.jpg
+thumbnail: ccpm2.jpg
 alt: image-alt
 project-date: April 2014
 client: Start Bootstrap
