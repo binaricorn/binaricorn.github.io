@@ -8,8 +8,7 @@ img: 1-mNXHIfbn8q292oXXCFzIFg.gif
 thumbnail: 1-mNXHIfbn8q292oXXCFzIFg.gif
 alt: image-alt
 project-date: April 2016
-client: 
-category: 
+excerpt: Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.
 description: Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.
 
 ---

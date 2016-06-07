@@ -8,9 +8,7 @@ img: NMP.gif
 thumbnail: NMP.gif
 alt: image-alt
 project-date: April 2014
-client: Start Bootstrap
-category: Web Development
+excerpt: Web-based narrative that is part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.
 description: Web-based narrative that is part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.
-
 
 ---

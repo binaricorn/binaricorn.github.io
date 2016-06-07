@@ -372,7 +372,7 @@ h3.section-subheading {
 }
 
 #portfolio .portfolio-item:nth-child(even){
-    flex-direction: row-reverse;
+    /*flex-direction: row-reverse;*/
 }
 
 #portfolio .portfolio-item .portfolio-link {

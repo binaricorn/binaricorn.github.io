@@ -8,8 +8,7 @@ img: qualifiedself1.jpg
 thumbnail: qualifiedself1.jpg
 alt: image-alt
 project-date: April 2016
-client: 
-category: 
-description: An embodied Dystopian experience that re-imagines the relationship between ourselves and our work, between the Quantified Self and the Quantified Other, and between quantification and qualification.
+excerpt: An embodied Dystopian experience that re-imagines the relationship between ourselves and our work, between the Quantified Self and the Quantified Other, and between quantification and qualification.
+description: dd<iframe src="https://player.vimeo.com/video/99207668" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
 ---
