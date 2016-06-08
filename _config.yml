@@ -1,8 +1,8 @@
 # Site
-title:              Moon
-bio:                'Minimal, one column jekyll theme.'
-description:        "Moon is a minimal, one column jekyll theme for your blog."
-reading_time:       true
+title:              TRYTOBEGOOD
+bio:                'Fei Liu is a designer, artist, writer.'
+description:        "Fei Liu is a designer, artist, writer."
+reading_time:       false
 words_per_minute:   200
 logo:               'assets/img/logo.svg'
 background:         

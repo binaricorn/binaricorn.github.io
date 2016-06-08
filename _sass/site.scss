@@ -46,11 +46,16 @@ body {
 
 .divider {
     background: $muted;
+    width: 90%;
     padding: 40px 0 30px 0;
-    margin: 0 0 30px 0;
+    margin: 0 0 60px 0;
 
     h2 {
     	margin-top: -7px;
+    }
+
+    @media #{$notsmall} {
+    	width: 100%;
     }
 }
 
@@ -117,7 +122,6 @@ body {
 	box-shadow: 0 0 10px 0 rgba($color_shark,0.3);
 	@include transition(.5s);*/
 	@media #{$small} {
-		width: 90%;
 		padding: 2em 0;
 	    box-shadow: none;
 	}
@@ -154,6 +158,10 @@ body {
 		    /*font-family: {{ site.data.template.font.secondary }};*/
 		    font-size: 14px;
 		    line-height: 26px;
+		}
+
+		@media #{$notsmall} {
+			padding: 0 25px 25px 25px;
 		}
 	}
 
@@ -196,10 +204,12 @@ body {
 		}
 	}
 }
-header .entry-meta {
-	display: none; // hide header meta on small screens
-	@media #{$notsmall} {
-		display: block;
+
+header {
+	margin: 30px 30px 50px;
+
+	.logo {
+		max-width: 30%;
 	}
 }
 .entry-title a {

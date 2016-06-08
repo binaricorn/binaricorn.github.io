@@ -11,6 +11,7 @@ layout: compress
 </head>
 <body>
     {% include nav.html %}
+    <!-- Header -->
     <header class="header" role="banner">
         <div class="container">
             <div class="col-lg-12 intro-text">
@@ -20,20 +21,18 @@ layout: compress
     </header>
 
 
-    <!-- Header -->
-    <header class="header" role="banner">
+    
         <div class="wrapper animated fadeIn">
             <div class="container">
                 <div class="post-title {% if page.feature %} feature {% endif %}">
                     <h1>{{ page.title }}</h1>
-                    <h4>{{ page.date | date_to_string }}</h4>
+                    <p class="small">{{ page.date | date: '%Y' }}</p>
                 </div>
                 {{ content }}
                 <div class="entry-meta">
                 </div>
             </div>
         </div>
-    </header>
     {% include scripts.html %}
     {% if site.mathjax == true %}
     <!-- MathJax -->
