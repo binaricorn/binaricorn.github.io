@@ -1,79 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>TRYTOBEGOOD</title>
-    <description>Designer, writer, tinkerer, current resident at DBRS Innovation Labs, and a DJ and talkshow host on bel-air radio with a MFA from Parsons Design and Technology.</description>
-    <link>https://binaricorn.github.io/</link>
-    <atom:link href="https://binaricorn.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Tue, 07 Jun 2016 00:36:37 -0400</pubDate>
-    <lastBuildDate>Tue, 07 Jun 2016 00:36:37 -0400</lastBuildDate>
-    <generator>Jekyll v3.1.6</generator>
-    
-      <item>
-        <title>new mercy park</title>
-        <description>
-</description>
-        <pubDate>Fri, 18 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/18/project-1/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/18/project-1/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Wifi Whisperer</title>
-        <description>
-</description>
-        <pubDate>Fri, 18 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/18/project-7/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/18/project-7/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Humans of Simulated New York</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/14/project-2/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/14/project-2/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Quantified Life</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/14/project-3/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/14/project-3/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>Crystal Keyboard, CCPM</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/14/project-6/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/14/project-6/</guid>
-        
-        
-      </item>
-    
-      <item>
-        <title>TRYTOBEGOOD on Bel-Air</title>
-        <description>
-</description>
-        <pubDate>Mon, 14 Jul 2014 00:00:00 -0400</pubDate>
-        <link>https://binaricorn.github.io/2014/07/14/project-4/</link>
-        <guid isPermaLink="true">https://binaricorn.github.io/2014/07/14/project-4/</guid>
-        
-        
-      </item>
-    
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator><link href="http://127.0.0.1:4000//feed.xml" rel="self" type="application/atom+xml" /><link href="http://127.0.0.1:4000//" rel="alternate" type="text/html" /><updated>2016-06-08T12:49:30-04:00</updated><id>http://127.0.0.1:4000//</id><title>Moon</title><subtitle>Moon is a minimal, one column jekyll theme for your blog.</subtitle><entry><title>Wifi Whisperer</title><link href="http://127.0.0.1:4000//wifiwhisperer/" rel="alternate" type="text/html" title="Wifi Whisperer" /><published>2016-06-05T00:00:00-04:00</published><updated>2016-06-05T00:00:00-04:00</updated><id>http://127.0.0.1:4000//wifiwhisperer</id><content type="html" xml:base="http://127.0.0.1:4000//wifiwhisperer/">&lt;p&gt;Site and logo design for Kyle McDonald’s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they’ve been connected to, which websites they visit, even the remaining battery life.&lt;/p&gt;
+
+&lt;p&gt;Project featured on &lt;a href=&quot;http://www.wired.com/2016/06/wifi-whisperer-stalks-phones-data-creepiest-way-possible&quot; alt=&quot;‘Wifi Whisperer’ Siphons Your Data in the Creepiest Way Possible&quot; target=&quot;_blank&quot;&gt;Wired&lt;/a&gt; and &lt;a href=&quot;www.coolhunting.com/design/kyle-mcdonald-wifi-whisperer-installation-moogfest-2016&quot; alt=&quot;Wifi Whisperer at Moogfest 2016&quot; target=&quot;_blank&quot;&gt;Cool Hunting&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer4.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer3.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer2.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;</content><summary>Site and logo design for artist Kyle McDonald&#39;s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they&#39;ve been connected to, which websites they visit, even the remaining battery life.</summary></entry><entry><title>Humans of Simulated New York</title><link href="http://127.0.0.1:4000//hosny/" rel="alternate" type="text/html" title="Humans of Simulated New York" /><published>2016-04-26T00:00:00-04:00</published><updated>2016-04-26T00:00:00-04:00</updated><id>http://127.0.0.1:4000//hosny</id><content type="html" xml:base="http://127.0.0.1:4000//hosny/">&lt;p&gt;Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world&lt;/p&gt;</content><summary>Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.</summary></entry><entry><title>New Mercy Park</title><link href="http://127.0.0.1:4000//new-mercy-park/" rel="alternate" type="text/html" title="New Mercy Park" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://127.0.0.1:4000//new-mercy-park</id><content type="html" xml:base="http://127.0.0.1:4000//new-mercy-park/"></content><summary>Web-based narrative that is part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.</summary></entry><entry><title>TRYTOBEGOOD on Bel-Air</title><link href="http://127.0.0.1:4000//trytobegood-bel-air/" rel="alternate" type="text/html" title="TRYTOBEGOOD on Bel-Air" /><published>2012-05-22T00:00:00-04:00</published><updated>2012-05-22T00:00:00-04:00</updated><id>http://127.0.0.1:4000//trytobegood-bel-air</id><content type="html" xml:base="http://127.0.0.1:4000//trytobegood-bel-air/">&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/bel-air.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;words&lt;/p&gt;</content><category term="sample post" /><category term="readability" /><category term="test" /><summary>Fei does radio.</summary></entry></feed>
