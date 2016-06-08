@@ -8,7 +8,7 @@ img: bel-air.jpg
 thumbnail: bel-air.jpg
 alt: BEL-AIR
 project-date: April 2016
-excerpt: An embodied Dystopian experience that re-imagines the relationship between ourselves and our work, between the Quantified Self and the Quantified Other, and between quantification and qualification.
-description: An embodied Dystopian experience that re-imagines the relationship between ourselves and our work, between the Quantified Self and the Quantified Other, and between quantification and qualification.
+excerpt: Show.
+description: Show.
 
 ---
