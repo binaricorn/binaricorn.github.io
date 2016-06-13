@@ -14,16 +14,18 @@ layout: compress
     <!-- Header -->
     <header class="header" role="banner">
         <div class="container">
-            <a href="{{ site.url }}"><img  class="logo" src="{{ site.logo }}" alt="{{site.title}}"></a>
+            <p> <a href="{{ site.url }}">TRYTOBEGOOD</a></p><p>Fei Liu is a designer, artist, writer and DJ exploring digital empathy, and the narrative potential of interfaces.</p>
+            <!-- <a href="{{ site.url }}"><img  class="logo" src="{{ site.logo }}" alt="{{site.title}}"></a> -->
         </div>
     </header>
 
 
     
     <div class="wrapper animated fadeIn">
-        <div class="col-lg-12 divider">
+        <!-- <div class="col-lg-12 divider">
             <div class="container">
-                <div class="row ">
+                
+                 <div class="row ">
                     <div class="col-md-3">
                         <h2>Practising Digital Empathy</h2>
                     </div>
@@ -31,22 +33,21 @@ layout: compress
                         <p>Fei Liu is a designer, artist, writer, and empath using storytelling and to create digital experiences that foster dialogue and human connections. Currently a contributing researcher at non-profit organization China Residencies, DJ and radio host on artist run radio station Bel-Air, and keypuncher at Public Science. Previously Researcher in Residence at DBRS Innovation Labs, and graduate of Parsons MFA Design and Technology.</p>
 
                         <p class="small">CV | LinkedIn | SoundCloud | Twitter</p>
-                        <!-- <p><i class="fa fa-linkedin" aria-hidden="true"></i> <i class="fa fa-twitter" aria-hidden="true"></i> <i class="fa fa-github" aria-hidden="true"></i></p> -->
                         
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
             <div class="container">
                 <div class="row">
                     {% for post in site.posts %} 
                         {% if post.project == null %}
                     <div class="col-sm-12 col-md-12 portfolio-item">
-                        <div class="col-md-5 col-sm-12">
+                        <div class="col-md-7 col-sm-12">
                             <a href="{{ site.url }}{{ post.url }}" class="portfolio-link">
                                 <img src="posts/img/portfolio/{{ post.thumbnail }}" class="img-responsive img-centered" alt=""></a>
                         </div>
-                        <div class="col-md-6 col-sm-12 portfolio-caption">
+                        <div class="col-md-4 col-sm-12 portfolio-caption">
                             <h3><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h3>
                                 <p>{{ post.excerpt }}</p>
                         </div>

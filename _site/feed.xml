@@ -1,11 +1,88 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator><link href="http://127.0.0.1:4000//feed.xml" rel="self" type="application/atom+xml" /><link href="http://127.0.0.1:4000//" rel="alternate" type="text/html" /><updated>2016-06-08T14:15:04-04:00</updated><id>http://127.0.0.1:4000//</id><title>TRYTOBEGOOD</title><subtitle>Fei Liu is a designer, artist, writer.</subtitle><entry><title>Wifi Whisperer</title><link href="http://127.0.0.1:4000//wifiwhisperer/" rel="alternate" type="text/html" title="Wifi Whisperer" /><published>2016-06-05T00:00:00-04:00</published><updated>2016-06-05T00:00:00-04:00</updated><id>http://127.0.0.1:4000//wifiwhisperer</id><content type="html" xml:base="http://127.0.0.1:4000//wifiwhisperer/">&lt;p&gt;Site and logo design for Kyle McDonald’s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they’ve been connected to, which websites they visit, even the remaining battery life.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator><link href="http://127.0.0.1:4000//feed.xml" rel="self" type="application/atom+xml" /><link href="http://127.0.0.1:4000//" rel="alternate" type="text/html" /><updated>2016-06-13T12:36:16-04:00</updated><id>http://127.0.0.1:4000//</id><title>TRYTOBEGOOD</title><subtitle>Fei Liu is a designer, artist, writer.</subtitle><entry><title>Wifi Whisperer</title><link href="http://127.0.0.1:4000//wifiwhisperer/" rel="alternate" type="text/html" title="Wifi Whisperer" /><published>2016-06-05T00:00:00-04:00</published><updated>2016-06-05T00:00:00-04:00</updated><id>http://127.0.0.1:4000//wifiwhisperer</id><content type="html" xml:base="http://127.0.0.1:4000//wifiwhisperer/">&lt;div class=&quot;col-md-7&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer1.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer2.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer4.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer3.jpg&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
+&lt;h4&gt;Wifi Whisperer&lt;/h4&gt;
+&lt;p class=&quot;date&quot;&gt;2016&lt;/p&gt;
+
+&lt;p&gt;Site and logo design for Kyle McDonald&#39;s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they&#39;ve been connected to, which websites they visit, even the remaining battery life.&lt;/p&gt;
 
 &lt;p&gt;Project featured on &lt;a href=&quot;http://www.wired.com/2016/06/wifi-whisperer-stalks-phones-data-creepiest-way-possible&quot; alt=&quot;‘Wifi Whisperer’ Siphons Your Data in the Creepiest Way Possible&quot; target=&quot;_blank&quot;&gt;Wired&lt;/a&gt; and &lt;a href=&quot;www.coolhunting.com/design/kyle-mcdonald-wifi-whisperer-installation-moogfest-2016&quot; alt=&quot;Wifi Whisperer at Moogfest 2016&quot; target=&quot;_blank&quot;&gt;Cool Hunting&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer4.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Photos courtesy of Kyle McDonald.&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;</content><summary>Site and logo design for artist Kyle McDonald&#39;s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they&#39;ve been connected to, which websites they visit, even the remaining battery life.</summary></entry><entry><title>Humans of Simulated New York</title><link href="http://127.0.0.1:4000//hosny/" rel="alternate" type="text/html" title="Humans of Simulated New York" /><published>2016-04-26T00:00:00-04:00</published><updated>2016-04-26T00:00:00-04:00</updated><id>http://127.0.0.1:4000//hosny</id><content type="html" xml:base="http://127.0.0.1:4000//hosny/">&lt;div class=&quot;col-md-7&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny1.gif&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny2.gif&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny3.png&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer3.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
+&lt;h4&gt;Humans of Simulated New York&lt;/h4&gt;
+&lt;p class=&quot;date&quot;&gt;2016&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/wifiwhisperer2.jpg&quot; alt=&quot;Wifi Whisperer&quot; /&gt;&lt;/p&gt;</content><summary>Site and logo design for artist Kyle McDonald&#39;s installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they&#39;ve been connected to, which websites they visit, even the remaining battery life.</summary></entry><entry><title>Humans of Simulated New York</title><link href="http://127.0.0.1:4000//hosny/" rel="alternate" type="text/html" title="Humans of Simulated New York" /><published>2016-04-26T00:00:00-04:00</published><updated>2016-04-26T00:00:00-04:00</updated><id>http://127.0.0.1:4000//hosny</id><content type="html" xml:base="http://127.0.0.1:4000//hosny/">&lt;p&gt;Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world&lt;/p&gt;</content><summary>Completed at DBRS Innovation Labs, HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.</summary></entry><entry><title>New Mercy Park</title><link href="http://127.0.0.1:4000//new-mercy-park/" rel="alternate" type="text/html" title="New Mercy Park" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://127.0.0.1:4000//new-mercy-park</id><content type="html" xml:base="http://127.0.0.1:4000//new-mercy-park/"></content><summary>Web-based narrative that is part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.</summary></entry><entry><title>The Qualified Life</title><link href="http://127.0.0.1:4000//qualified-life/" rel="alternate" type="text/html" title="The Qualified Life" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://127.0.0.1:4000//qualified-life</id><content type="html" xml:base="http://127.0.0.1:4000//qualified-life/">&lt;iframe src=&quot;https://player.vimeo.com/video/99207668&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;</content><summary>An interactive installation that interrogates the use of gamification, corporate wellness, and pervasive monitoring in productivity and risk management policies in the workplace.</summary></entry><entry><title>TRYTOBEGOOD on Bel-Air</title><link href="http://127.0.0.1:4000//trytobegood-bel-air/" rel="alternate" type="text/html" title="TRYTOBEGOOD on Bel-Air" /><published>2012-05-22T00:00:00-04:00</published><updated>2012-05-22T00:00:00-04:00</updated><id>http://127.0.0.1:4000//trytobegood-bel-air</id><content type="html" xml:base="http://127.0.0.1:4000//trytobegood-bel-air/">&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/bel-air.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.&lt;/p&gt;
+
+&lt;p&gt;Completed at &lt;a href=&quot;https://www.dbrslabs.com/&quot; target=&quot;_blank&quot;&gt;DBRS Innovation Labs&lt;/a&gt; with &lt;a href=&quot;http://frnsys.com/&quot; target=&quot;_blank&quot;&gt;Francis Tseng&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;</content><summary>HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.</summary></entry><entry><title>New Mercy Park</title><link href="http://127.0.0.1:4000//new-mercy-park/" rel="alternate" type="text/html" title="New Mercy Park" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://127.0.0.1:4000//new-mercy-park</id><content type="html" xml:base="http://127.0.0.1:4000//new-mercy-park/">&lt;div class=&quot;col-md-7&quot;&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/NMP.jpg&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
+&lt;h4&gt;New Mercy Park&lt;/h4&gt;
+&lt;p class=&quot;date&quot;&gt;2016&lt;/p&gt;
+&lt;p&gt;New Mercy Park is a transmedia educational tool that is part narrative experience, part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.&lt;/p&gt;
+
+&lt;p&gt;Its my continued research into the potential for the web browser as an interface layer for performance and theater. Ever since the age of AOL CD-roms, I have been participating in the crafting of stories threading through email chains, chatrooms, and instant messages. And partially inspired by Neal Stephenson&#39;s &lt;em&gt;The Diamond Age: Or, A Young Lady’s Illustrated Primer an imperiled future Earth&lt;/em&gt;.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;!-- &gt; The book spoke in a lovely contralto, with an accent like the very finest Vickys. The voice was like a real person’s—though not like anyone Nell had ever met. It rose and fell like siow surf on a warm beach, and when Nell closed her eyes, it swept her out into an ocean of feelings.
+
+&gt; Once upon a time there was a little Princess named Nell who was imprisoned in a tall dark castle on an island in the middle of a great sea, with a little boy named Harv, who was her friend and protector. She also had four special friends named Dinosaur, Duck, Peter Rabbit, and Purple. Princess Nell and Harv could not leave the Dark Castle, but from time to time a raven would come to visit them . . .
+
+&gt;“ What’s a raven?” Nell said.
+The illustration was a colorful painting of the island seen from up in the sky. The island rotated downward and out of the picture, becoming a view toward the ocean horizon. In the middle was a black dot. The picture zoomed in on the black dot, and it turned out
+ 86 to be a bird. Big letters appeared beneath. “R A V E N,” the book said. “Raven. Now, say it with me.”
+
+ &gt; “The Illustrated Primer is an extremely general and powerful system capable of more extensive self-reconfiguration than most. Remember that a fundamental part of its job is to respond to its environment. If the owner were to take up a pen and write on a blank page, this input would be thrown into the hopper along with everything else, so to speak.”&lt;/p&gt; --&gt;</content><summary>New Mercy Park is a transmedia educational tool that is part narrative experience, part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms.</summary></entry><entry><title>The Qualified Life</title><link href="http://127.0.0.1:4000//qualified-life/" rel="alternate" type="text/html" title="The Qualified Life" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://127.0.0.1:4000//qualified-life</id><content type="html" xml:base="http://127.0.0.1:4000//qualified-life/">&lt;div class=&quot;col-md-7&quot;&gt;
+	&lt;!-- &lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/qualifiedself1.jpg&quot;/&gt;&lt;/p&gt; --&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/qualifiedself2.jpg&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/qualifiedself3.jpg&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/qualifiedself9.jpg&quot; /&gt;&lt;/p&gt;
+	&lt;div class=&quot;videoWrapper&quot;&gt;
+		&lt;p&gt;&lt;iframe src=&quot;https://player.vimeo.com/video/99207668?title=0&amp;amp;byline=0&amp;amp;portrait=0&quot; width=&quot;640&quot; height=&quot;360&quot; frameborder=&quot;0&quot; webkitallowfullscreen=&quot;&quot; mozallowfullscreen=&quot;&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
+&lt;h4&gt;The Qualified Life&lt;/h4&gt;
+&lt;p class=&quot;date&quot;&gt;2014&lt;/p&gt;
+
+&lt;p&gt;The Qualified Life is an interactive installation that imagines the future of the workplace as a fully automated and gamified system that entrusts algorithms to determine the qualifications of employment.&lt;/p&gt;
+
+&lt;p&gt;The player is introduced to Taylor Health, a startup looking to recruit talent, and begins the interview process by entering a name. The interview software finds the player through social media and begins to describe the bizarre steps they must complete.&lt;/p&gt;
+
+&lt;p&gt;The project interrogates the relationship between ergonomics and corporate wellness as forms of organizational science used to maintain, leverage, and monetizing the health of a workforce, and its resulting productivity: post-industrial Taylorism.&lt;/p&gt;
+
+&lt;p&gt;To read my research: &lt;a href=&quot;http://the-qualified-life.tumblr.com/&quot; target=&quot;_blank&quot;&gt;the-qualified-life.tumblr.com&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</content><summary>The Qualified Life is an interactive installation that imagines the future of the workplace as a fully automated and gamified system that entrusts algorithms to determine the qualifications of employment.</summary></entry><entry><title>Crystal Keyboard, CCPM</title><link href="http://127.0.0.1:4000//crystal-keyboard/" rel="alternate" type="text/html" title="Crystal Keyboard, CCPM" /><published>2013-12-22T00:00:00-05:00</published><updated>2013-12-22T00:00:00-05:00</updated><id>http://127.0.0.1:4000//crystal-keyboard</id><content type="html" xml:base="http://127.0.0.1:4000//crystal-keyboard/">&lt;div class=&quot;col-md-7&quot;&gt;
+	&lt;!-- &lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/qualifiedself1.jpg&quot;/&gt;&lt;/p&gt; --&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/ccpm2.jpg&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/cooking-crystals2.jpg&quot; /&gt;&lt;/p&gt;
+	&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/ccpm.jpg&quot; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
+&lt;h4&gt;Crystal Keyboard, CCPM&lt;/h4&gt;
+&lt;p class=&quot;date&quot;&gt;2013&lt;/p&gt;
+
+&lt;p&gt;CCPM proposes an alternative way of looking at the way we use the devices we rely on the most. What if the the energy we expend and “waste” can be harvested and stored into a battery for later use? Could these typing-powered batteries then be treated as designed objects with their own narratives and sentimental purposes?&lt;/p&gt;
+
+&lt;p&gt;We spend increasingly more time on the computer across the globe, using the keyboard as one of the main modes of interaction between ourselves and the rest of the world. CCPM proposes an alternative way of looking at the way we use the devices we rely on the most. What if the the energy we expend and “waste” can be harvested and stored into a battery for later use? Could these typing-powered batteries then be treated as designed objects with their own narratives and sentimental purposes?&lt;/p&gt;
+&lt;/div&gt;</content><summary>CCPM proposes an alternative way of looking at the way we use the devices we rely on the most. What if the the energy we expend and “waste” can be harvested and stored into a battery for later use? Could these typing-powered batteries then be treated as designed objects with their own narratives and sentimental purposes?</summary></entry><entry><title>TRYTOBEGOOD on Bel-Air</title><link href="http://127.0.0.1:4000//trytobegood-bel-air/" rel="alternate" type="text/html" title="TRYTOBEGOOD on Bel-Air" /><published>2012-05-22T00:00:00-04:00</published><updated>2012-05-22T00:00:00-04:00</updated><id>http://127.0.0.1:4000//trytobegood-bel-air</id><content type="html" xml:base="http://127.0.0.1:4000//trytobegood-bel-air/">&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/bel-air.jpg&quot; alt=&quot;Alt text&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;words&lt;/p&gt;</content><category term="sample post" /><category term="readability" /><category term="test" /><summary>Fei does radio.</summary></entry></feed>

@@ -36,6 +36,11 @@ body {
 		padding: 30px 0;
 	}
 
+	a, a:link, a:visited, a:hover {
+		background: none;
+		text-decoration: underline;
+	}
+
 	@media #{$small} {
 		display: block !important;
 	}
@@ -126,6 +131,11 @@ body {
 	    box-shadow: none;
 	}
 }
+
+.portfolio-description {
+	padding: 0 25px 25px 25px;
+}
+
 .portfolio-item {
     right: 0;
     margin: 0 0 60px;
@@ -136,7 +146,7 @@ body {
 	    margin: 0 auto;
 	    cursor: pointer;
 	}
-
+	
 	.portfolio-caption {
 	    margin: 0 auto;
 	    padding: 25px;
@@ -156,16 +166,30 @@ body {
 	    p {
 		    margin: 0;
 		    /*font-family: {{ site.data.template.font.secondary }};*/
-		    font-size: 14px;
-		    line-height: 26px;
 		}
 
 		@media #{$notsmall} {
 			padding: 0 25px 25px 25px;
 		}
 	}
-
 }
+
+.videoWrapper {
+	position: relative;
+	padding-bottom: 52.25%; /* 16:9 */
+	padding-top: 25px;
+	margin-bottom: 10px;
+	height: 0;
+
+	iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}
+
 
 // entry meta
 .entry-meta {
@@ -206,7 +230,8 @@ body {
 }
 
 header {
-	margin: 30px 30px 50px;
+	margin: 70px 0 60px;
+	text-align: center;
 
 	.logo {
 		max-width: 30%;

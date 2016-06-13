@@ -14,9 +14,7 @@ layout: compress
     <!-- Header -->
     <header class="header" role="banner">
         <div class="container">
-            <div class="col-lg-12 intro-text">
-                 <a href="{{ site.url }}"><img src="../{{ site.logo }}" alt="{{site.title}}"></a>
-            </div>
+            <p> <a href="{{ site.url }}">TRYTOBEGOOD</a></p><p>Fei Liu is a designer, artist, writer and DJ exploring digital empathy, and the narrative potential of interfaces.</p>
         </div>
     </header>
 
@@ -24,11 +22,14 @@ layout: compress
     
         <div class="wrapper animated fadeIn">
             <div class="container">
-                <div class="post-title {% if page.feature %} feature {% endif %}">
-                    <h1>{{ page.title }}</h1>
-                    <p class="small">{{ page.date | date: '%Y' }}</p>
+                <div class="col-md-12">
+                   <!--  <div class="col-md-6">
+                        <h1>{{ page.title }}</h1>
+                        <p class="small">{{ page.date | date: '%Y' }}</p> -->
+                        {{ content }}
+                    <!-- </div> -->
+                    
                 </div>
-                {{ content }}
                 <div class="entry-meta">
                 </div>
             </div>

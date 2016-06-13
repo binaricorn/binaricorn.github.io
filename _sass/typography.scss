@@ -1,7 +1,8 @@
 body {
 	font-family: $font2;
-	font-size: 14px;
-	line-height: 24px;
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: -0.2pt;
 	color: $color_tuatara;
 }
 
@@ -89,6 +90,22 @@ h3.title a {
 	}
 }
 
+
+.portfolio-description {
+	h4 {
+		margin: 0 0 5px 0;
+	}
+
+	.date {
+		margin-bottom: 25px;
+	}
+
+	p {
+		margin: 0 0 25px;
+	}
+	
+}
+
 .portfolio-item {
 
 	.portfolio-caption {
@@ -149,6 +166,12 @@ a {
   }
 
   text-decoration: none;
+}
+
+p {
+	img + em {
+	text-align: center;
+	}
 }
 
 // pre and code
