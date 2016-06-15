@@ -3,13 +3,13 @@ layout: post
 title:  "The Qualified Life"
 date:   2015-08-10
 excerpt: "The Qualified Life is an interactive installation that imagines the future of the workplace as a fully automated and gamified system that entrusts algorithms to determine the qualifications of employment."
-thumbnail: qualifiedself2.jpg
+thumbnail: qualifiedself_th.jpg
 comments: false
 ---
 
 <div class="col-md-7">
 	<!-- <p><img src="../posts/img/portfolio/qualifiedself1.jpg"/></p> -->
-	<p><img src="../posts/img/portfolio/qualifiedself2.jpg"/></p>
+	<p><img src="../posts/img/portfolio/qualifiedself_th.jpg"/></p>
 	<p><img src="../posts/img/portfolio/qualifiedself3.jpg"/></p>
 	<p><img src="../posts/img/portfolio/qualifiedself9.jpg"/></p>
 	<div class="videoWrapper">

@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Wifi Whisperer"
-date:   2016-06-05
+date:   2014-06-05
 excerpt: "Site and logo design for artist Kyle McDonald's installation at Moogfest. Wifi Whisperer collected data from thousands of devices: what kind of device, what networks they've been connected to, which websites they visit, even the remaining battery life."
 thumbnail: wifiwhisperer1.jpg
 comments: false

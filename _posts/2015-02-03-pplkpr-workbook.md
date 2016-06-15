@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "pplkpr Workbook"
-date:   2015-02-13
+date:   2014-02-13
 excerpt: "Workbook for running a pplkpr workshop, initially held at The Science Gallery Dublin during March 18-21, 2015."
 thumbnail: pplkpr1.jpg
 comments: false

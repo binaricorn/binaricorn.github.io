@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Crystal Keyboard, CCPM"
-date: 2013-12-22
+date: 2014-12-22
 excerpt: "CCPM proposes an alternative way of looking at the way we use the devices we rely on the most. What if the the energy we expend and “waste” can be harvested and stored into a battery for later use? Could these typing-powered batteries then be treated as designed objects with their own narratives and sentimental purposes?"
 thumbnail: ccpm2.jpg
 alt: CCPM

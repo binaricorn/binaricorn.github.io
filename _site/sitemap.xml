@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>http://binaricorn.github.io/wifiwhisperer/</loc>
-<lastmod>2016-06-05T00:00:00-04:00</lastmod>
-</url>
-<url>
 <loc>http://binaricorn.github.io/hosny/</loc>
 <lastmod>2016-04-26T00:00:00-04:00</lastmod>
 </url>
@@ -17,12 +13,16 @@
 <lastmod>2015-08-10T00:00:00-04:00</lastmod>
 </url>
 <url>
-<loc>http://binaricorn.github.io/pplkpr-workbook/</loc>
-<lastmod>2015-02-13T00:00:00-05:00</lastmod>
+<loc>http://binaricorn.github.io/crystal-keyboard/</loc>
+<lastmod>2014-12-22T00:00:00-05:00</lastmod>
 </url>
 <url>
-<loc>http://binaricorn.github.io/crystal-keyboard/</loc>
-<lastmod>2013-12-22T00:00:00-05:00</lastmod>
+<loc>http://binaricorn.github.io/wifiwhisperer/</loc>
+<lastmod>2014-06-05T00:00:00-04:00</lastmod>
+</url>
+<url>
+<loc>http://binaricorn.github.io/pplkpr-workbook/</loc>
+<lastmod>2014-02-13T00:00:00-05:00</lastmod>
 </url>
 <url>
 <loc>http://binaricorn.github.io/trytobegood-bel-air/</loc>
