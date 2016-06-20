@@ -1,0 +1,116 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+$full-color: #9EE5FA;
+$body-font: 'Roboto Mono', monospaced;
+
+body {
+	background: #000;
+	font-family: $body-font;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 180%;
+	color: #fff;
+}
+
+h3 {
+	font-weight: 700;
+}
+
+input {
+	outline: none;
+}
+
+.full {
+	//background: $full-color;
+	//font-size: 1.25em;
+	line-height: auto;
+}
+
+.directions {
+		background: #fff;
+		width: 500px;
+		position: absolute;
+		top: 25%;
+		left: 25%;
+		color: #000;
+		-webkit-box-shadow: 0px 0px 18px 2px rgba(255,255,255,1);
+		-moz-box-shadow: 0px 0px 18px 2px rgba(255,255,255,1);
+		box-shadow: 0px 0px 18px 2px rgba(255,255,255,1);
+
+		.content {
+			width: 85%;
+			padding: 1em;
+		}
+	}
+
+.draggable {
+  //background-color:yellow;
+}
+
+.row {
+	
+	padding: 0.75em 0;
+
+	.content {
+		width: 50%;
+		margin: 0 auto;
+		p {
+			padding: 0.75em 0;
+		}
+		code {
+			color: red;
+			font-style: italic;
+		}
+	}
+
+	.story {
+		height: 50%;
+		overflow: hidden;
+		font-size: 2em;
+		line-height: 150%;
+		background: rgba(0,0,0,1);
+		background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 93%, rgba(59,59,59,1) 100%);
+		background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,1)), color-stop(93%, rgba(0,0,0,1)), color-stop(100%, rgba(59,59,59,1)));
+		background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 93%, rgba(59,59,59,1) 100%);
+	}
+
+	.exposition {
+		height: 100%;
+		overflow: hidden;
+	}
+	
+
+	.terminal {
+		background: rgba(71,71,71,1);
+		background: rgba(0,0,0,1);
+		background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(41,41,41,1) 100%);
+		background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,1)), color-stop(100%, rgba(41,41,41,1)));
+		background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(41,41,41,1) 100%);
+		
+		color: #fff;
+		width: 100%;
+		height: 50%;
+
+		.content {
+			width: 85%;
+			padding: 1em;
+
+			input {
+				background: transparent;
+				border: none;
+				font-family: $body-font;
+				color: white;
+			}
+		}
+	}
+
+	
+}
+
+
+

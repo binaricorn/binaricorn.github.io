@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator><link href="http://binaricorn.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://binaricorn.github.io/" rel="alternate" type="text/html" /><updated>2016-06-15T13:11:15-04:00</updated><id>http://binaricorn.github.io/</id><title>TRYTOBEGOOD</title><subtitle>Fei Liu is a designer, artist, writer.</subtitle><entry><title>Humans of Simulated New York</title><link href="http://binaricorn.github.io/hosny/" rel="alternate" type="text/html" title="Humans of Simulated New York" /><published>2016-04-26T00:00:00-04:00</published><updated>2016-04-26T00:00:00-04:00</updated><id>http://binaricorn.github.io/hosny</id><content type="html" xml:base="http://binaricorn.github.io/hosny/">&lt;div class=&quot;col-md-7&quot;&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom"><generator uri="http://jekyllrb.com" version="3.1.6">Jekyll</generator><link href="http://binaricorn.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="http://binaricorn.github.io/" rel="alternate" type="text/html" /><updated>2016-06-17T17:17:08-04:00</updated><id>http://binaricorn.github.io/</id><title>TRYTOBEGOOD</title><subtitle>Fei Liu is a designer, artist, writer.</subtitle><entry><title>Humans of Simulated New York</title><link href="http://binaricorn.github.io/hosny/" rel="alternate" type="text/html" title="Humans of Simulated New York" /><published>2016-04-26T00:00:00-04:00</published><updated>2016-04-26T00:00:00-04:00</updated><id>http://binaricorn.github.io/hosny</id><content type="html" xml:base="http://binaricorn.github.io/hosny/">&lt;div class=&quot;col-md-7&quot;&gt;
 &lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny1.gif&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny2.gif&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/hosny3.png&quot; /&gt;&lt;/p&gt;
@@ -14,7 +14,10 @@
 
 &lt;p&gt;Completed at &lt;a href=&quot;https://www.dbrslabs.com/&quot; target=&quot;_blank&quot;&gt;DBRS Innovation Labs&lt;/a&gt; with &lt;a href=&quot;http://frnsys.com/&quot; target=&quot;_blank&quot;&gt;Francis Tseng&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;</content><summary>HOSNY is a participative agent-based simulation built to speculate alternative economies. It asks how world-building as interactive gameplay creates the opportunity for a better and more complete understanding of the complex relationships that make up the systems of our world.</summary></entry><entry><title>New Mercy Park</title><link href="http://binaricorn.github.io/new-mercy-park/" rel="alternate" type="text/html" title="New Mercy Park" /><published>2015-08-10T00:00:00-04:00</published><updated>2015-08-10T00:00:00-04:00</updated><id>http://binaricorn.github.io/new-mercy-park</id><content type="html" xml:base="http://binaricorn.github.io/new-mercy-park/">&lt;div class=&quot;col-md-7&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/NMP.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/NMP3.jpg&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Example of the interface&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;../posts/img/portfolio/NMP4.png&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;Diagram&lt;/p&gt;
 &lt;/div&gt;
 
 &lt;div class=&quot;col-md-4 portfolio-description&quot;&gt;
@@ -101,6 +104,9 @@ The illustration was a colorful painting of the island seen from up in the sky. 
 &lt;/div&gt;</content><summary>Workbook for running a pplkpr workshop, initially held at The Science Gallery Dublin during March 18-21, 2015.</summary></entry><entry><title>TRYTOBEGOOD on Bel-Air Radio</title><link href="http://binaricorn.github.io/trytobegood-bel-air/" rel="alternate" type="text/html" title="TRYTOBEGOOD on Bel-Air Radio" /><published>2012-05-22T00:00:00-04:00</published><updated>2012-05-22T00:00:00-04:00</updated><id>http://binaricorn.github.io/trytobegood-bel-air</id><content type="html" xml:base="http://binaricorn.github.io/trytobegood-bel-air/">&lt;h4&gt;TRYTOBEGOOD on Bel-Air Radio&lt;/h4&gt;
 &lt;p class=&quot;date&quot;&gt;Ongoing&lt;/p&gt;
 &lt;hr /&gt;
+
+&lt;h2&gt;Humans of New York&lt;/h2&gt;
+&lt;p&gt;&lt;iframe width=&quot;100%&quot; height=&quot;166&quot; scrolling=&quot;no&quot; frameborder=&quot;no&quot; src=&quot;https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/268969901&amp;amp;color=ff5500&amp;amp;auto_play=false&amp;amp;hide_related=false&amp;amp;show_comments=true&amp;amp;show_user=true&amp;amp;show_reposts=false&quot;&gt;&lt;/iframe&gt;&lt;/p&gt;
 
 &lt;h2&gt;Heather Dewey Hagborg&lt;/h2&gt;
 &lt;p&gt;Transdisciplinary artist Heather Dewey Hagborg talks about the future of genetic privacy. Co-hosted with Hyperopia 20/30.&lt;/p&gt;
