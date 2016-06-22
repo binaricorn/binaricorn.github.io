@@ -3,12 +3,12 @@ layout: post
 title:  "New Mercy Park"
 date:   2015-08-10
 excerpt: "New Mercy Park is a transmedia educational tool that is part narrative experience, part alternate reality game, part poetry, and part software tutorial, resulting in an experience that spans months and takes place across chat boxes, emails, and other internet platforms."
-thumbnail: NMP5.jpg
+thumbnail: NMP5.png
 comments: false
 ---
 
 <div class="col-md-7">
-<p><img src="../posts/img/portfolio/NMP3.jpg"/></p>
+<p><img src="../posts/img/portfolio/NMP5.png"/></p>
 <p>Example of the interface</p>
 <p><img src="../posts/img/portfolio/NMP4.png"/></p>
 <p>Diagram</p>
