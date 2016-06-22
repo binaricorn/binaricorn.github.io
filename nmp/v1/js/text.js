@@ -1,22 +1,22 @@
-var s_dialogue = [
+var story = [
     // 0
     {
         scene: {
-            script: "You see just one folder titled"
+            script: "<p>Turn up the anti-nausea dial on your assistive-program issued wearable. Calm down.The test starts. There is a clock but you’ve always been told you could ignore it. You go for as long as it takes for your team to complete the assignment. It’s as much about your collective success as their tolerance of your coding practices.<p>"
             
         }
     },
     // 1
     {
         scene: {
-            script: "I am your fitness emotion inquiry. You can call me Faye.",
+            script: "<p>You know this one. You type in <code>git init</code> after the caret.  The environment is always empty. You look up, out the double reinforced window where the sand can’t get inside. For as long as you remember, the environment is and has been empty. Yellow, dry, and forever. This is a place where people give up washing their windows because there is no point. You wish making the ground fertile again for any sort of so-called development was as easy as clicking a few keys.</p>",
             changeMood: "up"
         }
     },
     // 2
     {
         scene: {
-            script: "Eyem pulling up your employment history, userfirstname. Just give me one second.",
+            script: "Thank god.",
             changeMood: "middle"
         }
     },

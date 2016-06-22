@@ -6,13 +6,17 @@ var inst1 = 'git init';
 	initUser();
 	initStory(0);
 
+	$('button').on('click', function() {
+		$('.story .content').html(story[1].scene.script);		
+	});
+
   	$('input#git1').keydown(function(e) {
 	    if(e.keyCode === 13) {
 	      if ($(this).val() == inst1) {
-	      	initStory(1);
-	      	$('.terminal .content .response').html('<p>Moving on.</p>');
+	      	initStory(2);
+	      	$('.directions .content').html(directions[1].scene.script);
 	      } else {
-	      	$('.terminal .content .response').html('<p>Wrong.</p>');
+	      	$('.directions .content').html("<p>Wrong, try again.</p>");
 	      }
   		  	
 	    }
@@ -30,7 +34,8 @@ var inst1 = 'git init';
 
   	function initStory(num) {
   		var num;
-  		$('.directions .content').html(s_dialogue[num].scene.script);
+  		$('.directions .content').html(directions[num].scene.script);
+  		$('.story .content').html(story[num].scene.script);
   	}
   	
   	$(function() {

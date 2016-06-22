@@ -1,23 +1,23 @@
-var s_dialogue = [
+var directions = [
     // 0
     {
         scene: {
             // script: "<p><span class='ip'></span>, your familiar number spirit, the record of your educational history. Thwarting you.</p><p> Type <code>git init</code> into your terminal, you initialise the test.</p>"
-            script: "<p>Task 1/10</p><p>Set up your environment for your workflow.</p><p>Start</p>"
+            script: "<p>Task 1/10</p><p>Set up your environment for your workflow.</p><button>Start</button>"
         }
     },
     // 1
     {
         scene: {
-            script: "<p>It’s also the primary reason you’re in this shithole now, because you never ever got good at the system, even had to repeat some grades because you just couldn’t figure out how to turn in your homework. You take a minute to refresh your memory because there is no browser, you can’t look up anything. Your sweat feels cool and sticky.</p>",
+            script: "<p>Task 2/10</p><p></p><button>Start</button>",
             changeMood: "up"
         }
     },
     // 2
     {
         scene: {
-            script: "Eyem pulling up your employment history, userfirstname. Just give me one second.",
-            changeMood: "middle"
+            script: "<p>Task 2/10</p><p>Good, moving on</p><button>Start</button>",
+            changeMood: "up"
         }
     },
     // 3
