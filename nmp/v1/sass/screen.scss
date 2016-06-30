@@ -60,9 +60,11 @@ code {
 .row {
 	
 	padding: 0.75em 0;
+	font-size: 2em;
+	line-height: 150%;
 
 	.content {
-		width: 50%;
+		width: 80%;
 		margin: 0 auto;
 		p {
 			padding: 0.75em 0;
@@ -73,8 +75,8 @@ code {
 	.story {
 		height: 50%;
 		overflow: hidden;
-		font-size: 2em;
-		line-height: 150%;
+		
+		
 		background: rgba(0,0,0,1);
 		background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 93%, rgba(59,59,59,1) 100%);
 		background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,0,0,1)), color-stop(93%, rgba(0,0,0,1)), color-stop(100%, rgba(59,59,59,1)));
@@ -83,7 +85,7 @@ code {
 
 	.exposition {
 		height: 100%;
-		overflow: hidden;
+		//overflow: hidden;
 	}
 	
 
@@ -96,7 +98,7 @@ code {
 		
 		color: #fff;
 		width: 100%;
-		height: 50%;
+		/*height: 50%;*/
 
 		.content {
 			width: 85%;

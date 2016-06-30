@@ -119,33 +119,32 @@ code {
 /* line 60, ../sass/screen.scss */
 .row {
   padding: 0.75em 0;
+  font-size: 2em;
+  line-height: 150%;
 }
-/* line 64, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .row .content {
-  width: 50%;
+  width: 80%;
   margin: 0 auto;
 }
-/* line 67, ../sass/screen.scss */
+/* line 69, ../sass/screen.scss */
 .row .content p {
   padding: 0.75em 0;
 }
-/* line 73, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
 .row .story {
   height: 50%;
   overflow: hidden;
-  font-size: 2em;
-  line-height: 150%;
   background: black;
   background: -moz-linear-gradient(top, black 0%, black 93%, #3b3b3b 100%);
   background: -webkit-gradient(left top, left bottom, color-stop(0%, black), color-stop(93%, black), color-stop(100%, #3b3b3b));
   background: -webkit-linear-gradient(top, black 0%, black 93%, #3b3b3b 100%);
 }
-/* line 84, ../sass/screen.scss */
+/* line 86, ../sass/screen.scss */
 .row .exposition {
   height: 100%;
-  overflow: hidden;
 }
-/* line 90, ../sass/screen.scss */
+/* line 92, ../sass/screen.scss */
 .row .terminal {
   background: #474747;
   background: black;
@@ -154,15 +153,15 @@ code {
   background: -webkit-linear-gradient(top, black 0%, #292929 100%);
   color: #fff;
   width: 100%;
-  height: 50%;
+  /*height: 50%;*/
 }
-/* line 101, ../sass/screen.scss */
+/* line 103, ../sass/screen.scss */
 .row .terminal .content {
   width: 85%;
   padding: 1em;
   font-size: 2em;
 }
-/* line 106, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .row .terminal .content input {
   background: transparent;
   border: none;
