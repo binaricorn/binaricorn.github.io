@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "TRYTOBEGOOD on Bel-Air Radio"
+title: "TRYTOBEGOOD Radio"
 date: 2012-05-22
-excerpt: "Fei does radio."
-thumbnail: bel-air.jpg
+excerpt: "TRYTOBEGOOD is a podcast and music show on Bel-Air Radio, an artist-run online radio station located in Silent Barn Brooklyn."
+thumbnail: trytobegood_th.jpg
 alt: BEL-AIR
 tags: [sample post, readability, test]
 comments: false
@@ -11,6 +11,9 @@ comments: false
 
 <h4>TRYTOBEGOOD on Bel-Air Radio</h4>
 <p class="date">Ongoing</p>
+
+<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;mode=AGENDA&amp;height=330&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=toost8kf306u066illsvj83uoc%40group.calendar.google.com&amp;color=%2342104A&amp;ctz=America%2FNew_York" style="border-width:0" width="800" height="330" frameborder="0" scrolling="no"></iframe>
+
 <hr/>
 
 <h2>Humans of New York</h2>
