@@ -148,6 +148,10 @@ figcaption {
 // links
 a {
   color: $black;
+
+  &.portfolio-link {
+  	background: none;
+  	}
   &:link {
   	color: $black;
   	background: $muted;
