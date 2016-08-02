@@ -8,7 +8,7 @@ comments: false
 ---
 
 <div class="col-md-7">
-	
+	<p><img src="../posts/img/portfolio/turks-sheep_th.jpg"></p>
 </div>
 
 <div class="col-md-4 portfolio-description">
