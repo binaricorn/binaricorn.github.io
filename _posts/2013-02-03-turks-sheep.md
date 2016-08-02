@@ -3,7 +3,7 @@ layout: post
 title:  "Do Mechanical Turks Dream of Mechanical Sheep"
 date:   2013-02-13
 excerpt: "An interrogation into the subjectivity and global impact of distributed crowd-sourced technology, its role in setting a precedent for digital labor ethics, and specifically, the “artificial artificial intelligence” of Amazon Mechanical Turk."
-thumbnail: turks-dream_th.jpg
+thumbnail: turks-sheep_th.jpg
 comments: false
 ---
 
