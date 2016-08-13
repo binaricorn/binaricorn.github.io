@@ -9,9 +9,6 @@ comments: false
 
 <div class="col-md-7">
 <p><img src="../posts/img/portfolio/NMP6.jpeg"/></p>
-<p>Example of the interface</p>
-<p><img src="../posts/img/NMP6_virtuous-cycle.png"/></p>
-<p>Diagram</p>
 </div>
 
 <div class="col-md-4 portfolio-description">
