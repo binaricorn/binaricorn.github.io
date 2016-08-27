@@ -16,7 +16,12 @@ comments: false
 
 <hr/>
 
+<h2>Silica Magazine</h2>
+<p>Interview with Silica Magazine founders Evander Batson and Ivy St Ive to talk about the friction of the anthropocene & ecology and geography in the age of global systems.</p>
+<p><iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/279460542&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe></p>
+
 <h2>Extrapolation Factory</h2>
+<p>Extrapolation Factory co-founders Elliot Montgomery and Chris Woebken advise on thinking and designing for the future.</p>
 <p><iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/275389212&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe></p>
 
 <h2>Public Science</h2>
