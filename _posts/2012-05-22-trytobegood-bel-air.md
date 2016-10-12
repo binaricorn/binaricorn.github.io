@@ -10,7 +10,16 @@ comments: false
 ---
 
 <h4>TRYTOBEGOOD on Bel-Air Radio</h4>
-<p class="date">Ongoing</p>
+<p class="date">TRYTOBEGOOD is a podcast and music show on Bel-Air Radio, an artist-run online radio station located in Silent Barn Brooklyn. <br><br>Ongoing</p>
+
+<h2>The W.O.W Project</h2>
+<p>Wing On Wo & Co. is New York Chinatown's oldest store that dates back to the 1890's. Now almost 130 years later, the store has been passed down five generations and has plenty of stories to tell. I sat down with Wing on Co's current owner Mei Lum to talk about how her founding of the The W.O.W Project, which holds events based out of the store, is trying to engage the community of residents in Chinatown in the shaping of the neighborhood's future.</p>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/286093632&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+
+<h2>verynice design studio</h2>
+<p>Interview with Matthew Manos, founder of a verynice design studio, about how his volunteer efforts turned into a design studio that's able to keep its doors open by doing 50% pro-bono work, and how his new book about rethinking the reactive post-trauma nature of social enterprises will impact the future.</p>
+<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/281648332&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false"></iframe>
+
 
 <h2>Silica Magazine</h2>
 <p>Interview with Silica Magazine founders Evander Batson and Ivy St Ive to talk about the friction of the anthropocene & ecology and geography in the age of global systems.</p>
