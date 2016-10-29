@@ -1,0 +1,142 @@
+<html>
+  <head>
+    <title>Buttons Model</title>
+    <style>
+      body {
+        font-size: 1.5em;
+        width: 50%;
+        margin: 0 auto;
+      }
+
+      #layers {
+        display: none;
+      }
+    </style>
+    <script src="../lib/agentscript.js"></script>
+    <script src="../tools/coffee-script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script type="text/coffeescript">
+    
+
+    u = ABM.Util # ABM.Util alias
+    class ButtonsModel extends ABM.Model
+      setup: ->
+        (($) ->
+          # $('body').append("It was a shock to us all. A unpleasantly pleasant surprise. An attack on all fronts. But oddly enough, it wasn't until all the Units were infected, did the virus strike and decimate the population. It was as if it was waiting for something. The virus entailed a disconcerting amount of aggression, of self determination, that none of us proctors could have imagined. It was as if you had planned to destroy our experiment all along. The distance between the Units made a big difference. The closer they were together, the more likely the virus would spread between them.</p>")
+        ) jQuery
+
+        @refreshPatches = false # for static patches
+        @refreshLinks = false # for static links .. drown as created
+
+        # globals
+        @buttons = 6
+        @cluster = 0
+
+        # defaults
+        @turtles.setDefault "shape", "circle"
+        @turtles.setDefault "size", 0.2
+        @turtles.setDefault "heading", 0 # override promotion to random angle
+        @links.setDefault "thickness", .5 # 2.5
+
+        @anim.setRate 1
+
+        @turtles.create @buttons, (a) => # fat arrow for @patches etc
+          a.setXY @patches.randomPt()...
+          a.capacity = 100
+          a.capacityUsed = Math.random() * 100 
+          a.rate = Math.random() * 100 
+          
+
+      step: ->
+        b1 = @turtles.oneOf()
+        b2 = @turtles.other(b1).oneOf()
+        distance = Math.round(Math.abs((b1.x - b2.x)*2) + Math.abs((b1.y - b2.y)*2))
+        probability = b1.capacityUsed/b1.capacity * (10/distance)
+        console.log "probability of infection", probability, "disnace: ", 10/distance
+        day = @anim.ticks
+        counter = day
+        spreadWordList = ["", " the pathogen spread from ", " from ", " continuing to spread from ", " unflinchingly vicious from ", " including from "]
+        savedWordList = ["", " Mysteriously ", " Unfathomably ", " On some chance ", " Bafflingly ", " Seemingly without reason "]
+        inmateSpreadState = ["", "That night no one slept, and the ones who did tasted pomegranites on their tongues. ", "That night the moon casted no shadows and the dogs howled at nothing."]
+        dayList = ["", " the first day ", " the second day "]
+        spreadLinks = []
+        spreadTotalLinks = []
+
+        if probability > 0.03
+          @links.create b1, b2, (l) =>
+
+            # l.draw @contexts.links
+            # console.log l.end1.id, "x:", l.end1.x, "y:", l.end1.y, l.end2.id, "x:", l.end2.x, "y:", l.end2.y
+            console.log "Day", day
+
+            # spreadLinks.push l.end1.id, l.end2.id 
+            # spreadTotalLinks.push spreadLinks
+            # console.log spreadTotalLinks
+            
+            (($) ->
+              #if counter < spreadWordList.length
+                $('body').append("<p>On day " + day + ", " + spreadWordList[counter] + " Unit " + l.end1.id + " to " + " Unit " + l.end2.id + ", " + distance + "miles from each other, with a " + probability + "% chance. " + inmateSpreadState[day] + "</p>");
+                
+
+              # if distance < 20
+                # $('body').append("A short distance.");
+            ) jQuery
+        else
+            (($) ->  
+              $('body').append("<p>" + savedWordList[counter] + " some were saved.</p>");
+            ) jQuery   
+
+        g = @graphOf b1
+        c = u.minOneOf(g, "id").color
+
+        console.log b1.color[0], b1.color[1], b1.color[2]
+        # console.log g[0].id, g[1].id 
+        
+
+        node.color = c for node in g
+        common = g.length
+        if g.length > @cluster
+          console.log "Day #{@anim.ticks}: Infected inmates had #{g.length} people in common."
+          (($) ->
+            $('body').append("By now the virus has spread through " + common + " units.");
+          ) jQuery
+       
+
+        @cluster = Math.max @cluster, g.length
+        if @cluster is @buttons
+          (($) ->
+            ) jQuery
+          console.log "Completed at tick #{@anim.ticks}:  Cluster size #{@cluster} Links: #{@links.length}"
+          @stop()
+
+      graphOf: (node) ->
+        a.marked = false for a in @turtles
+        @markNeighbors node
+        a for a in @turtles when a.marked
+        
+      markNeighbors: (node) ->
+        node.marked = true
+        unMarked = (n for n in node.linkNeighbors() when not n.marked)
+        @markNeighbors n for n in unMarked
+
+
+
+    # div, patchSize, minX, maxX, minY, maxY, isTorus, hasNeighbors
+    #   Defaults: 13, -16, 16, -16, 16, false, true
+    buttonsModel = new ButtonsModel({
+      div: "layers",
+      size: 13,
+      minX: -16,
+      maxX: 16,
+      minY: -16,
+      maxY: 16,
+      hasNeighbors: false
+    }).debug() # print stats, show sprites, put model name in window
+      .start() # Run model immediately after startup initialization
+
+    </script>
+  </head>
+  <body>
+    <div id="layers"></div>
+  </body>
+</html>

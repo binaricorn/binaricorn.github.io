@@ -1,0 +1,2738 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>util.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="agentset.html">
+                  agentset.coffee
+                </a>
+              
+                
+                <a class="source" href="animator.html">
+                  animator.coffee
+                </a>
+              
+                
+                <a class="source" href="color.html">
+                  color.coffee
+                </a>
+              
+                
+                <a class="source" href="colormaps.html">
+                  colormaps.coffee
+                </a>
+              
+                
+                <a class="source" href="colormixin.html">
+                  colormixin.coffee
+                </a>
+              
+                
+                <a class="source" href="evented.html">
+                  evented.coffee
+                </a>
+              
+                
+                <a class="source" href="link.html">
+                  link.coffee
+                </a>
+              
+                
+                <a class="source" href="links.html">
+                  links.coffee
+                </a>
+              
+                
+                <a class="source" href="model.html">
+                  model.coffee
+                </a>
+              
+                
+                <a class="source" href="patch.html">
+                  patch.coffee
+                </a>
+              
+                
+                <a class="source" href="patches.html">
+                  patches.coffee
+                </a>
+              
+                
+                <a class="source" href="shapes.html">
+                  shapes.coffee
+                </a>
+              
+                
+                <a class="source" href="turtle.html">
+                  turtle.coffee
+                </a>
+              
+                
+                <a class="source" href="turtles.html">
+                  turtles.coffee
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.coffee
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>util.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>This documentation uses Jeremy Ashkenas’s
+<a href="http://jashkenas.github.com/docco/">docco</a> which allows
+<a href="http://daringfireball.net/projects/markdown/syntax">markdown</a>.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <p><strong>Util</strong> contains the general utilities for the project. Note that within
+a <strong>Util</strong> function <code>@</code> referrs to Util, <em>not</em> the global name space.
+Alias: u is an alias for ABM.Util within the agentscript module (not outside)</p>
+<pre><code> u.clearCtx(ctx) <span class="hljs-keyword">is</span> equivalent to
+ ABM.Util.clearCtx(ctx)
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+Util = util = u = <span class="hljs-comment"># <span class="hljs-doctag">TODO:</span> "util" deprecated in favor of Util</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Shortcut for throwing an error.  Good for debugging:</p>
+<pre><code>error(<span class="hljs-string">"wtf? foo=<span class="hljs-subst">#{foo}</span>"</span>) <span class="hljs-keyword">if</span> fooProblem
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  error: <span class="hljs-function"><span class="hljs-params">(s)</span> -&gt;</span> <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> Error s</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Utility for logging a message only once .. i.e. if in loop</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  loggedMsgs: []
+  logOnce: <span class="hljs-function"><span class="hljs-params">(s)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> @loggedMsgs.indexOf(s) &lt; <span class="hljs-number">0</span>
+      <span class="hljs-built_in">console</span>.log s
+      @loggedMsgs.push s</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Deprecations: logOnce w/ optional single alert</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  deprecatedAlert: <span class="hljs-literal">false</span> <span class="hljs-comment"># Set to true to let modeler know</span>
+  deprecated: <span class="hljs-function"><span class="hljs-params">(s)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> @deprecatedAlert
+      alert <span class="hljs-string">"Deprecated functions, see console.log"</span>
+      @deprecatedAlert = <span class="hljs-literal">false</span>
+    @logOnce <span class="hljs-string">"DEPRECATED - <span class="hljs-subst">#{s}</span>"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Two max/min int values. One for 2^53, largest int in float64, other for
+bitwise ops which are 32 bit. See <a href="http://goo.gl/WpAzT">discussion</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  MaxINT: Math.pow(<span class="hljs-number">2</span>,<span class="hljs-number">53</span>); MinINT: -Math.pow(<span class="hljs-number">2</span>,<span class="hljs-number">53</span>) <span class="hljs-comment"># -@MaxINT fails, @ not defined yet</span>
+  MaxINT32: <span class="hljs-number">0</span>|<span class="hljs-number">0x7fffffff</span>; MinINT32: <span class="hljs-number">0</span>|<span class="hljs-number">0x80000000</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Replacements for Javascript’s iffy <code>typeof</code> and <code>instanceof</code>
+See <a href="http://underscorejs.org/docs/underscore.html">underscore docs</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  isArray: Array.isArray <span class="hljs-keyword">or</span> <span class="hljs-comment"># returns a function that is then applied to arg.</span>
+    (obj) -&gt; toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Array]'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>Can use: !!(obj and obj.constructor and obj.call and obj.apply)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  isFunction: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">"function"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <p>Can use: !!(obj is ‘’ or (obj and obj.charCodeAt and obj.substr))</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  isString: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> <span class="hljs-keyword">typeof</span> obj <span class="hljs-keyword">is</span> <span class="hljs-string">'string'</span> || obj <span class="hljs-keyword">instanceof</span> String
+  isInteger: Number.isInteger <span class="hljs-keyword">or</span> <span class="hljs-comment"># like isArray</span>
+    (num) -&gt; Math.floor(num) <span class="hljs-keyword">is</span> num
+  isObject: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> toString.call(obj) <span class="hljs-keyword">is</span> <span class="hljs-string">'[object Object]'</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <h3 id="numeric-operations">Numeric Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Replace Math.random with a simple seedable generator.
+See <a href="http://goo.gl/FafN3z">StackOverflow</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomSeed: <span class="hljs-function"><span class="hljs-params">(seed=<span class="hljs-number">123456</span>)</span> -&gt;</span>
+    Math.random = <span class="hljs-function">-&gt;</span> x=Math.sin(seed++)*<span class="hljs-number">10000</span>; x-Math.floor(x)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Return random int in [0,max) or [min,max)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomInt: <span class="hljs-function"><span class="hljs-params">(max)</span> -&gt;</span> Math.floor(Math.random() * max)
+  randomInt2: <span class="hljs-function"><span class="hljs-params">(min, max)</span> -&gt;</span> min + Math.floor(Math.random() * (max-min))</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Return float Gaussian normal with given mean, std deviation.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomNormal: <span class="hljs-function"><span class="hljs-params">(mean = <span class="hljs-number">0.0</span>, sigma = <span class="hljs-number">1.0</span>)</span> -&gt;</span> <span class="hljs-comment"># Box-Muller</span>
+    u1 = <span class="hljs-number">1.0</span>-Math.random(); u2 = Math.random() <span class="hljs-comment"># u1 in (0,1]</span>
+    norm = Math.sqrt(<span class="hljs-number">-2.0</span>*Math.log(u1)) * Math.cos(<span class="hljs-number">2.0</span>*Math.PI*u2)
+    norm*sigma + mean</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Return float in [0,max) or [min,max) or [-r/2,r/2)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomFloat: <span class="hljs-function"><span class="hljs-params">(max)</span> -&gt;</span> Math.random() * max
+  randomFloat2: <span class="hljs-function"><span class="hljs-params">(min, max)</span> -&gt;</span> min + Math.random() * (max-min)
+  randomCentered: <span class="hljs-function"><span class="hljs-params">(r)</span> -&gt;</span> @randomFloat2 -r/<span class="hljs-number">2</span>, r/<span class="hljs-number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Return log n where base is 10, base, e respectively.
+Note ln: (n) -&gt; Math.log n .. i.e. JS’s log is log base e</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  log10: <span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span> Math.log(n)/Math.LN10
+  log2: <span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span> @logN n, <span class="hljs-number">2</span>
+  logN: <span class="hljs-function"><span class="hljs-params">(n, base)</span> -&gt;</span> Math.log(n)/Math.log(base)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>Return true <a href="http://goo.gl/spr24">mod functin</a>, % is remainder, not mod.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  mod: <span class="hljs-function"><span class="hljs-params">(v, n)</span> -&gt;</span> ((v % n) + n) % n</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>Return v to be between min, max via mod fcn</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  wrap: <span class="hljs-function"><span class="hljs-params">(v, min, max)</span> -&gt;</span> min + @mod(v-min, max-min)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Return v to be between min, max via clamping with Math.min/max</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  clamp: <span class="hljs-function"><span class="hljs-params">(v, min, max)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>Math.max(Math.min(v,max),min) appears to be slower</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">if</span> v &lt; min <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> min
+    <span class="hljs-keyword">if</span> v &gt; max <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> max
+    v</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <p>Return sign of a number as +/- 1</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  sign: <span class="hljs-function"><span class="hljs-params">(v)</span> -&gt;</span> <span class="hljs-keyword">if</span> v&lt;<span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Return n to given precision, default 2
+Considerably faster than equivalent: Number(n.toFixed(p))</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  fixed: <span class="hljs-function"><span class="hljs-params">(n,p=<span class="hljs-number">2</span>)</span> -&gt;</span> p = Math.pow(<span class="hljs-number">10</span>,p); Math.round(n*p)/p</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Return an array of floating pt numbers as strings at given precision;
+useful for printing</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aToFixed: <span class="hljs-function"><span class="hljs-params">(a, p=<span class="hljs-number">2</span>)</span> -&gt;</span> (i.toFixed p <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Return localized string for number, with commas etc</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  tls: <span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span> n.toLocaleString()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <h3 id="string-operations">String Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Convert camelCase to CamelCase, capitolizing first character</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  titleCase: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span> str.charAt(<span class="hljs-number">0</span>).toUpperCase() + str.substr(<span class="hljs-number">1</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <p>Convert TitleCase to titleCase, lower caseing first character</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  camelCase: <span class="hljs-function"><span class="hljs-params">(str)</span> -&gt;</span> str.charAt(<span class="hljs-number">0</span>).toLowerCase() + str.substr(<span class="hljs-number">1</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <h3 id="color-and-angle-operations">Color and Angle Operations</h3>
+<p>Our colors are r,g,b,[a] arrays, with an optional color.str HTML
+color string property. The str value is set on the first call to colorStr</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Return a random RGB or gray color. Array passed to minimize garbage collection</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomColor: <span class="hljs-function"><span class="hljs-params">(c = [])</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>c.str = null if c.str?
+c[i] = @randomInt(256) for i in [0..2]
+c</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @deprecated <span class="hljs-string">"Util.randomColor: use ColorMaps.randomColor"</span>
+    @error <span class="hljs-string">"Util.randomColor: c cannot be exiting color"</span> <span class="hljs-keyword">if</span> c.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+    ColorMaps.randomColor()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <p>Note: if 2 args passed, assume they’re min, max w/ default c</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomGray: <span class="hljs-function"><span class="hljs-params">(c = [], min = <span class="hljs-number">64</span>, max = <span class="hljs-number">192</span>)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> arguments.length <span class="hljs-keyword">is</span> <span class="hljs-number">2</span> <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> @randomGray <span class="hljs-literal">null</span>, c, min</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>c.str = null if c.str?
+r=@randomInt2 min,max
+c[i] = r for i in [0..2]
+c</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @deprecated <span class="hljs-string">"Util.randomGray: use ColorMaps.randomGray"</span>
+    @error <span class="hljs-string">"Util.randomGray: c cannot be exiting color"</span> <span class="hljs-keyword">if</span> c.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+    ColorMaps.randomGray(min, max)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Random color from a colormap set of r,g,b values.
+Default is one of 125 (5^3) colors</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  randomMapColor: <span class="hljs-function"><span class="hljs-params">(c = [], set = [<span class="hljs-number">0</span>,<span class="hljs-number">63</span>,<span class="hljs-number">127</span>,<span class="hljs-number">191</span>,<span class="hljs-number">255</span>])</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.randomMapColor: use ColorMaps.randomColor() or similar"</span>
+    @error <span class="hljs-string">"Util.randomMapColor: c cannot be exiting color"</span> <span class="hljs-keyword">if</span> c.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+    ColorMaps.randomColor()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>@setColor c, @oneOf(set), @oneOf(set), @oneOf(set)
+randomBrightColor: (c=[]) -&gt; @randomMapColor c, [0,127,255]
+randomHSBColor: (c=[]) -&gt;
+  c = @hsbToRgb([@randomInt(51)*5,255,255])
+Modify an existing rgb or gray color.  Alpha optional, not set if not provided.
+Modifying an existing array minimizes GC overhead</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setColor: <span class="hljs-function"><span class="hljs-params">(c, r, g, b, a)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.setColor: use the Color/ColorMaps modules"</span>
+    <span class="hljs-keyword">if</span> c.setColor? <span class="hljs-comment"># typedColor</span>
+      <span class="hljs-keyword">if</span> c.map
+        @error <span class="hljs-string">"Util.setColor: cannot modify colormap colors"</span>
+      <span class="hljs-keyword">else</span>
+        c.setColor r, g, b, a
+    <span class="hljs-keyword">else</span>
+      c[<span class="hljs-number">0</span>] = r; c[<span class="hljs-number">1</span>] = g; c[<span class="hljs-number">2</span>] = b; c[<span class="hljs-number">3</span>] = a <span class="hljs-keyword">if</span> a?
+    c</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>c.str = null if c.str?
+c[0] = r; c[1] = g; c[2] = b; c[3] = a if a?
+c</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setGray: <span class="hljs-function"><span class="hljs-params">(c, g, a)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.setGray: use the Color/ColorMaps modules"</span>
+    @setColor c, g, g, g, a</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>Return new color, c, by scaling each value of the rgb color max.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  scaleColor: <span class="hljs-function"><span class="hljs-params">(max, s, c = [])</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.scaleColor: use the Color/ColorMaps modules"</span>
+    @error <span class="hljs-string">"Util.scaleColor: cannot modify colormap colors"</span>
+    ColorMaps.Rgb.findClosestColor Color.rgbLerp(max, s)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <p>c.str = null if c.str?
+c[i] = @clamp(Math.round(val*s),0,255) for val, i in max # [r,g,b] must be ints
+c
+Return color with new opacity, result, by scaling a value of rgba.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  scaleOpacity: <span class="hljs-function"><span class="hljs-params">(rgba, scale, c = @clone(rgba))</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.scaleOpacity: use the Color/ColorMaps modules"</span>
+    <span class="hljs-keyword">if</span> @isArray rgba
+      c[<span class="hljs-number">3</span>] = <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> c[<span class="hljs-number">3</span>]?
+      c[<span class="hljs-number">3</span>] = @lerp <span class="hljs-number">0</span>, c[<span class="hljs-number">3</span>], scale
+    <span class="hljs-keyword">else</span> <span class="hljs-comment"># typed color</span>
+      c[<span class="hljs-number">3</span>] = @lerp <span class="hljs-number">0</span>, c[<span class="hljs-number">3</span>], scale
+      <span class="hljs-keyword">if</span> c.map
+        c = Color.typedColor c...
+      <span class="hljs-keyword">else</span>
+        c.setColor c...
+    c</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>result.str = null if result.str?
+if rgba.length == 3
+then rgba.push(1)
+result[3] = parseFloat(@clamp((rgba[3]*scale),0,1).toFixed(3))
+result</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <p>Return HTML color as used by canvas element.  Can include Alpha</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  colorStr: <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.colorStr: use Color module or typedColor"</span>
+    c.css ? Color.arrayToColor c, <span class="hljs-string">"css"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>return s if (s = c.str)?
+@error “alpha &gt; 1” if c.length is 4 and c[3] &gt; 1
+c.str = if c.length is 3 then “rgb(#{c})” else “rgba(#{c})”
+Compare two colors.  Alas, there is no array.Equal operator.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  colorsEqual: <span class="hljs-function"><span class="hljs-params">(c1, c2)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.colorsEqual: use Color/ColorMaps or typedColor.pixel"</span>
+    Color.colorsEqual c1, c2</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>c1.toString() is c2.toString()
+Convert r,g,b to a luminance float value (not color array).
+Round for 0-255 int for gray color value.
+<a href="http://goo.gl/pE9cV8">Good post on image filters</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  rgbToGray: <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.rgbToGray: use Color.rgbIntensity"</span>
+    Color.rgbIntensity c...</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <p>0.2126<em>c[0] + 0.7152</em>c[1] + 0.0722*c[2]
+RGB &lt;&gt; HSB (HSV) conversions.
+RGB in [0-255], HSB in [0-1]
+See <a href="http://en.wikipedia.org/wiki/HSV_color_space">Wikipedia</a>
+and <a href="http://goo.gl/7yP4cO">Blog Post</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  rgbToHsb: <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.rgbToHsb: use extras/rgbToHsl"</span>
+    r=c[<span class="hljs-number">0</span>]/<span class="hljs-number">255</span>; g=c[<span class="hljs-number">1</span>]/<span class="hljs-number">255</span>; b=c[<span class="hljs-number">2</span>]/<span class="hljs-number">255</span>
+    max = Math.max(r,g,b); min = Math.min(r,g,b); v = max
+    h = <span class="hljs-number">0</span>; d = max-min; s = <span class="hljs-keyword">if</span> max <span class="hljs-keyword">is</span> <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> <span class="hljs-number">0</span> <span class="hljs-keyword">else</span> d/max
+    <span class="hljs-keyword">if</span> max <span class="hljs-keyword">isnt</span> min <span class="hljs-keyword">then</span> <span class="hljs-keyword">switch</span> max
+      <span class="hljs-keyword">when</span> r <span class="hljs-keyword">then</span> h = (g - b) / d + (<span class="hljs-keyword">if</span> g &lt; b <span class="hljs-keyword">then</span> <span class="hljs-number">6</span> <span class="hljs-keyword">else</span> <span class="hljs-number">0</span>)
+      <span class="hljs-keyword">when</span> g <span class="hljs-keyword">then</span> h = (b - r) / d + <span class="hljs-number">2</span>
+      <span class="hljs-keyword">when</span> b <span class="hljs-keyword">then</span> h = (r - g) / d + <span class="hljs-number">4</span>
+    [Math.round(<span class="hljs-number">255</span>*h/<span class="hljs-number">6</span>), Math.round(<span class="hljs-number">255</span>*s), Math.round(<span class="hljs-number">255</span>*v)]
+  hsbToRgb: <span class="hljs-function"><span class="hljs-params">(c)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.hsbToRgb: use Color/ColorMaps HSL functions"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Could use ths but very slow.</p>
+<pre><code>Color.hslToRgb c[<span class="hljs-number">0</span>]*<span class="hljs-number">360</span>/<span class="hljs-number">255</span>, c[<span class="hljs-number">1</span>]*<span class="hljs-number">100</span>/<span class="hljs-number">255</span>, c[<span class="hljs-number">2</span>]*<span class="hljs-number">50</span>/<span class="hljs-number">255</span> <span class="hljs-comment"># very slow</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    h=c[<span class="hljs-number">0</span>]/<span class="hljs-number">255</span>; s=c[<span class="hljs-number">1</span>]/<span class="hljs-number">255</span>; v=c[<span class="hljs-number">2</span>]/<span class="hljs-number">255</span>; i = Math.floor(h*<span class="hljs-number">6</span>)
+    f = h * <span class="hljs-number">6</span> - i;        p = v * (<span class="hljs-number">1</span> - s)
+    q = v * (<span class="hljs-number">1</span> - f * s);  t = v * (<span class="hljs-number">1</span> - (<span class="hljs-number">1</span> - f) * s)
+    <span class="hljs-keyword">switch</span>(i % <span class="hljs-number">6</span>)
+      <span class="hljs-keyword">when</span> <span class="hljs-number">0</span> <span class="hljs-keyword">then</span> r = v; g = t; b = p
+      <span class="hljs-keyword">when</span> <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> r = q; g = v; b = p
+      <span class="hljs-keyword">when</span> <span class="hljs-number">2</span> <span class="hljs-keyword">then</span> r = p; g = v; b = t
+      <span class="hljs-keyword">when</span> <span class="hljs-number">3</span> <span class="hljs-keyword">then</span> r = p; g = q; b = v
+      <span class="hljs-keyword">when</span> <span class="hljs-number">4</span> <span class="hljs-keyword">then</span> r = t; g = p; b = v
+      <span class="hljs-keyword">when</span> <span class="hljs-number">5</span> <span class="hljs-keyword">then</span> r = v; g = p; b = q
+    [Math.round(r*<span class="hljs-number">255</span>), Math.round(g*<span class="hljs-number">255</span>), Math.round(b*<span class="hljs-number">255</span>)]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>Colormap factories, building a colormap of a particular type</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>Create a colormap by rgb values. R, G, B can be either a number,
+the number of steps beteen 0-255, or an array of values to use
+for the color.  Ex: R = 3, corresponds to [0, 128, 255]
+The resulting map permutes the R, G, V values.  Thus if
+R=G=B=4, the resulting map has 4<em>4</em>4=64 colors.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  rgbMap: <span class="hljs-function"><span class="hljs-params">(R,G=R,B=R)</span> -&gt;</span>
+    @deprecated <span class="hljs-string">"Util.rgbMap: use ColorMaps.rgbColorMap or Rgb/Rgb256"</span>
+    ColorMaps.rgbColorMap R, G, B</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>R = (Math.round(i<em>255/(R-1)) for i in [0…R]) if typeof R is “number”
+G = (Math.round(i</em>255/(G-1)) for i in [0…G]) if typeof G is “number”
+B = (Math.round(i*255/(B-1)) for i in [0…B]) if typeof B is “number”
+map=[]; ((map.push [r,g,b] for b in B) for g in G) for r in R
+map
+Create a gray map of all 256 gray values</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  grayMap: <span class="hljs-function">-&gt;</span>
+    @deprecated <span class="hljs-string">"Util.grayMap: use ColorMaps.grayColorMap or Gray"</span>
+    ColorMaps.Gray</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>([i,i,i] for i in [0..255])
+Create an hsb map with n hues, with constant saturation
+and brightness.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  hsbMap: <span class="hljs-function"><span class="hljs-params">(n=<span class="hljs-number">256</span>, s=<span class="hljs-number">255</span>,b=<span class="hljs-number">255</span>)</span>-&gt;</span>
+    @deprecated <span class="hljs-string">"Util.hsbMap: use ColorMaps.hslColorMap"</span>
+    ColorMaps.hslColorMap n, <span class="hljs-number">1</span>, <span class="hljs-number">1</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>Return little/big endian-ness of hardware.
+See Mozilla pixel <a href="http://goo.gl/Lxliq">manipulation article</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  isLittleEndian: <span class="hljs-function">-&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>convert 1-int array to typed array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    d32 = <span class="hljs-keyword">new</span> Uint32Array [<span class="hljs-number">0x01020304</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>return true if byte order reversed</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    (<span class="hljs-keyword">new</span> Uint8ClampedArray d32.buffer)[<span class="hljs-number">0</span>] <span class="hljs-keyword">is</span> <span class="hljs-number">4</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-50">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-50">&#182;</a>
+              </div>
+              <p>Convert between degrees and radians.  We/Math package use radians.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  degToRad: <span class="hljs-function"><span class="hljs-params">(degrees)</span> -&gt;</span> degrees * Math.PI / <span class="hljs-number">180</span>
+  radToDeg: <span class="hljs-function"><span class="hljs-params">(radians)</span> -&gt;</span> radians * <span class="hljs-number">180</span> / Math.PI</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-51">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-51">&#182;</a>
+              </div>
+              <p>Return angle in (-pi,pi] that added to rad2 = rad1
+See NetLogo’s <a href="http://goo.gl/CjoHuV">subtract-headings</a> for explanation</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  subtractRads: <span class="hljs-function"><span class="hljs-params">(rad1, rad2)</span> -&gt;</span>
+    dr = rad1-rad2; PI = Math.PI
+    dr += <span class="hljs-number">2</span>*PI <span class="hljs-keyword">if</span> dr &lt;= -PI; dr -= <span class="hljs-number">2</span>*PI <span class="hljs-keyword">if</span> dr &gt; PI; dr</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-52">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-52">&#182;</a>
+              </div>
+              <h3 id="object-operations">Object Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-53">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-53">&#182;</a>
+              </div>
+              <p>Return object’s own key or variable values</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ownKeys: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> (key <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> obj)
+  ownVarKeys: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> (key <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> obj <span class="hljs-keyword">when</span> <span class="hljs-keyword">not</span> @isFunction value)
+  ownValues: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span> (value <span class="hljs-keyword">for</span> own key, value <span class="hljs-keyword">of</span> obj)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-54">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-54">&#182;</a>
+              </div>
+              <p>Mix the attributes from one object into another</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  mixinObject: <span class="hljs-function"><span class="hljs-params">(destObj, srcObject)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-55">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-55">&#182;</a>
+              </div>
+              <p>Get <em>all</em> own props, not just enumerable.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    keys = Object.getOwnPropertyNames(srcObject)
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> keys
+      prop = Object.getOwnPropertyDescriptor(srcObject, key)
+      Object.defineProperty(destObj, key, prop)
+    destObj</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-56">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-56">&#182;</a>
+              </div>
+              <p>Return a copy of an object, with the prototype also set in the copy
+when the object has a prototype other than Object.prototype</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  cloneObject: <span class="hljs-function"><span class="hljs-params">(obj)</span> -&gt;</span>
+    newObj = Object.create(Object.getPrototypeOf(obj))
+    @mixinObject newObj, obj</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-57">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-57">&#182;</a>
+              </div>
+              <p>Clone a class (a constructor function) including
+a copied prototype.  This is used when we have multiple
+models in a page when the prototype has global variables.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  cloneClass: <span class="hljs-function"><span class="hljs-params">(oldClass, newName)</span> -&gt;</span>
+    ctorStr = oldClass.toString().replace(<span class="hljs-regexp">/^/</span>, <span class="hljs-string">"var ctor = "</span>)
+    <span class="hljs-keyword">if</span> newName
+      ctorStr = ctorStr.replace(<span class="hljs-regexp">/function.*(?=\()/</span>, <span class="hljs-string">"function <span class="hljs-subst">#{newName}</span>"</span>)
+    eval(ctorStr)
+    ctor.prototype = @cloneObject(oldClass.prototype)
+    ctor</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-58">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-58">&#182;</a>
+              </div>
+              <p>Mix the attributes from one class into another;
+an alternative to prototypal inheritance. Similar to extend, but
+mixin() knows to copy prototype functions into the prototype</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  mixin: <span class="hljs-function"><span class="hljs-params">(destObj, srcObject)</span> -&gt;</span>
+    destObj[key] = srcObject[key] <span class="hljs-keyword">for</span> own key <span class="hljs-keyword">of</span> srcObject
+    destProto = Object.getPrototypeOf destObj
+    srcProto = Object.getPrototypeOf srcObject
+    destProto[key] = srcProto[key] <span class="hljs-keyword">for</span> own key <span class="hljs-keyword">of</span> srcProto</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-59">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-59">&#182;</a>
+              </div>
+              <p>destObj.<strong>proto</strong>[key] = srcObject.<strong>proto</strong>[key] for own key of srcObject.<strong>proto</strong></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-60">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-60">&#182;</a>
+              </div>
+              <p>Parse a string to its JS value.
+If s isn’t a JS expression, return decoded string</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  parseToPrimitive: <span class="hljs-function"><span class="hljs-params">(s)</span> -&gt;</span> <span class="hljs-comment"># http://goo.gl/jxb6Ae http://goo.gl/mQsQan</span>
+    <span class="hljs-keyword">try</span> JSON.parse(s); <span class="hljs-keyword">catch</span> e <span class="hljs-keyword">then</span> decodeURIComponent(s)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-61">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-61">&#182;</a>
+              </div>
+              <p>Return URL queryString as object, defaulting to this page’s.
+If query element has no “=”, set value to true.
+Otherwise use parseToPrimitive. <a href="http://goo.gl/vIwdG6">StackOverflow</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  parseQueryString: <span class="hljs-function"><span class="hljs-params">(query = <span class="hljs-built_in">window</span>.location.search.substring(<span class="hljs-number">1</span>))</span> -&gt;</span>
+    res = {}
+    <span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> query.split <span class="hljs-string">"&amp;"</span> <span class="hljs-keyword">when</span> query.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+      t=s.split <span class="hljs-string">"="</span>
+      res[t[<span class="hljs-number">0</span>]]=<span class="hljs-keyword">if</span> t.length <span class="hljs-keyword">is</span> <span class="hljs-number">1</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">else</span> @parseToPrimitive(t[<span class="hljs-number">1</span>])
+    res</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-62">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-62">&#182;</a>
+              </div>
+              <h3 id="array-operations">Array Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-63">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-63">&#182;</a>
+              </div>
+              <p>Does the array have any elements? Is the array empty?</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  any: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> array.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+  empty: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> array.length <span class="hljs-keyword">is</span> <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-64">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-64">&#182;</a>
+              </div>
+              <p>Make a copy of the array. Needed when you don’t want to modify the given
+array with mutator methods like sort, splice or your own functions.
+By giving begin/arguments, retrieve a subset of the array.
+Works with TypedArrays too.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  clone: <span class="hljs-function"><span class="hljs-params">(array, begin, end)</span> -&gt;</span>
+    op = <span class="hljs-keyword">if</span> array.slice? <span class="hljs-keyword">then</span> <span class="hljs-string">"slice"</span> <span class="hljs-keyword">else</span> <span class="hljs-string">"subarray"</span>
+    <span class="hljs-keyword">if</span> begin? <span class="hljs-keyword">then</span> array[op] begin, end <span class="hljs-keyword">else</span> array[op] <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-65">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-65">&#182;</a>
+              </div>
+              <p>Return last element of array.  Error if empty.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  last: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span>
+    @error <span class="hljs-string">"last: empty array"</span> <span class="hljs-keyword">if</span> @empty array
+    array[array.length<span class="hljs-number">-1</span>]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-66">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-66">&#182;</a>
+              </div>
+              <p>Return random element of array.  Error if empty.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  oneOf: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span>
+    @error <span class="hljs-string">"oneOf: empty array"</span> <span class="hljs-keyword">if</span> @empty array
+    array[@randomInt array.length]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-67">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-67">&#182;</a>
+              </div>
+              <p>Return n random elements of array. Error if n &gt; length
+Note: array elements presumed unique, i.e. objects or distinct primitives</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  nOf: <span class="hljs-function"><span class="hljs-params">(array, n)</span> -&gt;</span> <span class="hljs-comment"># Note: clone, shuffle then first n: poor performance</span>
+    n = Math.min(array.length, Math.floor(n)) <span class="hljs-comment"># OK if n is float</span>
+    r = []; <span class="hljs-keyword">while</span> r.length &lt; n
+      o = @oneOf(array); r.push o <span class="hljs-keyword">unless</span> o <span class="hljs-keyword">in</span> r
+    r</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-68">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-68">&#182;</a>
+              </div>
+              <p>True if item is in array. Binary search if f isnt null.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  contains: <span class="hljs-function"><span class="hljs-params">(array, item, f)</span> -&gt;</span> @indexOf(array, item, f) &gt;= <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-69">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-69">&#182;</a>
+              </div>
+              <p>Remove an item from an array. Binary search if f isnt null.
+Return array. OK if item not found.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  removeItem: <span class="hljs-function"><span class="hljs-params">(array, item, f)</span> -&gt;</span>
+    array.splice i, <span class="hljs-number">1</span> <span class="hljs-keyword">unless</span> (i = @indexOf array, item, f) &lt; <span class="hljs-number">0</span>
+    array</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-70">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-70">&#182;</a>
+              </div>
+              <p>Remove elements in items from an array. Binary search if f isnt null.
+Error if an item not in array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  removeItems: <span class="hljs-function"><span class="hljs-params">(array, items, f)</span> -&gt;</span> @removeItem(array,i,f) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> items; array</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-71">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-71">&#182;</a>
+              </div>
+              <p>Insert an item in a sorted array</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  insertItem: <span class="hljs-function"><span class="hljs-params">(array, item, f)</span> -&gt;</span>
+    i = @sortedIndex array, item, f
+    error <span class="hljs-string">"insertItem: item already in array"</span> <span class="hljs-keyword">if</span> array[i] <span class="hljs-keyword">is</span> item
+    array.splice i, <span class="hljs-number">0</span>, item</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-72">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-72">&#182;</a>
+              </div>
+              <p>Randomize the elements of this array.
+Clever! See <a href="http://goo.gl/TT2SY">cookbook</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  shuffle: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> array.sort -&gt; <span class="hljs-number">0.5</span> - Math.random()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-73">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-73">&#182;</a>
+              </div>
+              <p>Return o when f(o) min/max in array. Error if array empty.
+If f is a string, return element with max value of that property.
+If “valueToo” then return a 2-array of the element and the value;
+used for cases where f is costly function.</p>
+<pre><code>array = [{x:<span class="hljs-number">1</span>,y:<span class="hljs-number">2</span>}, {x:<span class="hljs-number">3</span>,y:<span class="hljs-number">4</span>}]
+<span class="hljs-comment"># returns {x: 1, y: 2} 5</span>
+[min, dist2] = minOneOf array, <span class="hljs-function">(<span class="hljs-params">(o)</span>-&gt;</span>o.x*o.x+o.y*o.y), <span class="hljs-literal">true</span>
+<span class="hljs-comment"># returns {x: 3, y: 4}</span>
+max = maxOneOf array, <span class="hljs-string">"x"</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  minOneOf: <span class="hljs-function"><span class="hljs-params">(array, f=@identity, valueToo=<span class="hljs-literal">false</span>)</span> -&gt;</span>
+    @error <span class="hljs-string">"minOneOf: empty array"</span> <span class="hljs-keyword">if</span> @empty array
+    r = Infinity; o = <span class="hljs-literal">null</span>; f = @propFcn f <span class="hljs-keyword">if</span> @isString f
+    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array
+      (r = r1; o = a) <span class="hljs-keyword">if</span> (r1=f(a)) &lt; r
+    <span class="hljs-keyword">if</span> valueToo <span class="hljs-keyword">then</span> [o, r] <span class="hljs-keyword">else</span> o
+  maxOneOf: <span class="hljs-function"><span class="hljs-params">(array, f=@identity, valueToo=<span class="hljs-literal">false</span>)</span> -&gt;</span>
+    @error <span class="hljs-string">"maxOneOf: empty array"</span> <span class="hljs-keyword">if</span> @empty array
+    r = -Infinity; o = <span class="hljs-literal">null</span>; f = @propFcn f <span class="hljs-keyword">if</span> @isString f
+    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array
+      (r = r1; o = a) <span class="hljs-keyword">if</span> (r1=f(a)) &gt; r
+    <span class="hljs-keyword">if</span> valueToo <span class="hljs-keyword">then</span> [o, r] <span class="hljs-keyword">else</span> o
+  firstOneOf: <span class="hljs-function"><span class="hljs-params">(array, f)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> i <span class="hljs-keyword">for</span> a,i <span class="hljs-keyword">in</span> array <span class="hljs-keyword">when</span> f(a); <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-74">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-74">&#182;</a>
+              </div>
+              <p>Return histogram of numbers or objects in array.
+f(obj) converts objects to numbers for histogram, defaults to identity.
+Histogram interval is bin.
+If f is a string, return histogram of that property in objects.</p>
+<p>In examples below, histOf returns [3,1,1,0,0,1]</p>
+<pre><code>a = [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>]
+h = histOf a, <span class="hljs-number">2</span>, <span class="hljs-function"><span class="hljs-params">(i)</span> -&gt;</span> i
+
+b = ({id:i} <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> a)
+h = histOf b, <span class="hljs-number">2</span>, <span class="hljs-function"><span class="hljs-params">(o)</span> -&gt;</span> o.id
+h = histOf b, <span class="hljs-number">2</span>, <span class="hljs-string">"id"</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  histOf: <span class="hljs-function"><span class="hljs-params">(array, bin=<span class="hljs-number">1</span>, f=(i)-&gt;i)</span> -&gt;</span>
+    r = []; f = @propFcn f <span class="hljs-keyword">if</span> @isString f
+    <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array
+      i = Math.floor f(a)/bin
+      r[i] = <span class="hljs-keyword">if</span> (ri=r[i])? <span class="hljs-keyword">then</span> ri+<span class="hljs-number">1</span> <span class="hljs-keyword">else</span> <span class="hljs-number">1</span>
+    r[i] = <span class="hljs-number">0</span> <span class="hljs-keyword">for</span> val,i <span class="hljs-keyword">in</span> r <span class="hljs-keyword">when</span> <span class="hljs-keyword">not</span> val?
+    r</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-75">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-75">&#182;</a>
+              </div>
+              <p>Mutator. Sort array of objects in place by the function f.
+If f is string, f returns property of object.
+Returns array.
+Clone first if you want to preserve the original array.</p>
+<pre><code>array = [{i:<span class="hljs-number">1</span>},{i:<span class="hljs-number">5</span>},{i:<span class="hljs-number">-1</span>},{i:<span class="hljs-number">2</span>},{i:<span class="hljs-number">2</span>}]
+sortBy array, <span class="hljs-string">"i"</span>
+<span class="hljs-comment"># array now is [{i:-1},{i:1},{i:2},{i:2},{i:5}]</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  sortBy: <span class="hljs-function"><span class="hljs-params">(array, f)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> @isString f
+    <span class="hljs-keyword">then</span> array.sort (a,b) -&gt; a[f] - b[f]
+    <span class="hljs-keyword">else</span> array.sort (a,b) -&gt; f(a) - f(b)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-76">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-76">&#182;</a>
+              </div>
+              <p>Numeric sort, default to ascending. Mutator, see clone above.
+Works with TypedArrays too</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  sortNums: <span class="hljs-function"><span class="hljs-params">(array, ascending=<span class="hljs-literal">true</span>)</span> -&gt;</span>
+    f = <span class="hljs-keyword">if</span> ascending <span class="hljs-keyword">then</span> (a,b) -&gt; a-b <span class="hljs-keyword">else</span> (a,b) -&gt; b-a
+    <span class="hljs-keyword">if</span> array.sort? <span class="hljs-keyword">then</span> array.sort(f) <span class="hljs-keyword">else</span> Array.prototype.sort.call(array, f)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-77">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-77">&#182;</a>
+              </div>
+              <p>Mutator. Removes adjacent dups, by reference, in place from sorted array.
+Note “by reference” means litteraly same object, not copy. Returns array.
+Clone first if you want to preserve the original array.</p>
+<pre><code>ids = ({id:i} <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span><span class="hljs-number">.10</span>])
+a = (ids[i] <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">1</span>,<span class="hljs-number">1</span>,<span class="hljs-number">10</span>])
+<span class="hljs-comment"># a is [{id:1},{id:3},{id:4},{id:1},{id:1},{id:10}]</span>
+b = clone a
+sortBy b, <span class="hljs-string">"id"</span>
+<span class="hljs-comment"># b is [{id:1},{id:1},{id:1},{id:3},{id:4},{id:10}]</span>
+uniq b
+<span class="hljs-comment"># b now is [{id:1},{id:3},{id:4},{id:10}]</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  uniq: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span>
+    <span class="hljs-keyword">return</span> array <span class="hljs-keyword">if</span> array.length &lt; <span class="hljs-number">2</span> <span class="hljs-comment"># return if empty or singlton</span>
+    array.splice i,<span class="hljs-number">1</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [array.length<span class="hljs-number">-1.</span><span class="hljs-number">.1</span>] <span class="hljs-keyword">by</span> <span class="hljs-number">-1</span> <span class="hljs-keyword">when</span> array[i<span class="hljs-number">-1</span>] <span class="hljs-keyword">is</span> array[i]
+    array</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-78">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-78">&#182;</a>
+              </div>
+              <p>Return a new array composed of the rows of a matrix. I.e. convert</p>
+<pre><code>[[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>],[<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]] to [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>]
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  flatten: <span class="hljs-function"><span class="hljs-params">(matrix)</span> -&gt;</span> matrix.reduce( <span class="hljs-function"><span class="hljs-params">(a,b)</span> -&gt;</span> a.concat b )</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-79">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-79">&#182;</a>
+              </div>
+              <p>Return array of property values of given array of objects</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aProp: <span class="hljs-function"><span class="hljs-params">(array, propOrFn)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> propOrFn <span class="hljs-keyword">is</span> <span class="hljs-string">'function'</span>
+    <span class="hljs-keyword">then</span> propOrFn(a) <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array
+    <span class="hljs-keyword">else</span> a[propOrFn] <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-80">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-80">&#182;</a>
+              </div>
+              <p>Return hybred array with object named properties. Good for returning multiple
+values from a function, and destructured assignment.</p>
+<pre><code>a = aToObj [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>], [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>, <span class="hljs-string">"four"</span>]
+a = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>], a.one = <span class="hljs-number">1</span>, .. a.four = <span class="hljs-number">4</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aToObj: <span class="hljs-function"><span class="hljs-params">(array, names)</span> -&gt;</span> array[n] = array[i] <span class="hljs-keyword">for</span> n,i <span class="hljs-keyword">in</span> names; array</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-81">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-81">&#182;</a>
+              </div>
+              <p>Return scalar max/min/sum/avg of numeric array
+Iterate rather than reduce: work with typed arrays</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aMax: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> v=array[<span class="hljs-number">0</span>]; v=Math.max v,a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array; v
+  aMin: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> v=array[<span class="hljs-number">0</span>]; v=Math.min v,a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array; v
+  aSum: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> v=<span class="hljs-number">0</span>; v += a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> array; v
+  aAvg: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> @aSum(array)/array.length
+  aMid: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> <span class="hljs-comment"># mid == median</span>
+    array = <span class="hljs-keyword">if</span> array.sort? <span class="hljs-keyword">then</span> @clone array <span class="hljs-keyword">else</span> @typedToJS array
+    @sortNums array
+    array[Math.floor(array.length/<span class="hljs-number">2</span>)]
+  aStats: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span>
+    min = @aMin array
+    max = @aMax array
+    avg = @aAvg array
+    mid = @aMid array
+    {min, max, avg, mid}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-82">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-82">&#182;</a>
+              </div>
+              <p>Return array indices for which array value is NaN</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aNaNs: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> (i <span class="hljs-keyword">for</span> v,i <span class="hljs-keyword">in</span> array <span class="hljs-keyword">when</span> isNaN v)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-83">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-83">&#182;</a>
+              </div>
+              <p>Return a range, an array [start..stop] by optional step.
+If start&gt;stop, use step negative, like -1.
+All three args can be floats
+with the usual caveat that floats can be surprising!
+Warning: if step isn’t exact, stop may not be in array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aRange: <span class="hljs-function"><span class="hljs-params">(start, stop, step=<span class="hljs-number">1</span>)</span> -&gt;</span> (x <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> [start..stop] <span class="hljs-keyword">by</span> step)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-84">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-84">&#182;</a>
+              </div>
+              <p>Return a “ramp” (array of sorted floats)
+in [start,stop] (floats) with numItems (positive integer).
+OK for start&gt;stop. Unlike aRange, this will always
+include start/stop w/in float accuracy.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aRamp: <span class="hljs-function"><span class="hljs-params">(start, stop, numItems)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-85">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-85">&#182;</a>
+              </div>
+              <p>Note: start + step*i, where step is (stop-start)/(numItems-1),
+has float accuracy problems</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    ( start + (stop-start)*(i/(numItems<span class="hljs-number">-1</span>)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..numItems] )</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-86">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-86">&#182;</a>
+              </div>
+              <p>Integer version of aRamp, rounding each element</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aIntRamp: <span class="hljs-function"><span class="hljs-params">(start, stop, numItems)</span> -&gt;</span>
+    (Math.round(num) <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> @aRamp start, stop, numItems)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-87">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-87">&#182;</a>
+              </div>
+              <p>Return array composed of f pairwise on both arrays</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  aPairwise: <span class="hljs-function"><span class="hljs-params">(a1, a2, f)</span> -&gt;</span> v=<span class="hljs-number">0</span>; f(v,a2[i]) <span class="hljs-keyword">for</span> v,i <span class="hljs-keyword">in</span> a1
+  aPairSum: <span class="hljs-function"><span class="hljs-params">(a1, a2)</span> -&gt;</span> @aPairwise a1, a2, <span class="hljs-function"><span class="hljs-params">(a,b)</span>-&gt;</span>a+b
+  aPairDif: <span class="hljs-function"><span class="hljs-params">(a1, a2)</span> -&gt;</span> @aPairwise a1, a2, <span class="hljs-function"><span class="hljs-params">(a,b)</span>-&gt;</span>a-b
+  aPairMul: <span class="hljs-function"><span class="hljs-params">(a1, a2)</span> -&gt;</span> @aPairwise a1, a2, <span class="hljs-function"><span class="hljs-params">(a,b)</span>-&gt;</span>a*b</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-88">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-88">&#182;</a>
+              </div>
+              <p>Return a JS array given a TypedArray.
+To create TypedArray from JS array: new Uint8Array(jsa) etc
+normalArray = Array.prototype.slice.call(typedArray) works too.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  typedToJS: <span class="hljs-function"><span class="hljs-params">(typedArray)</span> -&gt;</span> (i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> typedArray)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-89">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-89">&#182;</a>
+              </div>
+              <p>Return a linear interpolation between lo and hi.
+Scale is in [0-1], and the result is in [lo,hi]
+If lo&gt;hi, scaling is from hi end of range.
+<a href="http://goo.gl/QrzMc">Why the name <code>lerp</code>?</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  lerp: <span class="hljs-function"><span class="hljs-params">(lo, hi, scale)</span> -&gt;</span>
+    scale = @clamp scale, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+    <span class="hljs-keyword">if</span> lo &lt;= hi <span class="hljs-keyword">then</span> lo + (hi-lo)*scale <span class="hljs-keyword">else</span> lo - (lo-hi)*scale</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-90">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-90">&#182;</a>
+              </div>
+              <p>Calculate the lerp scale given a number and a lo/hi pair.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  lerpScale: <span class="hljs-function"><span class="hljs-params">(number, lo, hi)</span> -&gt;</span> (number-lo)/(hi-lo)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-91">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-91">&#182;</a>
+              </div>
+              <p>Return point interpolated between two points.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  lerp2: <span class="hljs-function"><span class="hljs-params">(x0, y0, x1, y1, scale)</span> -&gt;</span> [@lerp(x0,x1,scale), @lerp(y0,y1,scale)]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-92">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-92">&#182;</a>
+              </div>
+              <p>Return an array with values in [lo,hi], defaults to [0,1].
+Note: to have a half-open interval, [lo,hi), try hi=hi-.00009</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  normalize: <span class="hljs-function"><span class="hljs-params">(array, lo = <span class="hljs-number">0</span>, hi = <span class="hljs-number">1</span>)</span> -&gt;</span>
+    min = @aMin array; max = @aMax array; scale = <span class="hljs-number">1</span>/(max-min)
+    (@lerp(lo, hi, scale*(num-min)) <span class="hljs-keyword">for</span> num <span class="hljs-keyword">in</span> array)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-93">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-93">&#182;</a>
+              </div>
+              <p>Return a Uint8ClampedArray, normalized to [.5,255.5] then round/clamp to [0,255]</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  normalize8: <span class="hljs-function"><span class="hljs-params">(array)</span> -&gt;</span> <span class="hljs-keyword">new</span> Uint8ClampedArray @normalize(array,<span class="hljs-number">-.5</span>,<span class="hljs-number">255.5</span>)
+  normalizeInt: <span class="hljs-function"><span class="hljs-params">(array, lo, hi)</span> -&gt;</span> (Math.round i <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> @normalize array, lo, hi) <span class="hljs-comment"># clamp?</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-94">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-94">&#182;</a>
+              </div>
+              <p>Binary search:
+Return array index of item, where array is sorted.
+if item not found, return index for item for array to remain sorted.
+f is used to return an integer for sorting, primarily for object properties.
+If f is a string, it is the object property to sort by.
+Adapted from underscore’s _.sortedIndex.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  sortedIndex: <span class="hljs-function"><span class="hljs-params">(array, item, f=(o)-&gt;o)</span> -&gt;</span> <span class="hljs-comment"># update to _.sortedIndex someday</span>
+    f = @propFcn f <span class="hljs-keyword">if</span> @isString f <span class="hljs-comment"># use item[f] if f is string</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-95">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-95">&#182;</a>
+              </div>
+              <p>Why not array.length - 1? Because we can insert 1 after end of array.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    value = f(item); low = <span class="hljs-number">0</span>; high = array.length
+    <span class="hljs-keyword">while</span> low &lt; high
+      mid = (low + high) &gt;&gt;&gt; <span class="hljs-number">1</span> <span class="hljs-comment"># floor (low+high)/2</span>
+      <span class="hljs-keyword">if</span> f(array[mid]) &lt; value <span class="hljs-keyword">then</span> low = mid + <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> high = mid
+    low</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-96">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-96">&#182;</a>
+              </div>
+              <p>Return argument unchanged; for primitive arrays or objs sorted by reference</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  identity: <span class="hljs-function"><span class="hljs-params">(o)</span> -&gt;</span> o</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-97">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-97">&#182;</a>
+              </div>
+              <p>Return a function that returns an object’s property.  Property in fcn closure.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  propFcn: <span class="hljs-function"><span class="hljs-params">(prop)</span> -&gt;</span> (o)-&gt;o[prop]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-98">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-98">&#182;</a>
+              </div>
+              <p>Return index of value in array or -1 if not found.
+If no property given, use Array.indexOf.
+If property given, use binary search.
+Property can be string or function. If property is “”, use identity default.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  indexOf: <span class="hljs-function"><span class="hljs-params">(array, item, property)</span>-&gt;</span>
+    <span class="hljs-keyword">if</span> property?
+      i = @sortedIndex array, item, <span class="hljs-keyword">if</span> property <span class="hljs-keyword">is</span> <span class="hljs-string">""</span> <span class="hljs-keyword">then</span> <span class="hljs-literal">null</span> <span class="hljs-keyword">else</span> property
+      <span class="hljs-keyword">if</span> array[i] <span class="hljs-keyword">is</span> item <span class="hljs-keyword">then</span> i <span class="hljs-keyword">else</span> <span class="hljs-number">-1</span>
+    <span class="hljs-keyword">else</span> array.indexOf item</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-99">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-99">&#182;</a>
+              </div>
+              <h3 id="topology-operations">Topology Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-100">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-100">&#182;</a>
+              </div>
+              <p>Return angle in [-pi,pi] radians from x1,y1 to x2,y2
+<a href="http://goo.gl/JS8DF">See: Math.atan2</a></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  radsToward: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2)</span> -&gt;</span> Math.atan2 y2-y1, x2-x1</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-101">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-101">&#182;</a>
+              </div>
+              <p>Return true if x,y is in rect bounded by min/max X/Y</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inRect: <span class="hljs-function"><span class="hljs-params">(x, y, minX, minY, maxX, maxY)</span> -&gt;</span>
+    (minX &lt;= x &lt;= maxX) <span class="hljs-keyword">and</span> (minY &lt;= y &lt;= maxY)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-102">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-102">&#182;</a>
+              </div>
+              <p>Return true if x,y is in rect defined by x0,y0,dx,dy
+(dx/dy half width/height)</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inCenteredRect: <span class="hljs-function"><span class="hljs-params">(x, y, x0, y0, dx, dy)</span> -&gt;</span>
+    (x0-dx &lt;= x &lt;= x0+dx <span class="hljs-keyword">and</span> y0-dy &lt;= y &lt;= y0+dy)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-103">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-103">&#182;</a>
+              </div>
+              <p>Return true if x2,y2 is in cone radians around heading radians from x1,x2
+and within distance radius from x1,x2.
+I.e. is p2 in cone/heading/radius from p1?
+inCone: (heading, cone, radius, x1, y1, x2, y2) -&gt;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inCone: <span class="hljs-function"><span class="hljs-params">(radius, angle, heading, x1, y1, x2, y2)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> radius &lt; @distance x1, y1, x2, y2 <span class="hljs-keyword">then</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>
+    angle12 = @radsToward x1, y1, x2, y2 <span class="hljs-comment"># angle from 1 to 2</span>
+    angle/<span class="hljs-number">2</span> &gt;=Math.abs @subtractRads(heading, angle12)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-104">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-104">&#182;</a>
+              </div>
+              <p>inHeading: (heading, x1, y1, x2, y2) -&gt;
+  angle12 = @radsToward x1, y1, x2, y2 # angle from 1 to 2
+  cone/2 &gt;=Math.abs @subtractRads(heading, angle12)
+Return the Euclidean distance and distance squared between x1,y1, x2,y2.
+The squared distance is used for comparisons to avoid the Math.sqrt fcn.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  distance: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2)</span> -&gt;</span> dx = x1-x2; dy = y1-y2; Math.sqrt dx*dx + dy*dy
+  sqDistance: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2)</span> -&gt;</span> dx = x1-x2; dy = y1-y2; dx*dx + dy*dy</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-105">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-105">&#182;</a>
+              </div>
+              <p>Convert polar r,theta, theta in radians, to cartesian x,y.
+Default to 0,0 origin, optional x,y origin.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  polarToXY: <span class="hljs-function"><span class="hljs-params">(r, theta, x=<span class="hljs-number">0</span>, y=<span class="hljs-number">0</span>)</span> -&gt;</span> [x+r*Math.cos(theta), y+r*Math.sin(theta)]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-106">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-106">&#182;</a>
+              </div>
+              <p>Return the <a href="http://goo.gl/PgJ5N">torus distance</a> and distance squared
+between two points A(x1,y1) and B(x2,y2):</p>
+<pre><code>dx = |x2-x1|; dy = |y2-y1|
+d=sqrt(min(dx, W-dx)^<span class="hljs-number">2</span> + min(dy, H-dy)^<span class="hljs-number">2</span>)
+</code></pre><p>Torus note: ABMs often use a Torus topology where the right and left edges
+fold to meet,and similarly for the top/bottom.
+For points, this is easily handled with the mod function .. insuring the
+point is within the rectangle modulo W &amp; H.</p>
+<p>The relationship <em>between</em> points is more difficult.  The relationship between
+A and B must also include the towards-reflections around A, thus 4 points.</p>
+<pre><code>     |               |
+     |      W        |
+-----+---------------+-----
+ B1  |           B   |
+     |               |  H
+     |               |
+     |  A            |
+-----+---------------+-----
+ B3  |           B2  |
+     |               |
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  torusDistance: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    Math.sqrt @torusSqDistance x1, y1, x2, y2, w, h
+  torusSqDistance: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    dx = Math.abs x2-x1; dy = Math.abs y2-y1
+    dxMin = Math.min dx, w-dx; dyMin = Math.min dy, h-dy
+    dxMin*dxMin + dyMin*dyMin</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-107">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-107">&#182;</a>
+              </div>
+              <p>Return true if closest path between x1,y1 &amp; x2,y2 wraps around the torus.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  torusWraps: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    dx = Math.abs x2-x1; dy = Math.abs y2-y1
+    dx &gt; w-dx <span class="hljs-keyword">or</span> dy &gt; h-dy</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-108">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-108">&#182;</a>
+              </div>
+              <p>Return 4 torus point reflections of x2,y2 around x1,y1</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  torus4Pts: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    x2r = <span class="hljs-keyword">if</span> x2&lt;x1 <span class="hljs-keyword">then</span> x2+w <span class="hljs-keyword">else</span> x2-w
+    y2r = <span class="hljs-keyword">if</span> y2&lt;y1 <span class="hljs-keyword">then</span> y2+h <span class="hljs-keyword">else</span> y2-h
+    [ [x2,y2], [x2r,y2], [x2,y2r], [x2r,y2r] ]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-109">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-109">&#182;</a>
+              </div>
+              <p>Return closest of 4 torus pts from A to B</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  torusPt: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    x2r = <span class="hljs-keyword">if</span> x2&lt;x1 <span class="hljs-keyword">then</span> x2+w <span class="hljs-keyword">else</span> x2-w
+    y2r = <span class="hljs-keyword">if</span> y2&lt;y1 <span class="hljs-keyword">then</span> y2+h <span class="hljs-keyword">else</span> y2-h
+    x = <span class="hljs-keyword">if</span> Math.abs(x2r-x1) &lt; Math.abs(x2-x1) <span class="hljs-keyword">then</span> x2r <span class="hljs-keyword">else</span> x2
+    y = <span class="hljs-keyword">if</span> Math.abs(y2r-y1) &lt; Math.abs(y2-y1) <span class="hljs-keyword">then</span> y2r <span class="hljs-keyword">else</span> y2
+    [x,y]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-110">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-110">&#182;</a>
+              </div>
+              <p>Return the angle from x1,y1 to x2,y2 on torus using shortest reflection.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  torusRadsToward: <span class="hljs-function"><span class="hljs-params">(x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    [x2,y2] = @torusPt x1, y1, x2, y2, w, h
+    @radsToward x1, y1, x2, y2</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-111">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-111">&#182;</a>
+              </div>
+              <p>Return true if x2,y2 is in cone radians around heading radians from x1,x2
+and within distance radius from x1,x2 considering all torus reflections.
+inTorusCone: (heading, cone, radius, x1, y1, x2, y2, w, h) -&gt;</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  inTorusCone: <span class="hljs-function"><span class="hljs-params">(radius, angle, heading, x1, y1, x2, y2, w, h)</span> -&gt;</span>
+    <span class="hljs-keyword">for</span> p <span class="hljs-keyword">in</span> @torus4Pts x1, y1, x2, y2, w, h
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span> <span class="hljs-keyword">if</span> @inCone radius, angle, heading, x1, y1, p[<span class="hljs-number">0</span>], p[<span class="hljs-number">1</span>]
+    <span class="hljs-literal">false</span>
+  inTorusRect: <span class="hljs-function"><span class="hljs-params">(x, y, minX, minY, maxX, maxY, w, h)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> x &lt; minX <span class="hljs-keyword">then</span> x += w <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> x &gt; maxX <span class="hljs-keyword">then</span> x -= w
+    <span class="hljs-keyword">if</span> y &lt; minY <span class="hljs-keyword">then</span> y += h <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> y &gt; maxY <span class="hljs-keyword">then</span> y -= h
+    (minX &lt;= x &lt;= maxX) <span class="hljs-keyword">and</span> (minY &lt;= y &lt;= maxY)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-112">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-112">&#182;</a>
+              </div>
+              <h3 id="file-i-o">File I/O</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-113">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-113">&#182;</a>
+              </div>
+              <p>Cache of file names used by file imports below</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  fileIndex: {}</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-114">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-114">&#182;</a>
+              </div>
+              <p>Import an image, executing (async) optional function f(img) on completion</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  importImage: <span class="hljs-function"><span class="hljs-params">(name, f = -&gt;)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> (img=@fileIndex[name])? <span class="hljs-comment"># wtf? or ((img=name).width and img.height)</span>
+      f(img) <span class="hljs-comment">#if img.isDone</span>
+    <span class="hljs-keyword">else</span>
+      @fileIndex[name] = img = <span class="hljs-keyword">new</span> Image()
+      img.isDone = <span class="hljs-literal">false</span>
+      img.crossOrigin = <span class="hljs-string">"Anonymous"</span>
+      img.onload = <span class="hljs-function">-&gt;</span> f(img); img.isDone = <span class="hljs-literal">true</span>
+      img.src = name
+    img</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-115">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-115">&#182;</a>
+              </div>
+              <p>Use XMLHttpRequest to fetch data of several types. Data Types: text,
+arraybuffer, blob, json, document, <a href="http://goo.gl/y3r3h">See specification</a>.
+method is “GET” or “POST”. f is function to call onload, default to no-op.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  xhrLoadFile: <span class="hljs-function"><span class="hljs-params">(name, method=<span class="hljs-string">"GET"</span>, type=<span class="hljs-string">"text"</span>, f = -&gt;)</span> -&gt;</span> <span class="hljs-comment"># AJAX async request</span>
+    <span class="hljs-keyword">if</span> (xhr=@fileIndex[name])?
+      f(xhr.response)
+    <span class="hljs-keyword">else</span>
+      @fileIndex[name] = xhr = <span class="hljs-keyword">new</span> XMLHttpRequest()
+      xhr.isDone = <span class="hljs-literal">false</span>
+      xhr.open method, name <span class="hljs-comment"># POST mainly for security and large files</span>
+      xhr.responseType = type
+      xhr.onload = <span class="hljs-function">-&gt;</span> f(xhr.response); xhr.isDone = <span class="hljs-literal">true</span>
+      xhr.send()
+    xhr</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-116">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-116">&#182;</a>
+              </div>
+              <p>Return true if all files are loaded.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  filesLoaded: <span class="hljs-function"><span class="hljs-params">(files = @fileIndex)</span> -&gt;</span>
+    array = (v.isDone <span class="hljs-keyword">for</span> v <span class="hljs-keyword">in</span> (@ownValues files))
+    array.reduce (<span class="hljs-function"><span class="hljs-params">(a,b)</span>-&gt;</span>a <span class="hljs-keyword">and</span> b), <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-117">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-117">&#182;</a>
+              </div>
+              <p>Wait for files to be loaded before executing callback f</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  waitOnFiles: <span class="hljs-function"><span class="hljs-params">(f, files = @fileIndex)</span> -&gt;</span> @waitOn (<span class="hljs-function">=&gt;</span> @filesLoaded files), f</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-118">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-118">&#182;</a>
+              </div>
+              <p>Wait for function done() to return true before calling callback f</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  waitOn: <span class="hljs-function"><span class="hljs-params">(done, f)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> done() <span class="hljs-keyword">then</span> f() <span class="hljs-keyword">else</span> setTimeout (<span class="hljs-function">=&gt;</span> @waitOn(done, f)), <span class="hljs-number">1000</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-119">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-119">&#182;</a>
+              </div>
+              <h3 id="image-data-operations">Image Data Operations</h3>
+<p>Make a copy of an image.
+Note: new image will have the naturalWidth/Height of input img.
+Should be sync</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  cloneImage: <span class="hljs-function"><span class="hljs-params">(img)</span> -&gt;</span> (i=<span class="hljs-keyword">new</span> Image()).src = img.src; i</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-120">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-120">&#182;</a>
+              </div>
+              <p>Create a data array from an image’s imageData
+img may be a canvas.
+The function f = f(imageData, rgbIndex) -&gt; number</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  imageToData: <span class="hljs-function"><span class="hljs-params">(img, f=@pixelByte(<span class="hljs-number">0</span>), arrayType=Uint8ClampedArray)</span> -&gt;</span>
+    @imageRowsToData img, img.height, f, arrayType
+  imageRowsToData: <span class="hljs-function"><span class="hljs-params">(img, rowsPerSlice, f=@pixelByte(<span class="hljs-number">0</span>), arrayType=Uint8ClampedArray)</span> -&gt;</span>
+    rowsDone = <span class="hljs-number">0</span>; data = <span class="hljs-keyword">new</span> arrayType img.width*img.height
+    <span class="hljs-keyword">while</span> rowsDone &lt; img.height
+      rows = Math.min img.height - rowsDone, rowsPerSlice
+      ctx = @imageSliceToCtx img, <span class="hljs-number">0</span>, rowsDone, img.width, rows <span class="hljs-comment"># REMIND: pass ctx</span>
+      idata = @ctxToImageData(ctx).data
+      dataStart = rowsDone*img.width
+      data[dataStart+i] = f(idata,<span class="hljs-number">4</span>*i) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> [<span class="hljs-number">0.</span>..idata.length/<span class="hljs-number">4</span>] <span class="hljs-keyword">by</span> <span class="hljs-number">1</span>
+      rowsDone += rows
+    data</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-121">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-121">&#182;</a>
+              </div>
+              <p>Two utilities for Image data extraction.
+They return a fcn in a closure which “sees” the args and variables</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  pixelBytesToInt: <span class="hljs-function"><span class="hljs-params">(a)</span> -&gt;</span>
+    ImageByteFmts = [[<span class="hljs-number">2</span>],[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>],[<span class="hljs-number">3</span>,<span class="hljs-number">0</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]]
+    a=ImageByteFmts[a<span class="hljs-number">-1</span>] <span class="hljs-keyword">if</span> <span class="hljs-keyword">typeof</span> a <span class="hljs-keyword">is</span> <span class="hljs-string">"number"</span>
+    (id,i)-&gt;val = <span class="hljs-number">0</span>; val = val*<span class="hljs-number">256</span> + id[i+j] <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> a; val
+  pixelByte: <span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span> (id,i)-&gt;id[i+n]</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-122">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-122">&#182;</a>
+              </div>
+              <h3 id="canvas-context-operations">Canvas/Context Operations</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-123">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-123">&#182;</a>
+              </div>
+              <p>Create a new canvas of given width/height</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  createCanvas: <span class="hljs-function"><span class="hljs-params">(width, height)</span> -&gt;</span>
+    can = <span class="hljs-built_in">document</span>.createElement <span class="hljs-string">'canvas'</span>
+    can.width = width; can.height = height
+    can</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-124">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-124">&#182;</a>
+              </div>
+              <p>As above, but returing the context object.
+Note ctx.canvas is the canvas for the ctx, and can be use as an image.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  createCtx: <span class="hljs-function"><span class="hljs-params">(width, height, ctxType=<span class="hljs-string">"2d"</span>)</span> -&gt;</span>
+    can = @createCanvas width, height
+    <span class="hljs-keyword">if</span> ctxType <span class="hljs-keyword">is</span> <span class="hljs-string">"2d"</span>
+    <span class="hljs-keyword">then</span> can.getContext <span class="hljs-string">"2d"</span>
+    <span class="hljs-keyword">else</span> can.getContext(<span class="hljs-string">"webgl"</span>) ? can.getContext(<span class="hljs-string">"experimental-webgl"</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-125">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-125">&#182;</a>
+              </div>
+              <p>Return a “layer” 2D/3D rendering context within the specified HTML <code>&lt;div&gt;</code>,
+with the given width/height positioned absolutely at top/left within the div,
+and with the z-index of z.</p>
+<p>The z level gives us the capability of buildng a “stack” of coordinated canvases.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  createLayer: <span class="hljs-function"><span class="hljs-params">(div, width, height, z, ctx = <span class="hljs-string">"2d"</span>)</span> -&gt;</span> <span class="hljs-comment"># a canvas ctx object</span>
+    <span class="hljs-keyword">if</span> ctx <span class="hljs-keyword">is</span> <span class="hljs-string">"img"</span>
+    <span class="hljs-keyword">then</span> element = ctx = <span class="hljs-keyword">new</span> Image(); ctx.width = width; ctx.height=height
+    <span class="hljs-keyword">else</span> element = (ctx=@createCtx(width, height, ctx)).canvas
+    @insertLayer div, element, width, height, z
+    ctx
+  insertLayer: <span class="hljs-function"><span class="hljs-params">(div, element, w, h, z)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-126">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-126">&#182;</a>
+              </div>
+              <p>Note: this erases existing style, el.style.position doesnt
+element.setAttribute ‘style’,
+“position:absolute;top:0;left:0;width:#{w};height:#{h};z-index:#{z}”</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    s = element.style
+    s.position=<span class="hljs-string">"absolute"</span>; s.top=<span class="hljs-number">0</span>; s.left=<span class="hljs-number">0</span>; s.width=w; s.height=h; s.zIndex=z
+    div.appendChild(element)
+
+  setCtxSmoothing: <span class="hljs-function"><span class="hljs-params">(ctx, smoothing)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-127">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-127">&#182;</a>
+              </div>
+              <p>Don’cha love standards!</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    aliases = [<span class="hljs-string">"imageSmoothingEnabled"</span>, <span class="hljs-string">"mozImageSmoothingEnabled"</span>, <span class="hljs-string">"oImageSmoothingEnabled"</span>, <span class="hljs-string">"webkitImageSmoothingEnabled"</span>, <span class="hljs-string">"msImageSmoothingEnabled"</span>]
+    <span class="hljs-keyword">for</span> name <span class="hljs-keyword">in</span> aliases <span class="hljs-keyword">when</span> ctx[name]?
+      <span class="hljs-keyword">return</span> ctx[name] = smoothing <span class="hljs-comment"># lets hope the first one works. Sheesh!</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-128">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-128">&#182;</a>
+              </div>
+              <p>ctx.imageSmoothingEnabled = smoothing
+ctx.mozImageSmoothingEnabled = smoothing
+ctx.oImageSmoothingEnabled = smoothing
+ctx.webkitImageSmoothingEnabled = smoothing</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-129">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-129">&#182;</a>
+              </div>
+              <p>Install identity transform.  Call ctx.restore() to revert to previous transform</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setIdentity: <span class="hljs-function"><span class="hljs-params">(ctx)</span> -&gt;</span>
+    ctx.save() <span class="hljs-comment"># revert to native 2D transform</span>
+    ctx.setTransform <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-130">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-130">&#182;</a>
+              </div>
+              <p>Clear the 2D/3D layer to be transparent. Note this <a href="http://goo.gl/qekXS">discussion</a>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  clearCtx: <span class="hljs-function"><span class="hljs-params">(ctx)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> ctx.save? <span class="hljs-comment"># test for 2D ctx</span>
+      @setIdentity ctx <span class="hljs-comment"># ctx.canvas.width = ctx.canvas.width not used so as to preserve patch coords</span>
+      ctx.clearRect <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, ctx.canvas.width, ctx.canvas.height
+      ctx.restore()
+    <span class="hljs-keyword">else</span> <span class="hljs-comment"># 3D</span>
+      ctx.clearColor <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span> <span class="hljs-comment"># transparent!</span>
+      ctx.clear ctx.COLOR_BUFFER_BIT | ctx.DEPTH_BUFFER_BIT</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-131">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-131">&#182;</a>
+              </div>
+              <p>Fill the 2D/3D layer with the given color</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  fillCtx: <span class="hljs-function"><span class="hljs-params">(ctx, color)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> ctx.fillStyle? <span class="hljs-comment"># test for 2D ctx</span>
+      @setIdentity ctx
+      ctx.fillStyle = color.css ? Color.convertColor color, <span class="hljs-string">"css"</span> <span class="hljs-comment"># @colorStr(color)</span>
+      ctx.fillRect <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, ctx.canvas.width, ctx.canvas.height
+      ctx.restore()
+    <span class="hljs-keyword">else</span> <span class="hljs-comment"># 3D</span>
+      ctx.clearColor color..., <span class="hljs-number">1</span> <span class="hljs-comment"># alpha = 1 unless color is rgba</span>
+      ctx.clear ctx.COLOR_BUFFER_BIT | ctx.DEPTH_BUFFER_BIT</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-132">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-132">&#182;</a>
+              </div>
+              <p>Draw string of the given color at the xy location, in ctx pixel coords.
+Use setIdentity .. reset if a transform is being used by caller.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ctxDrawText: <span class="hljs-function"><span class="hljs-params">(ctx, string, x, y, color, setIdentity = <span class="hljs-literal">true</span>)</span> -&gt;</span>
+    @setIdentity(ctx) <span class="hljs-keyword">if</span> setIdentity
+    ctx.fillStyle = color.css <span class="hljs-comment"># @colorStr color</span>
+    ctx.fillText(string, x, y)
+    ctx.restore() <span class="hljs-keyword">if</span> setIdentity</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-133">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-133">&#182;</a>
+              </div>
+              <p>Set the element text align and baseline drawing parameters</p>
+<ul>
+<li>font is a HTML/CSS string like: “9px sans-serif”</li>
+<li>align is left right center start end</li>
+<li>baseline is top hanging middle alphabetic ideographic bottom</li>
+</ul>
+<p>See <a href="http://goo.gl/AvEAq">reference</a> for details.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ctxTextParams: <span class="hljs-function"><span class="hljs-params">(ctx, font, align = <span class="hljs-string">"center"</span>, baseline = <span class="hljs-string">"middle"</span>)</span> -&gt;</span>
+    ctx.font = font; ctx.textAlign = align; ctx.textBaseline = baseline
+  elementTextParams: <span class="hljs-function"><span class="hljs-params">(e, font, align = <span class="hljs-string">"center"</span>, baseline = <span class="hljs-string">"middle"</span>)</span> -&gt;</span>
+    e = e.canvas <span class="hljs-keyword">if</span> e.canvas?
+    e.style.font = font; e.style.textAlign = align; e.style.textBaseline = baseline</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-134">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-134">&#182;</a>
+              </div>
+              <p>Convert an image to a context. ctx.canvas gives the created canvas.
+If w, h provided, scale to that size. img may be a canvas
+Note: to convert a ctx to an “image” (drawImage) use ctx.canvas</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  imageToCtx: <span class="hljs-function"><span class="hljs-params">(img, w, h)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> w? <span class="hljs-keyword">and</span> h?
+      ctx = @createCtx w, h
+      ctx.drawImage img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, w, h
+    <span class="hljs-keyword">else</span>
+      ctx = @createCtx img.width, img.height
+      ctx.drawImage img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+    ctx
+  imageSliceToCtx: <span class="hljs-function"><span class="hljs-params">(img, sx, sy, sw, sh, ctx)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> ctx?
+    <span class="hljs-keyword">then</span> ctx.canvas.width = sw; ctx.canvas.height = sh
+    <span class="hljs-keyword">else</span> ctx = @createCtx sw, sh
+    ctx.drawImage img, sx, sy, sw, sh, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, sw, sh
+    ctx
+  imageToCtxDownStepped: <span class="hljs-function"><span class="hljs-params">(img, tw, th)</span> -&gt;</span> <span class="hljs-comment">#  http://goo.gl/QFE5cI</span>
+    ctx1 = @createCtx tw, th
+    w = img.width; h = img.height; ihalf = <span class="hljs-function"><span class="hljs-params">(n)</span> -&gt;</span> Math.ceil n/<span class="hljs-number">2</span>
+    steps = Math.ceil(@log2( <span class="hljs-keyword">if</span> (w/tw)&gt;(h/th) <span class="hljs-keyword">then</span> (w/tw) <span class="hljs-keyword">else</span> (h/th)) )
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"steps"</span>, steps
+    <span class="hljs-keyword">if</span> steps &lt;= <span class="hljs-number">1</span>
+      ctx1.drawImage img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, tw, th
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"img w/h"</span>, w, h, <span class="hljs-string">"-&gt;"</span>, ihalf(w), ihalf(h)
+      ctx = @createCtx w = ihalf(w), h = ihalf(h); can = ctx.canvas
+      ctx.drawImage img, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, w, h
+      <span class="hljs-keyword">for</span> step <span class="hljs-keyword">in</span> [steps..<span class="hljs-number">.2</span>] <span class="hljs-comment"># 2 not 1 due to initial halving above</span>
+        <span class="hljs-built_in">console</span>.log <span class="hljs-string">"can w/h"</span>, w, h, <span class="hljs-string">"-&gt;"</span>, ihalf(w), ihalf(h)
+        ctx.drawImage can, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, w, h, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, w = ihalf(w), h = ihalf(h)
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"target w/h"</span>, w, h, <span class="hljs-string">"-&gt;"</span>, tw, th
+      ctx1.drawImage can, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, w, h, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, tw, th
+    ctx1</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-135">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-135">&#182;</a>
+              </div>
+              <p>Convert a canvas to an image, executing fcn f on completion.
+Generally can skip callback but see <a href="http://goo.gl/kIk2U">stackoverflow</a>
+Note: uses toDataURL thus possible cross origin problems.
+Fix: use ctx.canvas for programatic imaging.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ctxToDataUrl: <span class="hljs-function"><span class="hljs-params">(ctx)</span> -&gt;</span> ctx.canvas.toDataURL <span class="hljs-string">"image/png"</span>
+  ctxToDataUrlImage: <span class="hljs-function"><span class="hljs-params">(ctx, f)</span> -&gt;</span>
+    img = <span class="hljs-keyword">new</span> Image()
+    (img.onload = <span class="hljs-function">-&gt;</span> f(img)) <span class="hljs-keyword">if</span> f?
+    img.src = ctx.canvas.toDataURL <span class="hljs-string">"image/png"</span>
+    img</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-136">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-136">&#182;</a>
+              </div>
+              <p>Convert a ctx to an imageData object</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  ctxToImageData: <span class="hljs-function"><span class="hljs-params">(ctx)</span> -&gt;</span>
+    ctx.getImageData <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, ctx.canvas.width, ctx.canvas.height</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-137">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-137">&#182;</a>
+              </div>
+              <p>Canvas versions of above
+canvasToImage: (canvas) -&gt; ctxToImage(canvas.getContext “2d”)
+canvasToImageData: (canvas) -&gt; ctxToImageData(canvas.getContext “2d”)
+imageToCanvas: (image) -&gt; imageToCtx(image).canvas</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-138">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-138">&#182;</a>
+              </div>
+              <p>Draw an image centered at x, y w/ image size dx, dy.
+See <a href="http://goo.gl/VUlhY">this tutorial</a>.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  drawCenteredImage: <span class="hljs-function"><span class="hljs-params">(ctx, img, rad, x, y, dx, dy)</span> -&gt;</span> <span class="hljs-comment"># presume save/restore surrounds this</span>
+    ctx.translate x, y <span class="hljs-comment"># translate to center</span>
+    ctx.rotate rad
+    ctx.drawImage img, -dx/<span class="hljs-number">2</span>, -dy/<span class="hljs-number">2</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-139">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-139">&#182;</a>
+              </div>
+              <p>Duplicate a ctx’s image.  Returns the new ctx, use ctx.canvas for canvas.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  copyCtx: <span class="hljs-function"><span class="hljs-params">(ctx0)</span> -&gt;</span>
+    ctx = @createCtx ctx0.canvas.width, ctx0.canvas.height
+    ctx.drawImage ctx0.canvas, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+    ctx</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-140">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-140">&#182;</a>
+              </div>
+              <p>Resize a ctx/canvas and preserve data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  resizeCtx: <span class="hljs-function"><span class="hljs-params">(ctx, width, height, scale = <span class="hljs-literal">false</span>)</span> -&gt;</span> <span class="hljs-comment"># http://goo.gl/Tp90B</span>
+    copy = @copyCtx ctx
+    ctx.canvas.width = width; ctx.canvas.height = height
+    ctx.drawImage copy.canvas, <span class="hljs-number">0</span>, <span class="hljs-number">0</span></pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

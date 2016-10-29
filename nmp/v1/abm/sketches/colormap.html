@@ -1,0 +1,391 @@
+<html>
+  <head>
+    <title>ColorMap</title>
+    <script src="../lib/agentscript.js"></script>
+    <script src="../lib/rgbtohsl.js"></script>
+    <script src="../tools/coffee-script.js"></script>
+<!--
+    <script src="colorobject.coffee" type="text/coffeescript"></script>
+ -->
+    <script type="text/coffeescript">
+
+# REST interface tests:
+###
+pw=15&ph=1&ps=20&map=gradient&args=[15,[[0,0,0],[0,255,255],[255,255,255]]]
+pw=16&ph=1&ps=32&map=gradient&args=[16,[[255,255,0],[0,255,255]]]
+pw=16&ph=4&ps=32&map=gradient&args=[64,[[255,255,0],[0,255,255]]]
+
+pw=16&ph=16&ps=20&map=gradient&args=[256,jetColors]
+pw=64&ph=1&ps=10&map=gradient&args=[64,jetColors]
+pw=64&ph=1&ps=10&map=gradient&args=[64,jetColors1,jetLocs1]
+pw=64&ph=1&ps=10&map=gradient&args=[64,jetColors]
+pw=64&ph=1&ps=10&map=gradient&args=[64,jetColors]&sort
+pw=64&ph=1&ps=10&map=gradient&args=[64,jetColors]&sort&key=pixel
+
+pw=64&ph=1&ps=10&map=gradient&args=[64,rgbRainbowColors]
+pw=32&ph=4&ps=10&map=gradient&args=[128,rgbRainbowColors]
+pw=16&ph=16&ps=20&map=gradient&args=[256,rgbRainbowColors]
+pw=32&ph=16&ps=10&map=gradient&args=[512,rgbRainbowColors] # many dups
+
+pw=64&ph=1&ps=10&map=gradient&args=[64,namedRainbowArray]
+pw=32&ph=4&ps=10&map=gradient&args=[128,namedRainbowArray]
+pw=16&ph=16&ps=20&map=gradient&args=[256,namedRainbowArray]
+pw=32&ph=16&ps=10&map=gradient&args=[512,namedRainbowArray] # many dups
+
+pw=32&ph=8&ps=10&map=gradient&args=[256,namedRainbowArray]
+pw=32&ph=16&ps=10&map=gradient&args=[512,namedRainbowArray]
+
+pw=32&ph=32&ps=16&map=gradient&args=[1024,jetColors] # many dups
+pw=32&ph=32&ps=16&map=gradient&args=[1024,rgbRainbowColors] # many dups
+
+pw=16&ph=4&ps=32&map=gray&args=64
+pw=16&ph=16&ps=32&map=gray&args=256
+
+pw=9&ph=3&ps=30&map=rgb&args=3
+pw=24&ph=9&ps=30&map=rgb&args=6
+pw=32&ph=16&ps=30&map=rgb&args=8
+pw=36&ph=21&ps=28&map=rgb&args=9
+pw=40&ph=25&ps=25&map=rgb&args=10
+pw=48&ph=36&ps=25&map=rgb&args=12
+pw=64&ph=64&ps=12&map=rgb&args=16
+
+pw=32&ph=16&ps=30&map=rgb&args=8
+
+pw=16&ph=4&ps=32&map=rgb&args=4
+pw=16&ph=4&ps=32&map=rgb&args=4&sort
+pw=16&ph=4&ps=32&map=rgb&args=4&sort&key=pixel
+pw=40&ph=25&ps=16&map=rgb&args=10
+pw=40&ph=25&ps=16&map=rgb&args=10&sort
+pw=40&ph=25&ps=16&map=rgb&args=10&sort&key=hue
+pw=64&ph=64&ps=10&map=rgb&args=16
+pw=64&ph=64&ps=10&map=rgb&args=16&sort&key=hue
+pw=96&ph=32&ps=8&map=rgb&args=10
+
+pw=16&ph=16&ps=32&map=rgb&args=[6,6,7]
+# http://en.wikipedia.org/wiki/8-bit_color
+# http://en.wikipedia.org/wiki/List_of_color_palettes
+pw=16&ph=16&ps=32&map=rgb&args=[8,8,4]
+
+pw=11&ph=5&ps=32&map=basic&args=[simpleNamedColors]
+pw=11&ph=5&ps=32&map=basic&args=[simpleNamedColors]&sort
+pw=10&ph=14&ps=32&map=basic&args=[namedColors]
+pw=10&ph=14&ps=32&map=basic&args=[namedColors]&sort
+# pw=6&ph=1&ps=128&map=basic&args=[namedRainbowObj]
+pw=5&ph=6&ps=32&map=basic&args=[triColors]&sort
+pw=8&ph=8&ps=32&map=basic&args=[quadColors]&sort
+pw=8&ph=8&ps=32&map=basic&args=[quadColors]&sort
+
+pw=14&ph=20&ps=32&map=basic&args=[namedColors]
+
+
+pw=10&ph=14&ps=32&map=basic&args=[namedPixels]
+pw=11&ph=5&ps=32&map=basic&args=[simpleNamedPixels]
+
+
+pw=16&ph=16&ps=32&map=random&args=256
+pw=16&ph=16&ps=32&map=random&args=256&sort
+pw=32&ph=32&ps=16&map=random&args=1024&sort&key=hue
+
+pw=36&ph=10&ps=20&map=hsl&args=[360,[100],[50]]
+pw=25&ph=1&ps=15&map=hsl&args=[1,5,5]
+pw=10&ph=10&ps=30&map=hsl&args=[1,10,10]
+These test well against the w3c standard:
+    http://dev.w3.org/csswg/css-color/#hsl-examples
+pw=5&ph=9&ps=30&map=hsl&args=[[0],[100,75,50,25,0],[100,88,75,63,50,38,25,13,0]]
+pw=5&ph=9&ps=30&map=hsl&args=[[30],[100,75,50,25,0],[100,88,75,63,50,38,25,13,0]]
+pw=5&ph=9&ps=30&map=hsl&args=[[60],[100,75,50,25,0],[100,88,75,63,50,38,25,13,0]]
+
+
+pw=64&ph=1&ps=10&map=hsl&args=[4,4,4]&sort
+pw=64&ph=1&ps=10&map=hsl&args=[1,8,8]
+pw=64&ph=1&ps=10&map=hsl&args=[1,8,8]&sort
+pw=64&ph=1&ps=10&map=hsl&args=[64,1,1]&sort
+pw=64&ph=1&ps=10&map=hsl&args=[[43],64,[255]]
+pw=64&ph=1&ps=10&map=hsl&args=[[43],[255],64]
+pw=32&ph=32&ps=16&map=hsl&args=[256,1,3]
+pw=16&ph=16&ps=32&map=hsl&args=[256,1,1]
+
+pw=10&ps=24&map=NetLogo
+pw=6&ps=24&map=Safe
+pw=18&ps=24&map=NetLogoRamps
+pw=18&ps=24&map=CssRamps
+
+
+pw=18&ps=24&map=cssBasic&args=[flags.pw,true]
+pw=18&ps=24&map=cssBasic&args=[flags.pw,false]
+
+pw=10&ps=24&map=netLogo&args=[flags.pw,false]
+pw=11&ps=24&map=netLogo&args=flags.pw
+pw=17&ps=24&map=netLogo&args=flags.pw
+pw=17&ps=24&map=netLogo&args=[flags.pw,false]
+pw=25&ps=24&map=netLogo&args=[flags.pw,false]
+
+
+###
+u = ABM.Util # static variables
+window.c = window.Color = ABM.Color
+window.cm = window.ColorMaps = ABM.ColorMaps
+
+# Note: Aqua == Cyan and Fuchsia == Magenta
+# The 140 standard html colors are the X11 set; 138 unique
+namedColorString = "AliceBlue AntiqueWhite Aqua Aquamarine Azure Beige Bisque Black BlanchedAlmond Blue BlueViolet Brown BurlyWood CadetBlue Chartreuse Chocolate Coral CornflowerBlue Cornsilk Crimson Cyan DarkBlue DarkCyan DarkGoldenRod DarkGray DarkGreen DarkKhaki DarkMagenta DarkOliveGreen DarkOrange DarkOrchid DarkRed DarkSalmon DarkSeaGreen DarkSlateBlue DarkSlateGray DarkTurquoise DarkViolet DeepPink DeepSkyBlue DimGray DodgerBlue FireBrick FloralWhite ForestGreen Fuchsia Gainsboro GhostWhite Gold GoldenRod Gray Green GreenYellow HoneyDew HotPink IndianRed Indigo Ivory Khaki Lavender LavenderBlush LawnGreen LemonChiffon LightBlue LightCoral LightCyan LightGoldenRodYellow LightGray LightGreen LightPink LightSalmon LightSeaGreen LightSkyBlue LightSlateGray LightSteelBlue LightYellow Lime LimeGreen Linen Magenta Maroon MediumAquaMarine MediumBlue MediumOrchid MediumPurple MediumSeaGreen MediumSlateBlue MediumSpringGreen MediumTurquoise MediumVioletRed MidnightBlue MintCream MistyRose Moccasin NavajoWhite Navy OldLace Olive OliveDrab Orange OrangeRed Orchid PaleGoldenRod PaleGreen PaleTurquoise PaleVioletRed PapayaWhip PeachPuff Peru Pink Plum PowderBlue Purple Red RosyBrown RoyalBlue SaddleBrown Salmon SandyBrown SeaGreen SeaShell Sienna Silver SkyBlue SlateBlue SlateGray Snow SpringGreen SteelBlue Tan Teal Thistle Tomato Turquoise Violet Wheat White WhiteSmoke Yellow YellowGreen"
+namedColors = namedColorString.split(" ")
+namedPixels = (Color.convertColor str, "pixel" for str in namedColors)
+# names with published values, lets us test stringToRgba:
+namedColorsRgb={AliceBlue:[240,248,255], AntiqueWhite:[250,235,215], Aqua:[0,255,255], Aquamarine:[127,255,212], Azure:[240,255,255], Beige:[245,245,220], Bisque:[255,228,196], Black:[0,0,0], BlanchedAlmond:[255,235,205], Blue:[0,0,255], BlueViolet:[138,43,226], Brown:[165,42,42], BurlyWood:[222,184,135], CadetBlue:[95,158,160], Chartreuse:[127,255,0], Chocolate:[210,105,30], Coral:[255,127,80], CornflowerBlue:[100,149,237], Cornsilk:[255,248,220], Crimson:[220,20,60], Cyan:[0,255,255], DarkBlue:[0,0,139], DarkCyan:[0,139,139], DarkGoldenRod:[184,134,11], DarkGray:[169,169,169], DarkGreen:[0,100,0], DarkKhaki:[189,183,107], DarkMagenta:[139,0,139], DarkOliveGreen:[85,107,47], DarkOrange:[255,140,0], DarkOrchid:[153,50,204], DarkRed:[139,0,0], DarkSalmon:[233,150,122], DarkSeaGreen:[143,188,143], DarkSlateBlue:[72,61,139], DarkSlateGray:[47,79,79], DarkTurquoise:[0,206,209], DarkViolet:[148,0,211], DeepPink:[255,20,147], DeepSkyBlue:[0,191,255], DimGray:[105,105,105], DodgerBlue:[30,144,255], FireBrick:[178,34,34], FloralWhite:[255,250,240], ForestGreen:[34,139,34], Fuchsia:[255,0,255], Gainsboro:[220,220,220], GhostWhite:[248,248,255], Gold:[255,215,0], GoldenRod:[218,165,32], Gray:[128,128,128], Green:[0,128,0], GreenYellow:[173,255,47], HoneyDew:[240,255,240], HotPink:[255,105,180], IndianRed:[205,92,92], Indigo:[75,0,130], Ivory:[255,255,240], Khaki:[240,230,140], Lavender:[230,230,250], LavenderBlush:[255,240,245], LawnGreen:[124,252,0], LemonChiffon:[255,250,205], LightBlue:[173,216,230], LightCoral:[240,128,128], LightCyan:[224,255,255], LightGoldenRodYellow:[250,250,210], LightGray:[211,211,211], LightGreen:[144,238,144], LightPink:[255,182,193], LightSalmon:[255,160,122], LightSeaGreen:[32,178,170], LightSkyBlue:[135,206,250], LightSlateGray:[119,136,153], LightSteelBlue:[176,196,222], LightYellow:[255,255,224], Lime:[0,255,0], LimeGreen:[50,205,50], Linen:[250,240,230], Magenta:[255,0,255], Maroon:[128,0,0], MediumAquaMarine:[102,205,170], MediumBlue:[0,0,205], MediumOrchid:[186,85,211], MediumPurple:[147,112,219], MediumSeaGreen:[60,179,113], MediumSlateBlue:[123,104,238], MediumSpringGreen:[0,250,154], MediumTurquoise:[72,209,204], MediumVioletRed:[199,21,133], MidnightBlue:[25,25,112], MintCream:[245,255,250], MistyRose:[255,228,225], Moccasin:[255,228,181], NavajoWhite:[255,222,173], Navy:[0,0,128], OldLace:[253,245,230], Olive:[128,128,0], OliveDrab:[107,142,35], Orange:[255,165,0], OrangeRed:[255,69,0], Orchid:[218,112,214], PaleGoldenRod:[238,232,170], PaleGreen:[152,251,152], PaleTurquoise:[175,238,238], PaleVioletRed:[219,112,147], PapayaWhip:[255,239,213], PeachPuff:[255,218,185], Peru:[205,133,63], Pink:[255,192,203], Plum:[221,160,221], PowderBlue:[176,224,230], Purple:[128,0,128], Red:[255,0,0], RosyBrown:[188,143,143], RoyalBlue:[65,105,225], SaddleBrown:[139,69,19], Salmon:[250,128,114], SandyBrown:[244,164,96], SeaGreen:[46,139,87], SeaShell:[255,245,238], Sienna:[160,82,45], Silver:[192,192,192], SkyBlue:[135,206,235], SlateBlue:[106,90,205], SlateGray:[112,128,144], Snow:[255,250,250], SpringGreen:[0,255,127], SteelBlue:[70,130,180], Tan:[210,180,140], Teal:[0,128,128], Thistle:[216,191,216], Tomato:[255,99,71], Turquoise:[64,224,208], Violet:[238,130,238], Wheat:[245,222,179], White:[255,255,255], WhiteSmoke:[245,245,245], Yellow:[255,255,0], YellowGreen:[154,205,50]}
+
+# Note: Sky === SkyBlue below.  Chrome has "sky"=[154,205,50], yellowgreen!!
+simpleNamedColorString = "Aqua Aquamarine Azure Beige Bisque Black Blue Brown Chartreuse Chocolate Coral Cornsilk Crimson Cyan Fuchsia Gainsboro Gold Gray Green Indigo Ivory Khaki Lavender Lime Linen Magenta Maroon Moccasin Navy Olive Orange Orchid Peru Pink Plum Purple Red Salmon Sienna Silver SkyBlue Snow Tan Teal Thistle Tomato Turquoise Violet Wheat White Yellow"
+simpleNamedColors = simpleNamedColorString.split(" ")
+simpleNamedPixels = (Color.convertColor str, "pixel" for str in simpleNamedColors)
+
+# Note: Aqua == Cyan and Fuchsia == Magenta, 15 unique colors
+htmlColorsString = "Aqua Black Blue Fuchsia Gray Green Lime Maroon Navy Olive Orange Purple Red Silver Teal White Yellow"
+htmlColors = htmlColorsString.split(" ")
+
+# globals [colors]
+# to setup
+#   set colors (list "gray" "red" "orange" "brown" "yellow" "green" "lime" "turquoise" "cyan" "sky" "blue" "violet" "magenta" "pink")
+#   foreach colors [ show (word ? ": " extract-rgb read-from-string ?) ]
+# end
+netLogoColorsRgb = { # NL does not use the std rgb values for every name
+  gray: [141,141,141],
+  red: [215,50,41],
+  orange: [241,106,21],
+  brown: [157,110,72],
+  yellow: [237,237,49],
+  green: [89,176,60],
+  lime: [44,209,59],
+  turquoise: [29,159,120],
+  cyan: [84,196,196],
+  sky: [45,141,190],
+  blue: [52,93,169],
+  violet: [124,80,164],
+  magenta: [167,27,106],
+  pink: [224,127,150]
+}
+netLogoX11ColorsRgb = { # X11 versions of NL color names
+  Gray: [128,128,128],
+  Red: [255,0,0],
+  Orange: [255,165,0],
+  Brown: [165,42,42],
+  Yellow: [255,255,0],
+  Green: [0,128,0],
+  Lime: [0,255,0],
+  Turquoise: [64,224,208],
+  Cyan: [0,255,255],
+  Sky: [135,206,235],
+  Blue: [0,0,255],
+  Violet: [238,130,238],
+  Magenta: [255,0,255],
+  Pink: [255,192,203]
+}
+
+# Roughly ramp 3
+triColorsString="Black Navy Blue Green Teal DodgerBlue Lime SpringGreen Cyan Maroon Purple DarkViolet Olive Gray MediumSlateBlue Chartreuse LightGreen Aquamarine Red DeepPink Magenta DarkOrange Salmon Violet Yellow Khaki White"
+triColors = triColorsString.split(" ")
+triColorsRgb={Black:[0,0,0], Navy:[0,0,128], Blue:[0,0,255], Green:[0,128,0], Teal:[0,128,128], DodgerBlue:[30,144,255], Lime:[0,255,0], SpringGreen:[0,255,127], Cyan:[0,255,255], Maroon:[128,0,0], Purple:[128,0,128], DarkViolet:[148,0,211], Olive:[128,128,0], Gray:[128,128,128], MediumSlateBlue:[123,104,238], Chartreuse:[127,255,0], LightGreen:[144,238,144], Aquamarine:[127,255,212], Red:[255,0,0], DeepPink:[255,20,147], Magenta:[255,0,255], DarkOrange:[255,140,0], Salmon:[250,128,114], Violet:[238,130,238], Yellow:[255,255,0], Khaki:[240,230,140], White:[255,255,255]}
+
+# Roughly ramp 4
+quadColorsString="Black Navy DarkBlue Blue DarkGreen DarkSlateGray Teal RoyalBlue Green SeaGreen LightSeaGreen DeepSkyBlue Lime SpringGreen MediumSpringGreen Cyan Maroon Indigo DarkViolet DarkOliveGreen SlateBlue OliveDrab MediumSeaGreen CadetBlue CornflowerBlue LawnGreen LimeGreen Turquoise Aquamarine DarkRed Purple DarkMagenta SaddleBrown IndianRed MediumOrchid DarkGoldenRod DarkKhaki DarkGray LightSteelBlue Chartreuse GreenYellow PaleGreen PaleTurquoise Red Crimson DeepPink Magenta OrangeRed Tomato HotPink Violet Orange SandyBrown LightPink Plum Yellow Khaki LemonChiffon White"
+quadColors=quadColorsString.split(" ")
+quadColorsRgb = {Black:[0,0,0], Navy:[0,0,128], DarkBlue:[0,0,139], Blue:[0,0,255], DarkGreen:[0,100,0], DarkSlateGray:[47,79,79], Teal:[0,128,128], RoyalBlue:[65,105,225], Green:[0,128,0], SeaGreen:[46,139,87], LightSeaGreen:[32,178,170], DeepSkyBlue:[0,191,255], Lime:[0,255,0], SpringGreen:[0,255,127], MediumSpringGreen:[0,250,154], Cyan:[0,255,255], Maroon:[128,0,0], Indigo:[75,0,130], DarkViolet:[148,0,211], DarkOliveGreen:[85,107,47], SlateBlue:[106,90,205], OliveDrab:[107,142,35], MediumSeaGreen:[60,179,113], CadetBlue:[95,158,160], CornflowerBlue:[100,149,237], LawnGreen:[124,252,0], LimeGreen:[50,205,50], Turquoise:[64,224,208], Aquamarine:[127,255,212], DarkRed:[139,0,0], Purple:[128,0,128], DarkMagenta:[139,0,139], SaddleBrown:[139,69,19], IndianRed:[205,92,92], MediumOrchid:[186,85,211], DarkGoldenRod:[184,134,11], DarkKhaki:[189,183,107], DarkGray:[169,169,169], LightSteelBlue:[176,196,222], Chartreuse:[127,255,0], GreenYellow:[173,255,47], PaleGreen:[152,251,152], PaleTurquoise:[175,238,238], Red:[255,0,0], Crimson:[220,20,60], DeepPink:[255,20,147], Magenta:[255,0,255], OrangeRed:[255,69,0], Tomato:[255,99,71], HotPink:[255,105,180], Violet:[238,130,238], Orange:[255,165,0], SandyBrown:[244,164,96], LightPink:[255,182,193], Plum:[221,160,221], Yellow:[255,255,0], Khaki:[240,230,140], LemonChiffon:[255,250,205], White:[255,255,255]}
+
+
+window.namedColors = namedColors
+window.namedPixels = namedPixels
+window.simpleNamedColors = simpleNamedColors
+window.simpleNamedPixels = simpleNamedPixels
+window.htmlColors = htmlColors
+window.netLogoColorsRgb = netLogoColorsRgb
+window.triColors = triColors
+window.quadColors = quadColors
+
+# rgb 6,6,6 => 216 colors considered web safe
+# pw=6&ph=36&ps=32&map=rgb&args=6
+# http://www.w3schools.com/html/html_colors.asp
+
+# {Red:[255,0,0]} vs FF0000Red vs ["Red",255,0,0] vs ["Red","FF0000"]
+
+window.jetColors = ColorMaps.jetColors
+# window.jetColors =
+#   [ [0,0,127], [0,0,255], [0,127,255], [0,255,255],
+#   [127,255,127], [255,255,0], [255,127,0], [255,0,0], [127,0,0] ]
+window.jetColors1 = [ [0,0,131], [0,60,170], [5,255,255], [255,255,0],
+  [250,0,0], [128,0,0] ]
+window.jetLocs1 = [0, 0.125, 0.373, 0.625, 0.875, 1]
+window.rgbRainbowColors = [ [150,0,90], [0,0,200], [0,25,255], [0,152,255],
+  [44,255,150], [151,255,0], [255,234,0], [255,111,0], [255,0,0] ]
+# namedRainbowObj = {}
+# for n in ["red", "orange", "yellow", "green", "blue", "indigo"]
+#   # console.log "rainbow", n, Color.stringToRgba(n)
+#   namedRainbowObj[n] = Color.stringToColor n
+# namedRainbowArray = (v for k,v of namedRainbowObj)
+window.namedRainbowArray = ["red", "orange", "yellow", "green", "blue", "indigo"]
+
+window.basicArrays = (Color.colorToArray color for color in ColorMaps.basicCssColors)
+window.basicTriColors = (Color.triString color... for color in basicArrays)
+
+# Map Types
+# grayColorMap: (size = 256)
+# rgbColorMap: (R,G=R,B=R)
+# gradientColorMap: (nColors, stops, locs)
+# nameColorMap: (colorsString)
+# randomColorMap: (nColors)
+window.flags =
+  pw: 64
+  ph: null
+  ps: 12
+  map: "gradient"
+  args: [64,[[255,255,0],[0,255,255]]]
+  sort: false
+  key: "intensity"
+  type: "typed" # "css" "pixel" "typed"
+  index: false
+  compare: false
+  sortFcns:
+    intensity: (a,b) ->
+      a = Color.colorToArray a; b = Color.colorToArray b
+      Color.rgbIntensity(a...) - Color.rgbIntensity(b...)
+    pixel: (a,b) ->
+      a = Color.convertColor a, "pixel"
+      b = Color.convertColor b, "pixel"
+      a.pixel - b.pixel
+    hue: (a,b) -> Color.rgbToHsl(a...)[0] - Color.rgbToHsl(b...)[0]
+    random: (a,b) -> 0.5 - Math.random()
+
+
+# w: 16/4, h: 4, s: 50, map: "gradient"
+# Use query string to update flags.
+flags[k] = v for k,v of u.parseQueryString()
+flags.args = eval flags.args if typeof flags.args is "string"
+flags.args = [flags.args] if not Array.isArray(flags.args)
+flags.args.push null if (flags.map is "gradient") and (flags.args.length is 2)
+if flags.args.length is 1 and flags.map is "rgb"
+  cube = flags.args[0]
+  flags.args = [cube, cube, cube]
+# flags.map = flags.map + "ColorMap" unless ABM.ColorMap.
+window.map =
+  if shared = ColorMaps[flags.map]
+    shared
+  else
+    ColorMaps[flags.map+"ColorMap"] flags.args..., flags.type, flags.index
+flags.ph = Math.ceil map.length/flags.pw unless flags.ph?
+console.log k,v for k,v of flags
+
+# Color.basicColorMap = (array) -> new Color.ColorMap array
+
+# ABM.colorMixin(ABM.Patch, "fooColor", "black")
+# console.log ABM.Patch.prototype
+
+class ColorTestModel extends ABM.Model
+  startup: ->
+  setup: ->
+    # u.randomSeed() # use for repeatable runs
+    @refreshPatches = false # just paint once
+    @patches.setDefault "color", [0,0,0,0] # default: transparent
+
+    # window.map = @map =
+    #   if shared = ColorMaps.shared[flags.map]
+    #     shared
+    #   else
+    #     ColorMaps[flags.map+"ColorMap"] flags.args..., flags.type, flags.index
+    @map = map
+    @map.sort(flags.sortFcns[flags.key]) if flags.sort
+    if flags.compare
+      @compareRandomColors()
+    else
+      @patches[i].color = color for color,i in @map # type = "typed" OK
+
+    console.log "patches: #{@patches.length}; map: #{map.length}"
+    if @map.index
+      window.keys = Object.keys(@map.index)
+      dups = @map.length - keys.length
+      console.log "    map index: size=#{keys.length}, dups=#{dups}"
+    console.log "testNamedColors: start"
+    @testNamedColors()
+    console.log "testNamedColors: done"
+
+  step: -> @stop() # stop: just one tick
+
+  testNamedColors: -> # Works! Yay! Don't need arrays, just names
+    for k,v in namedColorsRgb
+      s1=v.toString()
+      s2=Color.stringToRgba(v...).toString()
+      console.log "nameTest: #{k} #{s1} #{s2}" if s1 isnt s2
+    null
+
+  testGrays: (n) -> # see how many grays are in map
+    grays = ColorMaps.grayValueArray(n)
+    for g in grays
+      color = map.findClosest g,g,g
+      diff = Math.round(Color.rgbDistance(color.rgb...,g,g,g))
+      console.log "gray: #{g}, closest: #{color.rgb}, diff: #{diff}"
+    null
+  testRandomColors: (n) ->
+    randomRgbs = Color.randomColorArray(n)
+    for randomRgb in randomRgbs
+      color = map.findClosest randomRgb...
+      diff = Math.round(Color.rgbDistance(color.r, color.g, color.b, randomRgb...))
+      # console.log randomRgbs, randomRgb, color, diff
+      console.log "random: #{randomRgb}, closest: #{color.rgb}, diff: #{diff}"
+    null
+
+  compareNamedColors: ->
+    n = Math.floor(@patches.length/2)
+    window.bigmap = new ColorMaps.ColorMap 16, "typed"
+    for i in [0...n]
+      mapColor = Color.convertColor map[i], "typed"
+      closestCss = bigmap.closestCubeColor mapColor...
+      ps[i*2].color = mapColor
+      ps[i*2+1].color = closestCss
+      mapRgb = mapColor.subarray(0,3)
+      closestRgb = closestCss.subarray(0,3)
+      dist = Color.rgbDistance mapRgb...,closestRgb...
+      name = namedColors[i]
+      # CSV: cut/paste, use column -s, -t to view
+      console.log "#{name},#{mapColor.css},#{closestCss.css},#{Math.round dist}"
+    app.draw()
+    null
+  compareRandomColors: ->
+    n = Math.floor(@patches.length/2)
+    console.log "comparing #{n} random colors"
+    for i in [0...n]
+      randomRgb = Color.randomRgb()
+      closestRgb = map.findClosestColor randomRgb...
+      @patches[i*2].color = closestRgb
+      @patches[i*2+1].color = randomRgb
+    console.log "drawing: closest map color left, random right"
+    @draw()
+    null
+
+  memoryTest: -> # two cubes of 64 steps per axis, 262,144 colors
+    console.log "building maps of each type w/ 262,144 colors"
+    console.log "fatPixelMap start (pixels, no index)"
+    window.fatPixelMap = ColorMaps.rgbColorCube 64, "pixel", false
+    console.log "fatPixelMap done: size = #{u.tls fatPixelMap.length}"
+    console.log "fatCsslMap start (css strings, no index)"
+    window.fatCsslMap = ColorMaps.rgbColorCube 64, "css", false
+    console.log "fatCsslMap done: size = #{u.tls fatCsslMap.length}"
+    console.log "fatTypedMap start (typed colors, w/ css and index)"
+    window.fatTypedMap = ColorMaps.rgbColorCube 64, "typed", true
+    tc.css for tc in fatTypedMap # promote css strings
+    console.log "fatTypedMap done: size = #{u.tls fatTypedMap.length}"
+    null
+window.model = new ColorTestModel({
+  div: "layers",
+  size: flags.ps,
+  minX: 1,
+  maxX: flags.pw,
+  minY: 1,
+  maxY: flags.ph
+})
+model.debug() # Debug: Put Model vars in global name space
+model.start() # Run model immediately after startup initialization
+
+    </script>
+  </head>
+  <body>
+    <div id="layers" style="padding:20"></div>
+  </body>
+</html>

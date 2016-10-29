@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <title>model.coffee</title>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+  <link rel="stylesheet" media="all" href="docco.css" />
+</head>
+<body>
+  <div id="container">
+    <div id="background"></div>
+    
+      <ul id="jump_to">
+        <li>
+          <a class="large" href="javascript:void(0);">Jump To &hellip;</a>
+          <a class="small" href="javascript:void(0);">+</a>
+          <div id="jump_wrapper">
+          <div id="jump_page_wrapper">
+            <div id="jump_page">
+              
+                
+                <a class="source" href="agentset.html">
+                  agentset.coffee
+                </a>
+              
+                
+                <a class="source" href="animator.html">
+                  animator.coffee
+                </a>
+              
+                
+                <a class="source" href="color.html">
+                  color.coffee
+                </a>
+              
+                
+                <a class="source" href="colormaps.html">
+                  colormaps.coffee
+                </a>
+              
+                
+                <a class="source" href="colormixin.html">
+                  colormixin.coffee
+                </a>
+              
+                
+                <a class="source" href="evented.html">
+                  evented.coffee
+                </a>
+              
+                
+                <a class="source" href="link.html">
+                  link.coffee
+                </a>
+              
+                
+                <a class="source" href="links.html">
+                  links.coffee
+                </a>
+              
+                
+                <a class="source" href="model.html">
+                  model.coffee
+                </a>
+              
+                
+                <a class="source" href="patch.html">
+                  patch.coffee
+                </a>
+              
+                
+                <a class="source" href="patches.html">
+                  patches.coffee
+                </a>
+              
+                
+                <a class="source" href="shapes.html">
+                  shapes.coffee
+                </a>
+              
+                
+                <a class="source" href="turtle.html">
+                  turtle.coffee
+                </a>
+              
+                
+                <a class="source" href="turtles.html">
+                  turtles.coffee
+                </a>
+              
+                
+                <a class="source" href="util.html">
+                  util.coffee
+                </a>
+              
+            </div>
+          </div>
+        </li>
+      </ul>
+    
+    <ul class="sections">
+        
+          <li id="title">
+              <div class="annotation">
+                  <h1>model.coffee</h1>
+              </div>
+          </li>
+        
+        
+        
+        <li id="section-1">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-1">&#182;</a>
+              </div>
+              <p>Class Model is the control center for our AgentSets: Patches, Turtles and Links.
+Creating new models is done by subclassing class Model and overriding two
+virtual/abstract methods: <code>setup()</code> and <code>step()</code></p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-2">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-2">&#182;</a>
+              </div>
+              <h3 id="class-model">Class Model</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Model</span></span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-3">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-3">&#182;</a>
+              </div>
+              <p>Class variable for layers parameters.
+Can be added to by programmer to modify/create layers, <strong>before</strong> starting your own model.
+Example:</p>
+<pre><code>v.z++ <span class="hljs-keyword">for</span> k,v <span class="hljs-keyword">of</span> Model::contextsInit <span class="hljs-comment"># increase each z value by one</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  contextsInit: { <span class="hljs-comment"># Experimental: image:   {z:15,  ctx:"img"}</span>
+    patches:   {z:<span class="hljs-number">10</span>, ctx:<span class="hljs-string">"2d"</span>}
+    drawing:   {z:<span class="hljs-number">20</span>, ctx:<span class="hljs-string">"2d"</span>}
+    links:     {z:<span class="hljs-number">30</span>, ctx:<span class="hljs-string">"2d"</span>}
+    turtles:   {z:<span class="hljs-number">40</span>, ctx:<span class="hljs-string">"2d"</span>}
+    spotlight: {z:<span class="hljs-number">50</span>, ctx:<span class="hljs-string">"2d"</span>}
+  }</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-4">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-4">&#182;</a>
+              </div>
+              <p>Static method: return defaulted Model options object.
+Access by (ABM.)Model.defaultOptions() etc</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  @nonWorldOptions = [<span class="hljs-string">"div"</span>]
+  @defaultOptions: <span class="hljs-function">-&gt;</span>
+    div: <span class="hljs-literal">null</span>
+    size: <span class="hljs-number">13</span>
+    minX: <span class="hljs-number">-16</span>
+    maxX: <span class="hljs-number">16</span>
+    minY: <span class="hljs-number">-16</span>
+    maxY: <span class="hljs-number">16</span>
+    isTorus: <span class="hljs-literal">false</span>
+    hasNeighbors: <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-5">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-5">&#182;</a>
+              </div>
+              <p>Constructor:</p>
+<ul>
+<li>create agentsets, install them and ourselves in ABM global namespace</li>
+<li>create layers/contexts, install drawing layer in ABM global namespace</li>
+<li>setup patch coord transforms for each layer context</li>
+<li>intialize various instance variables</li>
+<li>call <code>setup</code> abstract method</li>
+</ul>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  constructor: <span class="hljs-function"><span class="hljs-params">(args)</span> -&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-6">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-6">&#182;</a>
+              </div>
+              <p>Setup and error check args</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    options = Model.defaultOptions()
+    <span class="hljs-keyword">unless</span> u.isObject args <span class="hljs-comment"># remove after a while</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"option defaults:"</span>, options
+      u.error <span class="hljs-string">"Model constructor: use options object; see console for defaults."</span>
+    u.deprecated <span class="hljs-string">"Model: isHeadless no longer used"</span> <span class="hljs-keyword">if</span> args.isHeadless?</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-7">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-7">&#182;</a>
+              </div>
+              <p>Merge args into options. Insures newer options/defaults included</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    <span class="hljs-keyword">for</span> k,v <span class="hljs-keyword">of</span> args <span class="hljs-comment"># when k isnt "isHeadless" # Remove headless test shortly</span>
+      u.error <span class="hljs-string">"Bad Model arg: <span class="hljs-subst">#{k}</span>: <span class="hljs-subst">#{v}</span>"</span> <span class="hljs-keyword">if</span> options[k] <span class="hljs-keyword">is</span> <span class="hljs-literal">undefined</span>
+      options[k] = v
+    @setWorld options
+
+    u.mixin(@, <span class="hljs-keyword">new</span> Evented())
+
+    @contexts = {}
+    <span class="hljs-keyword">if</span> options.div?
+      @div=<span class="hljs-built_in">document</span>.getElementById(options.div)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-8">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-8">&#182;</a>
+              </div>
+              <p>el.setAttribute ‘style’ erases existing style, el.style.xx does not</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      s=@div.style
+      s.position=<span class="hljs-string">"relative"</span>; s.width=@world.pxWidth; s.height=@world.pxHeight</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-9">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-9">&#182;</a>
+              </div>
+              <ul>
+<li>Create 2D canvas contexts layered on top of each other.</li>
+<li>Initialize a patch coord transform for each layer.</li>
+</ul>
+<p>Note: The transform is permanent .. there isn’t the usual ctx.restore().
+To use the original canvas 2D transform temporarily:</p>
+<pre><code>u.setIdentity ctx
+  &lt;draw <span class="hljs-keyword">in</span> native coord system&gt;
+ctx.restore() <span class="hljs-comment"># restore patch coord system</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      <span class="hljs-keyword">for</span> own k,v <span class="hljs-keyword">of</span> @contextsInit
+        @contexts[k] = ctx = u.createLayer @div, @world.pxWidth, @world.pxHeight, v.z, v.ctx
+        @setCtxTransform ctx <span class="hljs-keyword">if</span> ctx.canvas?
+        <span class="hljs-keyword">if</span> ctx.canvas? <span class="hljs-keyword">then</span> ctx.canvas.style.pointerEvents = <span class="hljs-string">'none'</span>
+        u.elementTextParams ctx, <span class="hljs-string">"10px sans-serif"</span>, <span class="hljs-string">"center"</span>, <span class="hljs-string">"middle"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-10">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-10">&#182;</a>
+              </div>
+              <p>One of the layers is used for drawing only, not an agentset:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      @drawing = @contexts.drawing
+      @drawing.clear = <span class="hljs-function">=&gt;</span> u.clearCtx @drawing</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-11">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-11">&#182;</a>
+              </div>
+              <p>Setup spotlight layer, also not an agentset:</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>      @contexts.spotlight.globalCompositeOperation = <span class="hljs-string">"xor"</span>
+
+    @anim = <span class="hljs-keyword">new</span> Animator @</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-12">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-12">&#182;</a>
+              </div>
+              <p>Set drawing controls.  Default to drawing each agentset.
+Optimization: If any of these is set to false, the associated
+agentset is drawn only once, remaining static after that.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @refreshLinks = @refreshTurtles = @refreshPatches = <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-13">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-13">&#182;</a>
+              </div>
+              <p>Create model-local versions of AgentSets and their
+agent class.  Clone the agent classes so that they
+can use “defaults” in isolation when multiple
+models run on a page.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @Patch = u.cloneClass(Patch)
+    @Turtle = u.cloneClass(Turtle)
+    @Link = u.cloneClass(Link)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-14">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-14">&#182;</a>
+              </div>
+              <p>Initialize agentsets.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @patches = <span class="hljs-keyword">new</span> Patches @, @Patch, <span class="hljs-string">"patches"</span>
+    @turtles = <span class="hljs-keyword">new</span> Turtles @, @Turtle, <span class="hljs-string">"turtles"</span>
+    @links = <span class="hljs-keyword">new</span> Links @, @Link, <span class="hljs-string">"links"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-15">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-15">&#182;</a>
+              </div>
+              <p>Initialize model global resources</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @debugging = <span class="hljs-literal">false</span>
+    @modelReady = <span class="hljs-literal">false</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-16">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-16">&#182;</a>
+              </div>
+              <p>@globalNames = null; @globalNames = u.ownKeys @
+@globalNames.set = false</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @startup()
+    u.waitOnFiles =&gt; @modelReady=<span class="hljs-literal">true</span>; @setupAndEmit() <span class="hljs-comment"># unless @globalNames.set</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-17">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-17">&#182;</a>
+              </div>
+              <p>u.waitOnFiles =&gt; @modelReady=true; @setupAndEmit(); @globals() unless @globalNames.set</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-18">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-18">&#182;</a>
+              </div>
+              <p>Initialize/reset world parameters by expanding options.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setWorld: <span class="hljs-function"><span class="hljs-params">(opts)</span> -&gt;</span>
+    w = {}; w[k] = v <span class="hljs-keyword">for</span> own k,v <span class="hljs-keyword">of</span> opts <span class="hljs-keyword">when</span> k <span class="hljs-keyword">not</span> <span class="hljs-keyword">in</span> Model.nonWorldOptions
+    w.numX    = w.maxX-w.minX+<span class="hljs-number">1</span>;  w.numY    = w.maxY-w.minY+<span class="hljs-number">1</span>
+    w.pxWidth = w.numX*w.size;    w.pxHeight= w.numY*w.size
+    w.minXcor = w.minX<span class="hljs-number">-.5</span>;        w.maxXcor = w.maxX+<span class="hljs-number">.5</span>
+    w.minYcor = w.minY<span class="hljs-number">-.5</span>;        w.maxYcor = w.maxY+<span class="hljs-number">.5</span>
+    @world = w
+
+  setCtxTransform: <span class="hljs-function"><span class="hljs-params">(ctx)</span> -&gt;</span>
+    ctx.canvas.width = @world.pxWidth; ctx.canvas.height = @world.pxHeight
+    ctx.save()
+    ctx.scale @world.size, -@world.size
+    ctx.translate -(@world.minXcor), -(@world.maxYcor)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-19">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-19">&#182;</a>
+              </div>
+              <p>globals: (globalNames) -&gt;
+  if globalNames?
+  then @globalNames = globalNames; @globalNames.set = true
+  else @globalNames = u.removeItems u.ownKeys(@), @globalNames</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-20">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-20">&#182;</a>
+              </div>
+              <h3 id="optimizations-">Optimizations:</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-21">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-21">&#182;</a>
+              </div>
+              <p>Modelers “tune” their model by adjusting flags:<br>
+<code>@refreshLinks, @refreshTurtles, @refreshPatches</code><br>
+and by the following helper methods:</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-22">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-22">&#182;</a>
+              </div>
+              <p>Draw patches using scaled image of colors. Note anti-aliasing may occur
+if browser does not support imageSmoothingEnabled or equivalent.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setFastPatches: <span class="hljs-function">-&gt;</span> @patches.usePixels()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-23">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-23">&#182;</a>
+              </div>
+              <p>Patches are all the same static default color, just “clear” entire canvas.
+Don’t use if patch breeds have different colors.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setMonochromePatches: <span class="hljs-function">-&gt;</span> @patches.monochrome = <span class="hljs-literal">true</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-24">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-24">&#182;</a>
+              </div>
+              <p>Have patches cache the turtles currently on them.
+Optimizes Patch p.turtlesHere method</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setCacheTurtlesHere: <span class="hljs-function">-&gt;</span> @patches.cacheTurtlesHere()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-25">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-25">&#182;</a>
+              </div>
+              <p>Have turtles cache the links with them as a node.
+Optimizes Turtle a.myLinks method</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setCacheMyLinks: <span class="hljs-function">-&gt;</span> @turtles.cacheLinks()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-26">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-26">&#182;</a>
+              </div>
+              <h3 id="user-model-creation">User Model Creation</h3>
+<p>A user’s model is made by subclassing Model and over-riding these
+two abstract methods. <code>super</code> need not be called.</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-27">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-27">&#182;</a>
+              </div>
+              <p>Initialize model resources (images, files) here.
+Uses Util.waitOn so can be be async.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  startup: <span class="hljs-function">-&gt;</span> <span class="hljs-comment"># called by constructor</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-28">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-28">&#182;</a>
+              </div>
+              <p>Initialize your model variables and defaults here.
+If async used, make sure step/draw are aware of possible missing data.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setup: <span class="hljs-function">-&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-29">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-29">&#182;</a>
+              </div>
+              <p>Update/step your model here</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  step: <span class="hljs-function">-&gt;</span> <span class="hljs-comment"># called each step of the animation</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-30">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-30">&#182;</a>
+              </div>
+              <h3 id="animation-and-reset-methods">Animation and Reset methods</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-31">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-31">&#182;</a>
+              </div>
+              <p>Convenience access to animator:</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-32">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-32">&#182;</a>
+              </div>
+              <p>Start/stop the animation</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  start: <span class="hljs-function">-&gt;</span> u.waitOn (<span class="hljs-function">=&gt;</span> @modelReady), (<span class="hljs-function">=&gt;</span> @anim.start()); @
+  stop:  <span class="hljs-function">-&gt;</span> @anim.stop()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-33">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-33">&#182;</a>
+              </div>
+              <p>Animate once by <code>step(); draw()</code>. For UI and debugging from console.
+Will advance the ticks/draws counters.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  once: <span class="hljs-function">-&gt;</span> @stop() <span class="hljs-keyword">unless</span> @anim.stopped; @anim.once()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-34">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-34">&#182;</a>
+              </div>
+              <p>Stop and reset the model, restarting if restart is true</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  reset: <span class="hljs-function"><span class="hljs-params">(restart = <span class="hljs-literal">false</span>)</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: anim"</span>
+    @anim.reset() <span class="hljs-comment"># stop &amp; reset ticks/steps counters</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: contexts"</span> <span class="hljs-comment"># clear/resize canvas xfms b4 agentsets</span>
+    (v.restore(); @setCtxTransform v) <span class="hljs-keyword">for</span> k,v <span class="hljs-keyword">of</span> @contexts <span class="hljs-keyword">when</span> v.canvas?
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: patches"</span>
+    @patches = <span class="hljs-keyword">new</span> Patches @, @Patch, <span class="hljs-string">"patches"</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: turtles"</span>
+    @turtles = <span class="hljs-keyword">new</span> Turtles @, @Turtle, <span class="hljs-string">"turtles"</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: links"</span>
+    @links = <span class="hljs-keyword">new</span> Links @, @Link, <span class="hljs-string">"links"</span>
+    Shapes.spriteSheets.length = <span class="hljs-number">0</span> <span class="hljs-comment"># possibly null out entries?</span>
+    <span class="hljs-built_in">console</span>.log <span class="hljs-string">"reset: setup"</span>
+    @setupAndEmit()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-35">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-35">&#182;</a>
+              </div>
+              <p>@setRootVars() if @debugging</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>    @start() <span class="hljs-keyword">if</span> restart</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-36">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-36">&#182;</a>
+              </div>
+              <h3 id="animation-">Animation.</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-37">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-37">&#182;</a>
+              </div>
+              <p>Call the agentset draw methods if either the first draw call or
+their “refresh” flags are set.  The latter are simple optimizations
+to avoid redrawing the same static scene. Called by animator.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  draw: <span class="hljs-function"><span class="hljs-params">(force = @anim.stopped <span class="hljs-keyword">or</span> @anim.draws <span class="hljs-keyword">is</span> <span class="hljs-number">1</span>)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> @debugging
+      <span class="hljs-built_in">console</span>.log @anim.toString()  <span class="hljs-keyword">if</span> @anim.draws % <span class="hljs-number">100</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>
+      @showSpriteSheet() <span class="hljs-keyword">if</span> (@anim.draws <span class="hljs-keyword">is</span> <span class="hljs-number">2</span>)<span class="hljs-comment"># and @turtles[0]?.useSprites</span>
+    <span class="hljs-keyword">if</span> @div?
+      @patches.draw  @contexts.patches  <span class="hljs-keyword">if</span> force <span class="hljs-keyword">or</span> @refreshPatches
+      @links.draw    @contexts.links    <span class="hljs-keyword">if</span> force <span class="hljs-keyword">or</span> @refreshLinks
+      @turtles.draw  @contexts.turtles  <span class="hljs-keyword">if</span> force <span class="hljs-keyword">or</span> @refreshTurtles
+      @drawSpotlight @spotlightTurtle, @contexts.spotlight <span class="hljs-keyword">if</span> @spotlightTurtle?
+    @emit(<span class="hljs-string">'draw'</span>)
+  toggleDrawing: <span class="hljs-function">-&gt;</span>
+    <span class="hljs-keyword">if</span> @div?
+      @div0 = @div; @div = <span class="hljs-literal">null</span>
+    <span class="hljs-keyword">else</span>
+      @div = @div0; @div0 = <span class="hljs-literal">null</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-38">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-38">&#182;</a>
+              </div>
+              <h3 id="wrappers-around-user-implemented-methods">Wrappers around user-implemented methods</h3>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  setupAndEmit: <span class="hljs-function">-&gt;</span>
+    @setup()
+    @emit(<span class="hljs-string">'setup'</span>)
+  stepAndEmit: <span class="hljs-function">-&gt;</span>
+    @step()
+    @emit(<span class="hljs-string">'step'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-39">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-39">&#182;</a>
+              </div>
+              <p>Return base64 “image”, 96dpi resolution, format = “png” or “jpeg”,
+using canvas.toDataURL <a href="https://goo.gl/kvWXCw">https://goo.gl/kvWXCw</a>
+If jpeg, the quality is used w/ default 0.92 (toDataUrl’s default).
+Png does not use quality, being lossless.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  exportLayerDataUrl: <span class="hljs-function"><span class="hljs-params">(name, format = <span class="hljs-string">"png"</span>, quality = <span class="hljs-number">0.92</span>)</span> -&gt;</span>
+    ctx = @contexts[name]
+    ctx.canvas.toDataURL <span class="hljs-string">"image/<span class="hljs-subst">#{format}</span>"</span>, quality
+  exportWorldDataUrl: <span class="hljs-function"><span class="hljs-params">(format = <span class="hljs-string">"png"</span>, quality = <span class="hljs-number">0.92</span>)</span> -&gt;</span>
+    worldCtx = u.createCtx @world.pxWidth, @world.pxHeight
+    <span class="hljs-keyword">for</span> name, ctx <span class="hljs-keyword">of</span> @contexts
+      worldCtx.drawImage ctx.canvas, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>
+    worldCtx.canvas.toDataURL <span class="hljs-string">"image/<span class="hljs-subst">#{format}</span>"</span>, quality
+  dataUrlToImage: <span class="hljs-function"><span class="hljs-params">(dataURL)</span> -&gt;</span>
+    img = <span class="hljs-keyword">new</span> Image()
+    img.src = dataURL
+    img
+  foo: <span class="hljs-function"><span class="hljs-params">()</span> -&gt;</span>
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'foo'</span>)</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-40">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-40">&#182;</a>
+              </div>
+              <p>Creates a spotlight effect on a turtle, so we can follow it throughout the model.
+Use:</p>
+<pre><code>@setSpotlight breed.oneOf()
+</code></pre><p>to draw one of a random breed. Remove spotlight by passing <code>null</code></p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setSpotlight: <span class="hljs-function"><span class="hljs-params">(@spotlightTurtle)</span> -&gt;</span>
+    u.clearCtx @contexts.spotlight <span class="hljs-keyword">unless</span> @spotlightTurtle?
+
+  drawSpotlight: <span class="hljs-function"><span class="hljs-params">(turtle, ctx)</span> -&gt;</span>
+    u.clearCtx ctx
+    u.fillCtx ctx, Color.typedColor(<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>,<span class="hljs-number">.6</span>*<span class="hljs-number">255</span>)
+    ctx.beginPath()
+    ctx.arc turtle.x, turtle.y, <span class="hljs-number">3</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>*Math.PI, <span class="hljs-literal">false</span>
+    ctx.fill()</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-41">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-41">&#182;</a>
+              </div>
+              <h3 id="breeds">Breeds</h3>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-42">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-42">&#182;</a>
+              </div>
+              <p>Three versions of NL’s <code>breed</code> commands.</p>
+<pre><code>@patchBreeds <span class="hljs-string">"streets buildings"</span>
+@agentBreeds <span class="hljs-string">"embers fires"</span>
+@linkBreeds <span class="hljs-string">"spokes rims"</span>
+</code></pre><p>will create 6 agentSets:</p>
+<pre><code>@streets <span class="hljs-keyword">and</span> @buildings
+@embers <span class="hljs-keyword">and</span> @fires
+@spokes <span class="hljs-keyword">and</span> @rims
+</code></pre><p>These agentsets’ <code>create</code> methods create subclasses of Turtle/Link.
+Use of <breed>.setDefault methods work as for turtles/links, creating default
+values for the breed set:</p>
+<pre><code>@embers.setDefault <span class="hljs-string">"color"</span>, [<span class="hljs-number">255</span>,<span class="hljs-number">0</span>,<span class="hljs-number">0</span>]
+</code></pre><p>..will set the default color for just the embers. Note: patch breeds are
+experimental, using setBreed, due to the patches being prebuilt.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+  createBreeds: <span class="hljs-function"><span class="hljs-params">(breedNames, baseClass, baseSet)</span> -&gt;</span>
+    breeds = []; breeds.classes = {}; breeds.sets = {}
+    <span class="hljs-keyword">for</span> breedName <span class="hljs-keyword">in</span> breedNames.split(<span class="hljs-string">" "</span>)
+      className = u.titleCase breedName
+      breedClass = u.cloneClass baseClass, className
+      breed = @[breedName] =
+        <span class="hljs-keyword">new</span> baseSet @, breedClass, breedName, baseClass::breed
+      breeds.push breed
+      breeds.sets[breedName] = breed
+      breeds.classes[<span class="hljs-string">"<span class="hljs-subst">#{breedName}</span>Class"</span>] = breedClass
+    breeds
+  patchBreeds: <span class="hljs-function"><span class="hljs-params">(breedNames)</span> -&gt;</span>
+    @patches.breeds = @createBreeds breedNames, @Patch, Patches
+  agentBreeds: <span class="hljs-function"><span class="hljs-params">(breedNames)</span> -&gt;</span>
+    @turtles.breeds = @createBreeds breedNames, @Turtle, Turtles
+  linkBreeds:  <span class="hljs-function"><span class="hljs-params">(breedNames)</span> -&gt;</span>
+    @links.breeds = @createBreeds breedNames, @Link, Links</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-43">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-43">&#182;</a>
+              </div>
+              <p>Utility for models to create agentsets from arrays.  Ex:</p>
+<pre><code>even = @asSet (a <span class="hljs-keyword">for</span> a <span class="hljs-keyword">in</span> @turtles <span class="hljs-keyword">when</span> a.id % <span class="hljs-number">2</span> <span class="hljs-keyword">is</span> <span class="hljs-number">0</span>)
+even.shuffle().getProp(<span class="hljs-string">"id"</span>) <span class="hljs-comment"># [6, 0, 4, 2, 8]</span>
+</code></pre>
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  asSet: <span class="hljs-function"><span class="hljs-params">(a, setType = AgentSet)</span> -&gt;</span> AgentSet.asSet a, setType</pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-44">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-44">&#182;</a>
+              </div>
+              <p>set debugging variable, place model in window global space</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  debug: <span class="hljs-function"><span class="hljs-params">(@debugging=<span class="hljs-literal">true</span>)</span> -&gt;</span>
+    <span class="hljs-built_in">window</span>[u.camelCase <span class="hljs-keyword">this</span>.constructor.name] = @; @ <span class="hljs-comment">#</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-45">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-45">&#182;</a>
+              </div>
+              <p>debug: (@debugging=true)-&gt;u.waitOn (=&gt;@modelReady),(=&gt;@setRootVars()); @</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-46">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-46">&#182;</a>
+              </div>
+              <p>A simple debug aid which places short names in the global name space.
+Note we avoid using the actual name, such as “patches” because this
+can cause our modules to mistakenly depend on a global name.
+See <a href="http://goo.gl/1i7bd">CoffeeConsole</a> Chrome extension too.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  setRootVars: <span class="hljs-function">-&gt;</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-47">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-47">&#182;</a>
+              </div>
+              <p>  window.psc = Patches
+  window.tsc = Turtles
+  window.lsc = Links
+  window.pc  = @Patch
+  window.tc  = @Turtle
+  window.lc  = @Link
+  window.ps  = @patches
+  window.ts  = @turtles
+  window.ls  = @links
+  window.p0  = @patches[0]
+  window.t0  = @turtles[0]
+  window.l0  = @links[0]
+  window.dr  = @drawing
+  window.u   = Util
+  window.cx  = @contexts
+  window.an  = @anim</p>
+<h1 id="window-gl-globals-">window.gl  = @globals()</h1>
+<p>  window.dv  = @div
+  window.app = @</p>
+
+            </div>
+            
+        </li>
+        
+        
+        <li id="section-48">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-48">&#182;</a>
+              </div>
+              <p>Debug aid: Fill a named div with the (last) sprite sheet
+Typically the div should be before the model div, float right:</p>
+   <div id="sprites" style="float:right;"></div>
+
+<p>If no divName given, use spriteSheet itself w/ float:right style</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>  showSpriteSheet: <span class="hljs-function"><span class="hljs-params">(divName)</span> -&gt;</span>
+    <span class="hljs-keyword">if</span> Shapes.spriteSheets.length <span class="hljs-keyword">isnt</span> <span class="hljs-number">0</span>
+      sheet = Util.last(Shapes.spriteSheets)
+      <span class="hljs-keyword">if</span> divName?
+        <span class="hljs-built_in">document</span>.getElementById(divName).appendChild(sheet.canvas)
+      <span class="hljs-keyword">else</span>
+        sheet.canvas.setAttribute <span class="hljs-string">"style"</span>, <span class="hljs-string">"float:right"</span>
+        @div.parentElement.insertBefore(sheet.canvas, @div)
+    <span class="hljs-keyword">else</span>
+      <span class="hljs-built_in">console</span>.log <span class="hljs-string">"showSpriteSheet: not using sprites"</span></pre></div></div>
+            
+        </li>
+        
+        
+        <li id="section-49">
+            <div class="annotation">
+              
+              <div class="pilwrap ">
+                <a class="pilcrow" href="#section-49">&#182;</a>
+              </div>
+              <p>Create the namespace <strong>ABM</strong> for our project.
+Note here <code>this</code> or <code>@</code> == window due to coffeescript wrapper call.
+Thus @ABM is placed in the global scope.</p>
+
+            </div>
+            
+            <div class="content"><div class='highlight'><pre>
+@ABM = {
+  Util
+  Color
+  ColorMaps
+  colorMixin
+  Shapes
+  AgentSet
+  Patch
+  Patches
+  Turtle
+  Turtles
+  Link
+  Links
+  Animator
+  Evented
+  Model
+}</pre></div></div>
+            
+        </li>
+        
+    </ul>
+  </div>
+</body>
+</html>

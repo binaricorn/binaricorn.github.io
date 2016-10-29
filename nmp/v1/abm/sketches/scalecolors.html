@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Scale Colors</title>
+    <script src="../lib/agentscript.js"></script>
+    <script src="../lib/mouse.js"></script>
+    <script src="../tools/coffee-script.js"></script>
+    <script type="text/coffeescript">
+
+    u = ABM.Util # alias
+    class MyModel extends ABM.Model
+      setup: ->
+        @refreshPatches = @refreshTurtles = @refreshLinks = false
+        @hsbList = []
+        @exponent = NaN
+        @mouse = new ABM.Mouse @
+
+      step: -> # Called by animator
+        if @mouse.down and @patches.minX < @mouse.x < @patches.maxX
+          @setHSBlist()
+          for p in @patches
+            aValue = Math.floor (p.x / @patches.maxX * (@hsbList.length-1))
+            p.color = @hsbList[aValue]
+          @patches.draw @contexts.patches # "Display"
+
+      # hsb: (h,s,b) -> u.hsbToRgb [h/255, s/255, b/255] # NetLogo's hsb->rgb
+      # hsbMap: (n=256, s=255,b=255)-> (u.hsbToRgb [i*255/(n-1),s,b] for i in [0...n])
+
+      setHSBlist: ->
+        @hsbList = []
+        @exponent = Math.log(0.5) / Math.log(@mouse.x/@patches.maxX)
+        len = 220 # use 220 instead of 255 to lop off red in the high hue values
+        for i in [1..len] # Note: "unshift" is push to the front, rather than end of array.
+          x = (len - @hsbList.length)/len
+          h = Math.pow(x,@exponent)*len
+          # console.log x, h
+          # deprecated
+          # @hsbList.unshift u.hsbToRgb( [h, 255, 200] )
+          @hsbList.unshift ABM.Color.hslToRgb( h*360/256, 100, 50 )
+        # @hsbList = @hsbMap()
+        null
+
+    model = new MyModel {
+      div: "layers",
+      size: 5,
+      minX: 0,
+      maxX: 120,
+      minY: 0,
+      maxY: 40,
+      isTorus: true
+    }
+    model.debug() # Debug: Put Model vars in global name space
+    model.start() # Run model immediately after startup initialization
+
+    </script>
+  </head>
+  <body>
+    <div id="layers"></div>
+  </body>
+</html>
