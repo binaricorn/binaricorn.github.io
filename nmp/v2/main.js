@@ -28,6 +28,93 @@ const config = {
   DAYS: 10
 }
 
+const BIOME = {
+  DESERT: {
+    budget: 2000,
+    temperature: [100,130],
+    ac: 0,
+    heating: 0,
+    telecom: 0,
+    humidity: [-100, -20],
+    waterCostMultiplier: 1.5,
+    machineBroken: false,
+    machineRepairing: false,
+    machineRepairCountdown: 0,
+    population: [],
+    type: "desert",
+    warden: {
+      comfort: 1,
+      control: 1
+    }
+  },
+  TUNDRA: {
+    budget: 1000,
+    temperature: [-50,-20],
+    ac: 0,
+    heating: 0,
+    telecom: 0,
+    humidity: [0, 20],
+    waterCostMultiplier: 0.8,
+    machineBroken: false,
+    machineRepairing: false,
+    machineRepairCountdown: 0,
+    population: [],
+    type: "tundra",
+    warden: {
+      comfort: 1,
+      control: 1
+    }
+  },
+  TROPICAL: {
+    budget: 1500,
+    temperature: [80,110],
+    ac: 0,
+    heating: 0,
+    telecom: 0,
+    humidity: [50, 100],
+    waterCostMultiplier: 0.8,
+    machineBroken: false,
+    machineRepairing: false,
+    machineRepairCountdown: 0,
+    population: [],
+    type: "tropical",
+    warden: {
+      comfort: 1,
+      control: 1
+    }
+  },
+  MODERATE: {
+    budget: 2500,
+    temperature: [80,110],
+    ac: 0,
+    heating: 0,
+    telecom: 0,
+    humidity: [0,50],
+    waterCostMultiplier: 1,
+    machineBroken: false,
+    machineRepairing: false,
+    machineRepairCountdown: 0,
+    population: [],
+    type: "moderate",
+    warden: {
+      comfort: 1,
+      control: 1
+    }
+  }
+};
+const REGIONS = [
+  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA],
+  [BIOME.MODERATE,  BIOME.DESERT,   BIOME.MODERATE,   BIOME.TROPICAL],
+  [BIOME.DESERT,    BIOME.DESERT,   BIOME.DESERT,     BIOME.DESERT],
+  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA]
+];
+const COSTS = {
+  ac: 300,
+  heating: 300,
+  repair: 1000,
+  telecom: 800,
+  water: 400
+};
 
 function temperatureComfort(feelsLikeTemp) {
   if (feelsLikeTemp <= config.COMFORTABLE_TEMPERATURE[1] && feelsLikeTemp >= config.COMFORTABLE_TEMPERATURE[0]) {
@@ -57,97 +144,13 @@ function nConscious(population) {
     return _.reduce(population, (m, p) => { return m + (p.conscious ? 1 : 0) }, 0);
 }
 
-const BIOME = {
-  DESERT: {
-    budget: 2000,
-    temperature: [100,130],
-    ac: 0,
-    heating: 0,
-    telecom: 0,
-    humidity: [-100, -20],
-    waterCostMultiplier: 1.5,
-    machineBroken: false,
-    machineRepairing: false,
-    machineRepairCountdown: 0,
-    population: [],
-    warden: {
-      comfort: 1,
-      control: 1
-    }
-  },
-  TUNDRA: {
-    budget: 1000,
-    temperature: [-50,-20],
-    ac: 0,
-    heating: 0,
-    telecom: 0,
-    humidity: [0, 20],
-    waterCostMultiplier: 0.8,
-    machineBroken: false,
-    machineRepairing: false,
-    machineRepairCountdown: 0,
-    population: [],
-    warden: {
-      comfort: 1,
-      control: 1
-    }
-  },
-  TROPICAL: {
-    budget: 1500,
-    temperature: [80,110],
-    ac: 0,
-    heating: 0,
-    telecom: 0,
-    humidity: [50, 100],
-    waterCostMultiplier: 0.8,
-    machineBroken: false,
-    machineRepairing: false,
-    machineRepairCountdown: 0,
-    population: [],
-    warden: {
-      comfort: 1,
-      control: 1
-    }
-  },
-  MODERATE: {
-    budget: 2500,
-    temperature: [80,110],
-    ac: 0,
-    heating: 0,
-    telecom: 0,
-    humidity: [0,50],
-    waterCostMultiplier: 1,
-    machineBroken: false,
-    machineRepairing: false,
-    machineRepairCountdown: 0,
-    population: [],
-    warden: {
-      comfort: 1,
-      control: 1
-    }
-  }
-};
-const REGIONS = [
-  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA],
-  [BIOME.MODERATE,  BIOME.DESERT,   BIOME.MODERATE,   BIOME.TROPICAL],
-  [BIOME.DESERT,    BIOME.DESERT,   BIOME.DESERT,     BIOME.DESERT],
-  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA]
-];
-const COSTS = {
-  ac: 300,
-  heating: 300,
-  repair: 1000,
-  telecom: 800,
-  water: 400
-};
-
 var world = [];
 
 // initialize each region
 _.each(REGIONS, (row, i) => {
   _.each(row, (region, j) => {
     var r = _.extend({
-      name: `region: ${i}-${j}`
+      name: `If you are lucky enough to live in a ${region.type} climate zone, you may enjoy your daily luxuries.`
     }, region);
     r.population = _.map(_.range(10), i => { return {}});
     world.push(r);
