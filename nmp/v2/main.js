@@ -24,7 +24,8 @@ const config = {
   HEATING_TEMPERATURE_EFFECT: 10,
   CONSCIOUS_PROB: 0.1,
   MACHINE_REPAIR_DAYS: [4,10],
-  INCOME: [100,800]
+  INCOME: [100,800],
+  DAYS: 10
 }
 
 
@@ -145,9 +146,11 @@ var world = [];
 // initialize each region
 _.each(REGIONS, (row, i) => {
   _.each(row, (region, j) => {
-    world.push(_.extend({
+    var r = _.extend({
       name: `region: ${i}-${j}`
-    }, region));
+    }, region);
+    r.population = _.map(_.range(10), i => { return {}});
+    world.push(r);
   });
 });
 
@@ -223,15 +226,16 @@ function step_region(region) {
       n_conscious = nConscious(region.population);
 
   if (breaks && !region.machineBroken) {
-    $('.story').append(`<p>${region.name}: My machine broke!</p>`);
+    $('.story').append(`<p>${region.name}: My machine broke and as a result, `);
     region.machineBroken = true;
   }
 
   if (region.machineBroken) {
     // some people become conscious when the machine breaks
-    _.each(region.population, person => {
-      if (Math.random() < CONSCIOUS_PROB) {
+    _.each(region.population, (person, i) => {
+      if (Math.random() < config.CONSCIOUS_PROB) {
         person.conscious = true;
+        $('.story').append(`Civilian ${i} was awoken. `);
       }
     });
 
@@ -288,7 +292,7 @@ function step() {
 }
 
 
-_.each(_.range(10), i => {
+_.each(_.range(config.DAYS), i => {
   $('.story').append(`<h1>DAY ${i}</h1>`);
   step();
 });
