@@ -4,12 +4,17 @@
     <style>
       body {
         font-size: 1.5em;
-        width: 50%;
+        width: 900px;
         margin: 0 auto;
+        padding: 2em 0;
+        background: #000;
+        color: #fff;
+        font-family: "Didot";
+        line-height: 165%;
       }
 
       #layers {
-        display: none;
+        //display: none;
       }
     </style>
     <script src="../lib/agentscript.js"></script>
@@ -23,67 +28,78 @@
       setup: ->
         (($) ->
           # $('body').append("It was a shock to us all. A unpleasantly pleasant surprise. An attack on all fronts. But oddly enough, it wasn't until all the Units were infected, did the virus strike and decimate the population. It was as if it was waiting for something. The virus entailed a disconcerting amount of aggression, of self determination, that none of us proctors could have imagined. It was as if you had planned to destroy our experiment all along. The distance between the Units made a big difference. The closer they were together, the more likely the virus would spread between them.</p>")
+
         ) jQuery
 
         @refreshPatches = false # for static patches
         @refreshLinks = false # for static links .. drown as created
 
         # globals
-        @buttons = 6
+        @buttons = 200
         @cluster = 0
 
         # defaults
-        @turtles.setDefault "shape", "circle"
-        @turtles.setDefault "size", 0.2
+        @turtles.setDefault "shape", "pyramid"
+        @turtles.setDefault "size", 0.5
         @turtles.setDefault "heading", 0 # override promotion to random angle
-        @links.setDefault "thickness", .5 # 2.5
+        @links.setDefault "thickness", .1 # 2.5
 
         @anim.setRate 1
 
         @turtles.create @buttons, (a) => # fat arrow for @patches etc
           a.setXY @patches.randomPt()...
+          a.budget = 500
           a.capacity = 100
           a.capacityUsed = Math.random() * 100 
           a.rate = Math.random() * 100 
+          a.ac = false
           
 
       step: ->
         b1 = @turtles.oneOf()
         b2 = @turtles.other(b1).oneOf()
+        display = false
+        phraseChanger = Math.floor(Math.random() * 8) + 1 #Gives a random value between 1 and 7
         distance = Math.round(Math.abs((b1.x - b2.x)*2) + Math.abs((b1.y - b2.y)*2))
         probability = b1.capacityUsed/b1.capacity * (10/distance)
         console.log "probability of infection", probability, "disnace: ", 10/distance
         day = @anim.ticks
-        counter = day
         spreadWordList = ["", " the pathogen spread from ", " from ", " continuing to spread from ", " unflinchingly vicious from ", " including from "]
-        savedWordList = ["", " Mysteriously ", " Unfathomably ", " On some chance ", " Bafflingly ", " Seemingly without reason "]
-        inmateSpreadState = ["", "That night no one slept, and the ones who did tasted pomegranites on their tongues. ", "That night the moon casted no shadows and the dogs howled at nothing."]
-        dayList = ["", " the first day ", " the second day "]
+        savedWordList = ["", " Mysteriously, ", " It so happens, ", " On some chance, ", " Bafflingly ", " Seemingly without reason "]
+        # inmateSpreadState = ["", "That night no one slept, and the ones who did tasted pomegranites on their tongues. ", "That night the moon casted no shadows and the dogs howled at nothing."]
+        inmates = ["men", "women", "children", "false avatar deities", "pets", "friends and enemies", "pores", "misunderstood martyrs"]
+        reactions = ["convulsed in their sleep.", "slept, and the ones who didn't tasted pomegranites on their tongues.", "faced the moon and uttered a prayer.", "revealed their true selves.", "shed tears that dyed their clothes red.", "lingered too long looking in your eyes.", "refused to accept the truth."]
         spreadLinks = []
         spreadTotalLinks = []
+        probabilityRound = probability.toFixed 2
+
+        if phraseChanger > 4
+          display = true
+
+        console.log display
 
         if probability > 0.03
           @links.create b1, b2, (l) =>
 
-            # l.draw @contexts.links
+            
             # console.log l.end1.id, "x:", l.end1.x, "y:", l.end1.y, l.end2.id, "x:", l.end2.x, "y:", l.end2.y
-            console.log "Day", day
 
             # spreadLinks.push l.end1.id, l.end2.id 
             # spreadTotalLinks.push spreadLinks
             # console.log spreadTotalLinks
             
             (($) ->
-              #if counter < spreadWordList.length
-                $('body').append("<p>On day " + day + ", " + spreadWordList[counter] + " Unit " + l.end1.id + " to " + " Unit " + l.end2.id + ", " + distance + "miles from each other, with a " + probability + "% chance. " + inmateSpreadState[day] + "</p>");
-                
+                if display == true
+                  # reason of spread is different. if the distance is far then its one reason, but if its close, etc, its another reason. open up some values for user input
+                  $('body').append("On day " + day + ", " + spreadWordList[phraseChanger] + " Unit " + l.end2.id + ", a distance of " + distance + " " + b1.capacityUsed + " miles lying between the two nodes. The likelihood of an infection was predicted to be no more than " + probabilityRound + " points and yet. And yet. That night your " + inmates[phraseChanger] + " " + reactions[phraseChanger] + ". The warden, when interviewed, described the situation as [thesaurus]" + "</p>");
 
               # if distance < 20
                 # $('body').append("A short distance.");
             ) jQuery
+            l.draw @contexts.links
         else
             (($) ->  
-              $('body').append("<p>" + savedWordList[counter] + " some were saved.</p>");
+              $('body').append(savedWordList[phraseChanger] + " others were saved and they were grateful.");
             ) jQuery   
 
         g = @graphOf b1
@@ -93,12 +109,12 @@
         # console.log g[0].id, g[1].id 
         
 
-        node.color = c for node in g
+        node.color = c for node in g'
         common = g.length
         if g.length > @cluster
           console.log "Day #{@anim.ticks}: Infected inmates had #{g.length} people in common."
           (($) ->
-            $('body').append("By now the virus has spread through " + common + " units.");
+            $('body').append("Commonalities between the infected could be found in the " + common + " units.");
           ) jQuery
        
 
@@ -114,7 +130,7 @@
         @markNeighbors node
         a for a in @turtles when a.marked
         
-      markNeighbors: (node) ->
+      markNeighbors: (node) ->''
         node.marked = true
         unMarked = (n for n in node.linkNeighbors() when not n.marked)
         @markNeighbors n for n in unMarked
