@@ -129,6 +129,8 @@ function temperatureComfort(feelsLikeTemp) {
     return Math.max(0, 1 - (feelsLikeTemp - config.COMFORTABLE_TEMPERATURE[1])/100);
   }
 }
+
+// Indoors temperature
 function feelsLikeTemp(temperature, ac, heating) {
   return temperature + (ac * config.AC_TEMPERATURE_EFFECT) + (heating * config.HEATING_TEMPERATURE_EFFECT);
 }
