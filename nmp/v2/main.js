@@ -1,21 +1,21 @@
 import './css/main.sass';
 import $ from 'jquery';
 import _ from 'underscore';
-import * as THREE from 'three';
-import Scene from './app/Scene';
+// import * as THREE from 'three';
+// import Scene from './app/Scene';
 
-var scene = new Scene();
-var geometry = new THREE.BoxGeometry(1,1,1),
-    material = new THREE.MeshLambertMaterial(),
-    mesh = new THREE.Mesh(geometry, material);
-mesh.position.set(0,0,0);
-scene.scene.add(mesh);
+// var scene = new Scene();
+// var geometry = new THREE.BoxGeometry(1,1,1),
+//     material = new THREE.MeshLambertMaterial(),
+//     mesh = new THREE.Mesh(geometry, material);
+// mesh.position.set(0,0,0);
+// scene.scene.add(mesh);
 
-function run() {
-  requestAnimationFrame(run);
-  scene.render();
-}
-run();
+// function run() {
+//   requestAnimationFrame(run);
+//   scene.render();
+// }
+// run();
 
 
 const config = {
@@ -42,6 +42,7 @@ const BIOME = {
     machineRepairCountdown: 0,
     population: [],
     type: "desert",
+    descriptors: ["dry", "windy"],
     warden: {
       comfort: 1,
       control: 1
@@ -60,6 +61,7 @@ const BIOME = {
     machineRepairCountdown: 0,
     population: [],
     type: "tundra",
+    descriptors: ["snowy", "blizzardy"],
     warden: {
       comfort: 1,
       control: 1
@@ -78,6 +80,7 @@ const BIOME = {
     machineRepairCountdown: 0,
     population: [],
     type: "tropical",
+    descriptors: ["wet", "rainy"],
     warden: {
       comfort: 1,
       control: 1
@@ -96,6 +99,7 @@ const BIOME = {
     machineRepairCountdown: 0,
     population: [],
     type: "moderate",
+    descriptors: ["sunny", "chilly"],
     warden: {
       comfort: 1,
       control: 1
@@ -111,7 +115,7 @@ const REGIONS = [
 const COSTS = {
   ac: 300,
   heating: 300,
-  repair: 1000,
+  repair: 700,
   telecom: 800,
   water: 400
 };
@@ -150,7 +154,7 @@ var world = [];
 _.each(REGIONS, (row, i) => {
   _.each(row, (region, j) => {
     var r = _.extend({
-      name: `If you are lucky enough to live in a ${region.type} climate zone, you may enjoy your daily luxuries.`
+      name: `${region.type}`
     }, region);
     r.population = _.map(_.range(10), i => { return {}});
     world.push(r);
@@ -228,8 +232,10 @@ function step_region(region) {
       breaks = machineBreaks(humidity, comfort),
       n_conscious = nConscious(region.population);
 
+  $('.story').append(`<p>In the ${region.name}, you're given a budget of $${region.budget} to spend on maintaining your sanity. You look at your state issued thermometer. It reads ${temp}F. Through the window you see it's ${region.descriptors[0]} again.`);
+
   if (breaks && !region.machineBroken) {
-    $('.story').append(`<p>${region.name}: My machine broke and as a result, `);
+    $('.story').append(`The machine is broken when you walk in. You check the dialogue box for the damage. `);
     region.machineBroken = true;
   }
 
@@ -279,7 +285,7 @@ function step_region(region) {
 
   var toBuy = decide(state);
   if (toBuy) {
-    $('.story').append(`<p>${state.name}: I decided to buy ${toBuy.name}. It's ${state.today.temp}F</p>`);
+    $('.story').append(`<p>${state.name}: I decided to buy ${toBuy.name}.</p>`);
     _.extend(region, successor(state, toBuy));
   } else {
     $('.story').append(`<p>${state.name}: I can't buy anything</p>`);
