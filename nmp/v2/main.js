@@ -18,7 +18,7 @@ import World from './app/World';
 //   scene.render();
 // }
 // run();
-
+     
 
 const BIOME = {
   DESERT: {
@@ -27,23 +27,29 @@ const BIOME = {
     humidity: [-100, -20],
     waterCostMultiplier: 1.5,
     type: "desert",
-    descriptors: ["dry", "windy"]
+    descriptors: ["eternal heat and leathery earth", "wind"],
+    objects: ["shadeless sun", "unbearable heat"],
+    objects_wanted: ["balmy air", "swaying trees"]
   },
   TUNDRA: {
     budget: 1000,
-    temperature: [-50,-20],
+    temperature: [-40,-10],
     humidity: [0, 20],
     waterCostMultiplier: 0.8,
     type: "tundra",
-    descriptors: ["snowy", "blizzardy"]
+    descriptors: ["endless cold", "blizzard"],
+    objects: ["forever snow", "terrible winds"],
+    objects_wanted: ["balmy air", "swaying trees"]
   },
   TROPICAL: {
-    budget: 1500,
+    budget: 1200,
     temperature: [80,110],
     humidity: [50, 100],
     waterCostMultiplier: 0.8,
     type: "tropical",
-    descriptors: ["wet", "rainy"]
+    descriptors: ["endless rain and moisture", "rain"],
+    objects: ["water and more water", "tears"],
+    objects_wanted: ["balmy air", "swaying trees"]
   },
   MODERATE: {
     budget: 2500,
@@ -51,16 +57,16 @@ const BIOME = {
     humidity: [0,50],
     waterCostMultiplier: 1,
     type: "moderate",
-    descriptors: ["sunny", "chilly"]
+    descriptors: ["moderate", "nice sunshine"],
+    objects: ["mild air", "trees"],
+    objects_wanted: ["different things"]
   }
 };
 const REGIONS = [
-  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA],
-  [BIOME.MODERATE,  BIOME.DESERT,   BIOME.MODERATE,   BIOME.TROPICAL],
-  [BIOME.DESERT,    BIOME.DESERT,   BIOME.DESERT,     BIOME.DESERT],
-  [BIOME.TUNDRA,    BIOME.TUNDRA,   BIOME.TUNDRA,     BIOME.TUNDRA]
+  [BIOME.DESERT,   BIOME.TUNDRA,    BIOME.TROPICAL]
 ];
 
 
 var world = new World(REGIONS);
 world.run(config.DAYS);
+

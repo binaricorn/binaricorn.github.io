@@ -15,9 +15,23 @@ class Region {
     this.machineBroken = false;
     this.machineRepairing = false;
     this.machineRepairCountdown = 0;
+    
     // TODO more detailed people
     this.population = _.map(_.range(populationSize), i => { return {}});
     this.warden = new Warden(this, wardenPrefs);
+  }
+
+  darksky(){
+    var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
+    var url = 'https://api.darksky.net/forecast/';
+    var lati = 37.8267;
+    var longi = -122.4233;
+    var data;
+      $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?", function(data) {
+                //console.log(data);
+        console.log('and the temperature is: ' + data.currently);
+        return data.currently.summary;
+      });
   }
 
   newDay() {
@@ -32,26 +46,50 @@ class Region {
     };
   }
 
+  writeStory() {
+    //this.darksky();
+    //$('.story').append("<div class='" + this.name + "'></div>")
+    $('.story').append(`<p>--------------------------------------------------------------------------</p>`);
+
+    // This line doesn't need to be displayed everytime.
+    $('.story').append(`<p>In this ${this.biome.descriptors[0]} with the ${this.biome.descriptors[1]} desecrated by [industry]. This Mother is with the assigned Children. $${this.cash} units. `);
+
+    $('.story').append(`<p>-----${this.today.temp}----</p>`);
+
+    $('.story').append(`<p>Mother is curious about the ${this.biome.objects_wanted[1]}. She is tired of the ${this.biome.objects[0]}. ${this.warden.feeling(this.today.temp)}</p>`);
+
+    $('.story').append(`<p>Machine stops Mother from entering Field. For the Intention to work, she cannot feel what Children feel. The children get to enjoy ${this.biome.objects_wanted[0]} that she cannot. The reason is clear.`);
+
+
+    // WARDEN's feelings about situation
+    
+  }
+    
+
   step() {
     // each step is a day
     this.today = this.newDay();
-
-    $('.story').append(`<p>In the ${this.name}, you're given a budget of $${this.cash} to spend on maintaining your sanity. You look at your state issued thermometer. It reads ${this.today.temp}F. Through the window you see it's ${this.biome.descriptors[0]} again.`);
+    this.writeStory();
 
     var breaks = this.machineBreaks(this.today.humidity, this.today.comfort);
     if (breaks && !this.machineBroken) {
-      $('.story').append(`The machine is broken when you walk in. You check the dialogue box for the damage. `);
+      $('.story').append(`Machine is old and repairs take long, but Re-education must continue.`);
       this.machineBroken = true;
     }
 
     if (this.machineBroken) {
+
+      $('.story').append(`Inside the Field, those who are awoken are surrounded by ${this.biome.objects_wanted[0]}.`);
+
       // some people become conscious when the machine breaks
       _.each(this.population, (person, i) => {
         if (Math.random() < config.CONSCIOUS_PROB) {
           person.conscious = true;
-          $('.story').append(`Civilian ${i} was awoken. `);
+          $('.story').append(`Child ${i} feels the ${this.biome.objects_wanted[0]} [specific weather].`);
         }
       });
+
+      $('.story').append(`The scabs fall off.`);
 
       // conscious people tell some unconscious people
       // depending on the telecom of the region
@@ -81,10 +119,10 @@ class Region {
 
     var toBuy = this.warden.decide();
     if (toBuy) {
-      $('.story').append(`<p>${this.name}: I decided to buy ${toBuy.name}.</p>`);
+      $('.story').append(`<p>Mother cries out, voice parched, for ${toBuy.name}.</p>`);
       _.extend(this, this.successor(toBuy));
     } else {
-      $('.story').append(`<p>${this.name}: I can't buy anything</p>`);
+      $('.story').append(`<p>I cant buy anything</p>`);
     }
 
     if (this.nConscious <= this.today.n_conscious) {

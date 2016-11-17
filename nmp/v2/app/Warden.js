@@ -3,20 +3,52 @@ import config from '../config';
 
 
 class Warden {
-  constructor(region, prefs) {
+
+  constructor(region, prefs, feeling) {
+    var r = Math.floor(Math.random() * 3) + 1;
+
     this.region = region;
     this.prefs = prefs;
+    // maybe some wardens prefer to awaken civilians because they're lonely. so they're sabotaging the system.
+    // some of the people might be violent
+  }
+
+
+  feeling(feelsLikeTemp) {
+    var feeling = {
+      is_cold: [`She is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
+      is_okay: ["Mother is accepting of her state.", "happy_okay2"],
+      is_hot: ["She is hot. Dangerous and revolutionary thoughts.", "happy_hot2"]
+    }
+    // var feels = Object.keys(config.FEELS);
+    // console.log(config.FEELS.happy_cold);
+
+    if (feelsLikeTemp <= config.COMFORTABLE_TEMPERATURE[1] && feelsLikeTemp >= config.COMFORTABLE_TEMPERATURE[0]) {
+      return feeling.is_okay[0];
+    } else if (feelsLikeTemp < config.COMFORTABLE_TEMPERATURE[0]) {
+      return feeling.is_cold[0];
+    } else if (feelsLikeTemp > config.COMFORTABLE_TEMPERATURE[1]) {
+      return feeling.is_hot[0];
+    }  
+
+    // var feels = _.sample(Object.keys(config.FEELS));
+    // return _.sample(config.FEELS[feels]);
   }
 
   comfort(feelsLikeTemp) {
+      // if just right
     if (feelsLikeTemp <= config.COMFORTABLE_TEMPERATURE[1] && feelsLikeTemp >= config.COMFORTABLE_TEMPERATURE[0]) {
       return 1;
+      // if colder than preferred
     } else if (feelsLikeTemp < config.COMFORTABLE_TEMPERATURE[0]) {
       return Math.max(0, 1 - (config.COMFORTABLE_TEMPERATURE[0] - feelsLikeTemp)/100);
+      // if hotter than preferred
     } else if (feelsLikeTemp > config.COMFORTABLE_TEMPERATURE[1]) {
       return Math.max(0, 1 - (feelsLikeTemp - config.COMFORTABLE_TEMPERATURE[1])/100);
     }
   }
+
+
 
   utility(state) {
     // the higher the utility, the happier the warden
