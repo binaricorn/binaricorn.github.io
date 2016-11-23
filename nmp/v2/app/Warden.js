@@ -14,27 +14,6 @@ class Warden {
   }
 
 
-  feeling(feelsLikeTemp) {
-    var feeling = {
-      is_cold: [`She is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
-      is_okay: ["Mother is accepting of her state.", "happy_okay2"],
-      is_hot: ["She is hot. Dangerous and revolutionary thoughts.", "happy_hot2"]
-    }
-    // var feels = Object.keys(config.FEELS);
-    // console.log(config.FEELS.happy_cold);
-
-    if (feelsLikeTemp <= config.COMFORTABLE_TEMPERATURE[1] && feelsLikeTemp >= config.COMFORTABLE_TEMPERATURE[0]) {
-      return feeling.is_okay[0];
-    } else if (feelsLikeTemp < config.COMFORTABLE_TEMPERATURE[0]) {
-      return feeling.is_cold[0];
-    } else if (feelsLikeTemp > config.COMFORTABLE_TEMPERATURE[1]) {
-      return feeling.is_hot[0];
-    }  
-
-    // var feels = _.sample(Object.keys(config.FEELS));
-    // return _.sample(config.FEELS[feels]);
-  }
-
   comfort(feelsLikeTemp) {
       // if just right
     if (feelsLikeTemp <= config.COMFORTABLE_TEMPERATURE[1] && feelsLikeTemp >= config.COMFORTABLE_TEMPERATURE[0]) {
@@ -65,7 +44,7 @@ class Warden {
     var currentUtilty = this.utility(this.region);
     var options = _.chain(config.COSTS)
       .map((cost, item) => {
-        if (this.region.budget < cost) {
+        if (this.region.cash < cost) {
           return;
         }
         var action = {
@@ -78,9 +57,11 @@ class Warden {
           action: action,
           expectedUtility: expectedUtility
         }
+
       }).compact().value();
     if (options.length > 0) {
       return _.max(options, option => option.expectedUtility).action;
+
     }
   }
 }

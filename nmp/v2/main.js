@@ -27,9 +27,29 @@ const BIOME = {
     humidity: [-100, -20],
     waterCostMultiplier: 1.5,
     type: "desert",
-    descriptors: ["eternal heat and leathery earth", "wind"],
-    objects: ["shadeless sun", "unbearable heat"],
-    objects_wanted: ["balmy air", "swaying trees"]
+    countries: ["Southern China", "Southeast Australia", "Pakistan", "Afghanistan", "Yemen", "Saudi Arabia", "Iraq", "Iran", "Texas, United States of America", "New Mexico, United States of America", "Southern California, United States of America"],
+    objects: ["eternal heat and leathery earth", "yellow sand", "howling wind", "shadeless sun", "unbearable heat", "drought"],
+    objects_wanted: ["balmy air", "swaying trees"],
+    feeling: {
+      is_cold: [`She is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
+      is_okay: ["Mother is accepting of her state.", "happy_okay2"],
+      is_hot: ["Heat can drive a person mad. And has even been proven to stop Re-education", "happy_hot2"]
+    }
+  },
+  TROPICAL: {
+    budget: 1200,
+    temperature: [80,110],
+    humidity: [50, 100],
+    waterCostMultiplier: 0.8,
+    type: "tropical",
+    countries: ["India", "Sierra Leone", "South Sudan", "Nigeria", "Chad", "Haiti", "Ethiopia", "Philippines", "Central African Republic", "Eritrea", "Bolivia"],
+    objects: ["endless rain and moisture", "rain", "flood", "tears of Mother Earth", "destruction by water", "washing away of things"],
+    objects_wanted: ["balmy air", "swaying trees"],
+    feeling: {
+      is_cold: [`She is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
+      is_okay: ["Mother is accepting of her state.", "happy_okay2"],
+      is_hot: ["Heat can drive a person mad. And has even been proven to stop Re-education", "happy_hot2"]
+    }
   },
   TUNDRA: {
     budget: 1000,
@@ -39,16 +59,6 @@ const BIOME = {
     type: "tundra",
     descriptors: ["endless cold", "blizzard"],
     objects: ["forever snow", "terrible winds"],
-    objects_wanted: ["balmy air", "swaying trees"]
-  },
-  TROPICAL: {
-    budget: 1200,
-    temperature: [80,110],
-    humidity: [50, 100],
-    waterCostMultiplier: 0.8,
-    type: "tropical",
-    descriptors: ["endless rain and moisture", "rain"],
-    objects: ["water and more water", "tears"],
     objects_wanted: ["balmy air", "swaying trees"]
   },
   MODERATE: {
@@ -63,7 +73,7 @@ const BIOME = {
   }
 };
 const REGIONS = [
-  [BIOME.DESERT,   BIOME.TUNDRA,    BIOME.TROPICAL]
+  [BIOME.DESERT,  BIOME.TROPICAL]
 ];
 
 
