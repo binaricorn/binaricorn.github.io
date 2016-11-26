@@ -16,7 +16,7 @@ const config = {
   },
   HTML_DIV: "region_day",
   CHILD_APPEARANCE: ["light-skinned man", "cross-eyed woman", "barely-teenage boy", "pimply young adult"],
-  CHILD_MEMORIES: ["murder", "abduction", "terrorism", "abject sins", "cruelty", "forced confession"],
+  CHILD_MEMORIES: ["murdering a neighbor over a dying cornfield, and the sound of a skull hitting the pavement", "abduction", "terrorism", "abject sins", "cruelty", "forced confession"],
   FOOD_DANGER: ["meat", "rice", "wheat", "maize", "soy", "sugar cane", "potato"],
   CONFLICTS: ["a coup in a faraway place", "power change in the Bank", "factory explosions", "dictorial decision", "capitalism", "consumerism"],
   BILLS: ["Paris Agreement", "C02 Emissions", "Paris Agreement", "C02 Emissions", "Paris Agreement", "NATO"],

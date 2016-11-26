@@ -16,7 +16,7 @@ class World {
 
   run(days) {
     _.each(_.range(days), i => {
-      $('.story').append(`<h1>DAY ${i}</h1>`);
+      $('.story').append(`<p>DAY ${i} in the apocalypse</p>`);
       this.step();
     });
   }
