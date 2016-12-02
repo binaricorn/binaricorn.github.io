@@ -3,38 +3,17 @@ import $ from 'jquery';
 import config from './config';
 import World from './app/World';
 
-// import * as THREE from 'three';
-// import Scene from './app/Scene';
-
-// var scene = new Scene();
-// var geometry = new THREE.BoxGeometry(1,1,1),
-//     material = new THREE.MeshLambertMaterial(),
-//     mesh = new THREE.Mesh(geometry, material);
-// mesh.position.set(0,0,0);
-// scene.scene.add(mesh);
-
-// function run() {
-//   requestAnimationFrame(run);
-//   scene.render();
-// }
-// run();
-     
-
 const BIOME = {
   DESERT: {
     budget: 2000,
-    temperature: [100,130],
+    temperature: [110,120],
     humidity: [-100, -20],
     waterCostMultiplier: 1.5,
     type: "desert",
     countries: ["Southwestern China", "Southeast Australia", "Pakistan", "Afghanistan", "Yemen", "Saudi Arabia", "Iraq", "Iran", "Texas, United States of America", "New Mexico, United States of America", "Southern California, United States of America"],
-    objects: ["eternal heat and leathery earth", "yellow sand", "howling wind", "shadeless sun", "unbearable heat", "drought"],
+    objects: ["leathery earth", "gale of yellow sand", "quick evaporation of dew", "group of animal survivors dying under the shadeless sun", "sudden change in the wind's direction", "lizard drying up under the cloudless sky"],
     objects_wanted: ["balmy air", "swaying trees"],
-    feeling: {
-      is_cold: [`They are is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
-      is_okay: ["The women are accepting of this turn of events.", "happy_okay2"],
-      is_hot: ["Heat can drive a person mad. And has even been proven to stop Re-education", "happy_hot2"]
-    }
+    feeling_like: ["unbearably dry", "so brittle because no one was able to Sweat", "unbearably dry", "so brittle because no one was able to Sweat", "unbearably dry", "so brittle because no one was able to Sweat"]
   },
   TROPICAL: {
     budget: 1200,
@@ -45,31 +24,7 @@ const BIOME = {
     countries: ["Bangladesh", "India", "Sierra Leone", "South Sudan", "Nigeria", "Chad", "Haiti", "Ethiopia", "Philippines", "Central African Republic", "Eritrea", "Bolivia"],
     objects: ["endless rain and moisture", "rain", "flood", "tears of Mother Earth", "destruction by water", "washing away of things"],
     objects_wanted: ["balmy air", "swaying trees"],
-    feeling: {
-      is_cold: [`They are is cold. Dangerous and revolutionary thoughts.`, "happy_cold2"],
-      is_okay: ["The women are accepting of this turn of events.", "happy_okay2"],
-      is_hot: ["Heat can drive a person mad. And has even been proven to stop Re-education", "happy_hot2"]
-    }
-  },
-  TUNDRA: {
-    budget: 1000,
-    temperature: [-40,-10],
-    humidity: [0, 20],
-    waterCostMultiplier: 0.8,
-    type: "tundra",
-    descriptors: ["endless cold", "blizzard"],
-    objects: ["forever snow", "terrible winds"],
-    objects_wanted: ["balmy air", "swaying trees"]
-  },
-  MODERATE: {
-    budget: 2500,
-    temperature: [80,110],
-    humidity: [0,50],
-    waterCostMultiplier: 1,
-    type: "moderate",
-    descriptors: ["moderate", "nice sunshine"],
-    objects: ["mild air", "trees"],
-    objects_wanted: ["different things"]
+    feeling_like: ["so wet", "tired"]
   }
 };
 const REGIONS = [
@@ -77,40 +32,21 @@ const REGIONS = [
 ];
 
 // iraq
-function darksky_desert(){
+function darksky(){
     var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
     var url = 'https://api.darksky.net/forecast/';
-    var lati = 33.1489438;
-    var longi = 39.1975202;
+    var lati = 40.7058316;
+    var longi = -74.2581963;
     var data;
       $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?", function(data) {
-        var _windSpeed = data.daily.data[0].windSpeed;
+        var _windSpeed = data.currently.windSpeed;
         var _realFeelsTemp = data.currently.apparentTemperature;
 
-        
+        console.log(_windSpeed);
         windDescription(_windSpeed);
         realFeelsTempDescription(_realFeelsTemp);
-
-        $('.story > p.weather_desert').append(data.currently.apparentTemperature + " degrees with " + windDescription(_windSpeed) + ". It feels like " + realFeelsTempDescription(_realFeelsTemp));
-        //return data.currently.apparentTemperature;
-      });
-}
-
-function darksky_tropical(){
-    var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
-    var url = 'https://api.darksky.net/forecast/';
-    var lati = 23.7808331;
-    var longi = 90.3494175;
-    var data;
-      $.getJSON(url + apiKey + "/" + lati + "," + longi + "?callback=?", function(data) {
-        var _windSpeed = data.daily.data[0].windSpeed;
-        var _realFeelsTemp = data.currently.apparentTemperature;
-
-        
-        windDescription(_windSpeed);
-        realFeelsTempDescription(_realFeelsTemp);
-
-        $('.story > p.weather_tropical').append(data.currently.apparentTemperature + " degrees with " + windDescription(_windSpeed) + ". It feels like " + realFeelsTempDescription(_realFeelsTemp));
+        data.currently.apparentTemperature = data.currently.apparentTemperature.toFixed(0);
+        $('.story > p.weather').append("She says that while the criminals were asleep, and their brains were getting filled with the Weathers from New York where it was <span class='highlight'>" + data.currently.apparentTemperature + "</span> degrees with a <span class='highlight'>" + windDescription(_windSpeed) + "</span>. <span class='highlight'>" + realFeelsTempDescription(_realFeelsTemp) + "</span>. I close my eyes and try to imagine what that feels like.");
         //return data.currently.apparentTemperature;
       });
 }
@@ -121,21 +57,21 @@ function windDescription(windSpeed) {
   var windText;
 
   if (windSpeed < 1) {
-    windText = "Calm. Ponds are mirror-like and placid";
-  } else if (windSpeed >= 1 && windSpeed <= 3) {
-    windText = "Light Air. Small ripples appear on water surface";
-  } else if (windSpeed >= 4 && windSpeed <= 7) {
-    windText = "Light Breeze. Leaves rustle, can feel wind on your face, wind vanes begin to move. Small wavelets develop, crests are glassy";
-  } else if (windSpeed >= 8 && windSpeed <= 12) {
-    windText = "Gentle Breeze. Leaves and small twigs move, light weight flags extend";
-  } else if (windSpeed >= 13 && windSpeed <= 18) {
-    windText = "Moderate Breeze. Small branches move, raises dust, leaves and paper";
-  } else if (windSpeed >= 19 && windSpeed <= 24) {
-    windText = "Fresh Breeze. Small trees sway";
-  } else if (windSpeed >= 32 && windSpeed <= 38) {
-    windText = 'Strong Breeze. Large tree branches move,  telephone wires begin to "whistle", umbrellas are difficult to keep under control';
+    windText = "calmness in the air that made water feel like mirrors";
+  } else if (windSpeed >= 1 && windSpeed < 3) {
+    windText = "a little bit of stillness in the air";
+  } else if (windSpeed >= 3 && windSpeed < 7) {
+    windText = "light breeze that rustled the leaves, and caressed your face";
+  } else if (windSpeed >= 7 && windSpeed < 12) {
+    windText = "gentle breeze that caused leaves and small twigs move to move";
+  } else if (windSpeed >= 12 && windSpeed < 18) {
+    windText = "movement in the air that brought the smell of foods, swayed small branches and your clothes";
+  } else if (windSpeed >= 18 && windSpeed < 24) {
+    windText = "fresh fast breeze that made small trees sway";
+  } else if (windSpeed >= 25 && windSpeed < 38) {
+    windText = 'strong breeze. Large tree branches move,  telephone wires begin to "whistle", umbrellas are difficult to keep under control';
   } else if (windSpeed >= 39 && windSpeed <= 46) {
-    windText = 'Twigs and small branches are broken from trees, walking is difficult';
+    windText = 'twigs and small branches are broken from trees, walking is difficult';
   }
   return windText;
 }
@@ -147,7 +83,7 @@ function realFeelsTempDescription(realFeelsTemp) {
   if (realFeelsTemp < 25) {
     realFeelsTempText = "Freezing";
   } else if (realFeelsTemp >= 26 && realFeelsTemp <= 40) {
-    realFeelsTempText = "Pretty damn cold";
+    realFeelsTempText = "Chilly days that made you want to hug yourself tighter";
   } else if (realFeelsTemp >= 41 && realFeelsTemp <= 55) {
     realFeelsTempText = "Chilly af";
   } else if (realFeelsTemp >= 41 && realFeelsTemp <= 55) {
@@ -163,8 +99,10 @@ function realFeelsTempDescription(realFeelsTemp) {
   return realFeelsTempText;
 }
 
-darksky_desert();
-darksky_tropical();
+darksky();
+
+// at step xxx: i told her I already knew that part, that because she was getting old, her mind was getting  mushy. 
+// at step xxx: ?
 
 var world = new World(REGIONS);
 world.run(config.DAYS);

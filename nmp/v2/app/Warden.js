@@ -20,10 +20,10 @@ class Warden {
       return 1;
       // if colder than preferred
     } else if (feelsLikeTemp < config.COMFORTABLE_TEMPERATURE[0]) {
-      return Math.max(0, 1 - (config.COMFORTABLE_TEMPERATURE[0] - feelsLikeTemp)/100);
+      return 1 - (config.COMFORTABLE_TEMPERATURE[0] - feelsLikeTemp)/100;
       // if hotter than preferred
     } else if (feelsLikeTemp > config.COMFORTABLE_TEMPERATURE[1]) {
-      return Math.max(0, 1 - (feelsLikeTemp - config.COMFORTABLE_TEMPERATURE[1])/100);
+      return 1 - (feelsLikeTemp - config.COMFORTABLE_TEMPERATURE[1])/100;
     }
   }
 
@@ -59,6 +59,9 @@ class Warden {
         }
 
       }).compact().value();
+    options = _.filter(options, o => o.expectedUtility >= currentUtilty);
+      
+
     if (options.length > 0) {
       return _.max(options, option => option.expectedUtility).action;
 

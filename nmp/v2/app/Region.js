@@ -7,11 +7,13 @@ class Region {
   constructor(biome, populationSize, wardenPrefs) {
     this.biome = biome;
 
-    this.ac = 0;
+    this.cooling = 0;
     this.water = 0;
+    this.heating = 0;
     this.telecom = 0;
     this.name = biome.type;
     this.countries = biome.countries;
+    this.feeling_like = biome.feeling_like;
     this.cash = biome.budget;
     this.machineBroken = false;
     this.machineRepairing = false;
@@ -24,7 +26,7 @@ class Region {
 
   newDay() {
     var temp = this.todaysTemp(),
-        feelsLike = this.feelsLikeTemp(temp, this.ac, this.water);
+        feelsLike = this.feelsLikeTemp(temp, this.cooling, this.water, this.heating);
     return {
       temp: temp,
       humidity: this.todaysHumidity(),
@@ -37,13 +39,17 @@ class Region {
   writeStory() {    
     
     //$('.story').append("<div class='" + this.name + "'></div>")
-    var random_country = _.random(0, config.CHILD_MEMORIES.length-1);
-    var random_food = _.random(0, config.FOOD_DANGER.length-1); 
-    $('.story').append(`<p>-------------------------------------------------------------------------- </p>`);
+    var counter = _.random(0, 5);
 
+    $('.story').append(`She tells me to call her Grandma. In a place that could be <span class="highlight">${this.countries[counter]}</span> or <span class="highlight">${this.countries[counter+1]}</span> or <span class="highlight">${this.countries[counter+2]}</span>, <span class="hide-story">women known as the Cover Girls lived in towns called New Mercy Parks. They made
+     Climate Simulation machines to bring peace and justice to the New World. These machines were made up of stuff like “data” and “models” of what the Weather was like before the Great Migration Northwards. There were the Cover Girls and the bad people. Then Grandma says the scientists of New York uploaded their memories into the machine so it could remember, and that bad people were trapped and sleeping inside the machines because they were criminals.</span>Those days were <span class="highlight">${this.today.temp} degrees</span> outside and <span class="highlight">${this.feeling_like[counter]}</span>.`);
+      
+      $('.story').append(`<p class='weather'></p>`);      
 
-    // This line doesn't need to be displayed everytime.
-    $('.story').append("<p><span class='cash'>" + this.today.temp + " degrees | " + this.cash + " units</span>. In the " + this.biome.objects[config.PLACE_COUNTER] + " " + this.biome.objects[config.PLACE_COUNTER+1] + " that could be " + this.countries[random_country] + " or " + this.countries[random_country+1] + " or " + this.countries[random_country+2] + ", a Re-education Center protrudes from a blanket of" + this.biome.objects[config.PLACE_COUNTER+1] + ".</p><p>Since the region's collective vote in support of the " + config.POLITICS[config.PLACE_COUNTER] + " Party, movement towards establishment of the " + config.BILLS[config.PLACE_COUNTER] + " collapsed, and these lands have been laid to waste in the Great Migration northwards. The women start preparing the Children inside the Womb.");
+      // $('.story').append("<p>Sure, the region's collective vote in support of the " + config.POLITICS[config.PLACE_COUNTER] + " Party could be blamed. Or the abandonment of the " + config.BILLS[config.PLACE_COUNTER] + " that caused these lands to be laid to waste; we prepare the children so they don't think of Home like we do; of just " + this.biome.objects[config.PLACE_COUNTER] + ".");
+
+      
+   
 
     config.PLACE_COUNTER += 1;
 
@@ -58,19 +64,21 @@ class Region {
     // each step is a day
     this.today = this.newDay();
     this.writeStory();
+
+   
     
 
     var breaks = this.machineBreaks(this.today.humidity, this.today.comfort);
     if (breaks && !this.machineBroken) {
       this.machineBroken = true;
-      $('.story').append(`They all knew leaks in memory would happen in the form of stuttering pauses that could take days to self-regulate. Some blamed the Outer Conditions. Some blamed each other.`);
+      $('.story').append(`<p class="highlight bg">She say that sometimes the machine broke and the good people had to fix it because the criminals would wake up and remember all the bad things they did when they were living in the Old World. They would try to fight the machine and sometimes they were close to breaking it when they started ripping the wires out of their heads.</p>`);
+      // $('.story').append(`They all knew leaks in memory would happen in the simulation engine in the form of stuttering pauses that could take days to repair. Some blamed the Outer Conditions; the ${this.biome.objects[config.PLACE_COUNTER+1]}. Some blamed each other.`);
     }
 
     var someoneWokeUp = false;
 
     if (this.machineBroken) {
       
-      //$('.story').append(`They all knew leaks in memory would happen in the form of stuttering pauses that could take days to self-regulate. Some blamed the Outer Conditions. Some blamed each other.`);
       // some people become conscious when the machine breaks
       _.each(this.population, (person, i) => {
         if (Math.random() < config.CONSCIOUS_PROB && !person.conscious) {
@@ -79,18 +87,11 @@ class Region {
           person.conscious = true;
           someoneWokeUp = true;
           
-          $('.story').append(`<br>And then it happens, [something happens in the utero]. Cleaved from a state of statis, Child ${i}, a ${config.CHILD_APPEARANCE[random_child_appearance]} remembers ${config.CHILD_MEMORIES[random_child_memories]}.`);
+          $('.story').append(`Things like <span class="highlight">${config.CHILD_MEMORIES[random_child_memories]}.</span> `);
         }
       });
-      if (this.biome.type == 'desert') {
-        $('.story').append(`<p class='weather_desert'></p>`);    
-      } else {
-        $('.story').append(`<p class='weather_tropical'></p>`);    
-      }
-    
 
-    // conscious people tell some unconscious people
-      // depending on the telecom of the region
+    // conscious people tell some unconscious people depending on the telecom of the region
       var awoken = _.filter(this.population, person => person.conscious),
           asleep = _.filter(this.population, person => !person.conscious);
       _.each(awoken, a => {
@@ -110,7 +111,7 @@ class Region {
         }
         if (this.machineRepairCountdown <= 0) {
           
-          $('.story').append(`<p>After some days the machine is working again.</p>`);
+          $('.story').append(`<p>After some days the machine started working again.</p>`);
           _.each(this.population, (person, i) => {
             person.conscious = false;
           });
@@ -123,10 +124,9 @@ class Region {
       }
     } 
 
-    // add something like, if someone woke up they got fixed then fell back asleep. almost realy woke up
     if (someoneWokeUp && this.nConscious <= this.today.n_conscious) {
       console.log('this shouldnt happen');
-      $('.story').append("A glitch in the system: those who woke up fell back asleep.");
+      $('.story').append("But sometimes they got scared over glitches in the system, where for a second, the bad guys would wake up like zombies then fall back asleep.");
     }
 
     if (this.nConscious <= this.today.n_conscious) {
@@ -135,106 +135,78 @@ class Region {
       var random_payment_food = random_payment;
       this.cash += random_payment;
 
-      $('.story').append("<p>In the middle of the day, the Habitable World Bank issues its currency metric. The Bank adds " + random_payment + " to the womens's wages. Nobody asks why its different every day. News says it's " + config.CONFLICTS[random_conflict] + ". Fortunately, no new Children woke up so the women are awarded this amount.</p>");
+      $('.story').append("When the machine worked smoothly these criminals wouldn't be able to wake you up and cause you trouble. The Cover Girls who took care of the machine would get paid about <span class='highlight bg'>" + random_payment + "</span> American Dollars. Got you ");
 
-      var foods_costs = _.zip(["casavas", "potatos", "berries"], [_.random(30, 50), _.random(50, 100), _.random(10, 40)]);
-      var casavas_count = 0,
-      potatos_count = 0,
-      berries_count = 0;
 
-      while(random_payment_food > 100 ) {
-        _.each(foods_costs, function(food) {
-          random_payment_food -= food[1];
-          
+      var foods_costs = _.zip(["bags of Synthetic casavas, potatos, and berry powder", "bags of wheat or rice", "special pills to help them Sweat"], [_.random(70, 120), _.random(50, 100), _.random(200, 300)]);
 
-          if (food[0] == 'casavas') {
-            casavas_count += 1;
-          } else if (food[0] == 'potatos') {
-            potatos_count += 1;
-          } else if (food[0] == 'berries') {
-            berries_count += 1;
-          }
-
-          $('.story').append(`${food[1]}`);
-        });  
-
-        
-        casavas_count = casavas_count;
-        potatos_count = potatos_count;
-        berries_count = berries_count;
-        // <p>Synthetic food meant to replicate " + config.FOOD_DANGER[random_food] + 
-        //$('.story').append(`Which roughly equates to ${casavas_count} casavas, ${potatos_count} potatoes, and ${berries_count} berries.`);  
+      var bought_food = {};
+      while (random_payment_food > 0) {
+        var affordable = _.filter(foods_costs, f => f[1] <= random_payment_food);
+        if (affordable.length === 0) {
+          break;
+        }
+        var food = _.sample(affordable),
+            name = food[0],
+            cost = food[1];
+        random_payment_food -= cost;
+        if (!(name in bought_food)) {
+          bought_food[name] = 1;
+        } else {
+          bought_food[name]++;
+        }
       }
+
+      _.each(bought_food, (amount, name) => {
+        $('.story').append(`<span class='highlight'>${amount} ${name}, </span>`);
+      });
+
+      $('.story').append(`and it was different every day because of the <span class='highlight bg'>${config.CONFLICTS[random_conflict]}</span>.`); 
       
+    } else {
+          $('.story').append(`<p class="highlight bg">Grandma says the bank didn’t give the good people food when the bad ones woke up.</p>`);
     }
 
     
 
     var toBuy = this.warden.decide();
-    var body_feelings = {
-      ac_most_comfortable: ["which brings the Inner Conditions down a smidge so that she's feeling pretty good."],
-      ac_somewhat_comfortable: ["just somewhat comfortable"],
-      ac_very_uncomfortable: ["almost going to die without it"],
-      repair_most_comfortable: ["of course the machine needs to be fixed"],
-      repair_somewhat_comfortable: ["even though she's not totally comfortable"],
-      repair_very_uncomfortable: ["even despite her discomfort. The Central Bank make a note to consider this act of martyrdom in next year's promotion request."],
-      water_most_comfortable: ["luckily there was a storage unit with a large amount"],
-      water_somewhat_comfortable: ["and catches some from a reserve"],
-      water_very_uncomfortable: ["she is so parched she will die."]
-    }
-
-
-    var body_feelings_choice = {
-
-    }
 
     if (toBuy) {
-      var body_feelings_text;
+      var body_feelings_text = "they used some of the machine's powers so they could sleep better."
 
-      if (this.today.comfort < 0.75) {
-        if (toBuy.name == "ac") {
-          body_feelings_text = body_feelings.ac_very_uncomfortable[0];  
+      if (this.today.comfort < 0.80) {
+        if (toBuy.name == "cooling") {
+          body_feelings_text = "they used some of the machine's powers for themselves so they could get a little asleep.";  //very uncomfortable without ac
         } else if (toBuy.name == "repair") {
-          body_feelings_text = body_feelings.repair_very_uncomfortable[0];  
+          body_feelings_text = "they did it for the common good, even if they were so uncomfortable they couldn't fall asleep.";  //very uncomfortable but need to buy repair
         } else if (toBuy.name == "water") {
-          body_feelings_text = body_feelings.water_very_uncomfortable[0];  
+          body_feelings_text = "they had to boil their pee and drink it they couldn't speak out loud their throats were so dry.";  //very uncomfortable without water
         }
-      } else if (this.today.comfort >= 0.75 && this.today.comfort <= 0.85) {
-        if (toBuy.name == "ac") {
-          body_feelings_text = body_feelings.ac_somewhat_comfortable[0];  
+      } else if (this.today.comfort >= 0.80 && this.today.comfort <= 0.95) {
+        if (toBuy.name == "cooling") {
+          body_feelings_text = "they all tried to persuade each other they needed it even if they really didn't."; //comfortable
         } else if (toBuy.name == "repair") {
-          body_feelings_text = body_feelings.repair_somewhat_comfortable[0];  
-        } else if (toBuy.name == "water") {
-          body_feelings_text = body_feelings.water_somewhat_comfortable[0];  
+          body_feelings_text = "then of course they would fix it.";
         }
-        
-      } else if (this.today.comfort >= 0.85 && this.today.comfort <= 0.95) {
-        if (toBuy.name == "ac") {
-          body_feelings_text = body_feelings.ac_most_comfortable[0];  
-        } else if (toBuy.name == "repair") {
-          body_feelings_text = body_feelings.repair_most_comfortable[0];  
-        }
-      } else if (toBuy.name == "ac" || toBuy.name == "repair" || toBuy.name == "water" ) {
-        body_feelings_text = "and all the supplies are up to snuff. Nothing's broken, and the Inner and Outer Conditions feel balanced. She can go to sleep now.";
-      }
+      } 
 
-
-
-      // mother forgoes her share to fix the machine
-      $('.story').append(`<p>The women deliberate and decide to spend their wages on ${toBuy.name}, ${body_feelings_text} [${this.today.comfort}].</p>`);
-      _.extend(this, this.successor(toBuy));
-    } else {
-      $('.story').append(`<p>They are given no more food or water and must suffer for the day.</p>`);
+    if (toBuy.name == "repair") {
+      //$('.story').append(`Getting the machine fixed is no trivial matter. It takes lots of things.`);
     }
 
-    
+    $('.story').append(`<p>At the end of the day the Cover Girls would always decide on the best way to spend the <span class='highlight bg'>${this.cash}</span> Dollars they had. Inside the Park it was ${this.today.feelsLike} degrees. If they agreed <span class='highlight bg'>${toBuy.name}</span> made the most sense, <span class='highlight bg'>${body_feelings_text}</span> She said every day was like this. <span class='highlight bg'>${config.CHILD_QUESTIONS[config.PLACE_COUNTER]}</span> Yes, she says, <em>they</em> probably did. But it was important, and so like this it went on and on.</p><h2>The sound of a <span class='highlight bg'>${this.biome.objects[config.PLACE_COUNTER]}</span> lulls me to sleep, and I dream of <span class="highlight">${config.CHILD_MEMORIES[config.PLACE_COUNTER]}, and an old woman.</span></h2>`);  
+
+    _.extend(this, this.successor(toBuy));
+
+    }
+  
   }
 
   successor(action) {
     var nextState = _.clone(this);
     switch (action.name) {
-        case 'ac':
-          nextState.ac++;
+        case 'cooling':
+          nextState.cooling++;
           break;
         case 'water':
           nextState.water++;
@@ -242,8 +214,8 @@ class Region {
         case 'telecom':
           nextState.telecom++;
           break;
-        case 'water':
-          nextState.water++;
+        case 'heating':
+          nextState.heating++;
           break;
         case 'repair':
           if (nextState.machineBroken) {
@@ -252,14 +224,14 @@ class Region {
           }
           break;
     }
-    var feelsLike = this.feelsLikeTemp(nextState.today.temp, nextState.ac, nextState.water);
+    var feelsLike = this.feelsLikeTemp(nextState.today.temp, nextState.cooling, nextState.water, nextState.heating);
     nextState.today.comfort = this.warden.comfort(feelsLike);
     nextState.cash -= action.cost;
     return nextState;
   }
 
-  feelsLikeTemp(temperature, ac, water) {
-    return temperature + (ac * config.AC_TEMPERATURE_EFFECT) + (water * config.WATER_TEMPERATURE_EFFECT);
+  feelsLikeTemp(temperature, cooling, water, heating) {
+    return temperature + (cooling * config.AC_TEMPERATURE_EFFECT) + (water * config.WATER_TEMPERATURE_EFFECT) + (heating * config.HEATING_TEMPERATURE_EFFECT);
   }
 
   todaysTemp() {
