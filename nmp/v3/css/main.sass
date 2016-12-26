@@ -1,0 +1,65 @@
+html
+  font-family: 'Cousine', 'monospace'
+  //background: -moz-linear-gradient(top,  #0735ef 0%, #268ca8 100%)
+  //background: -webkit-linear-gradient(top,  #0735ef 0%,#268ca8 100%)
+  //background: linear-gradient(to bottom,  #0735ef 0%,#268ca8 100%)
+  //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0735ef', endColorstr='#268ca8',GradientType=0 )
+
+body
+  font-size: 1em
+  margin: 0 auto
+  color: #000
+  font-family: "Didot"
+  line-height: 165%
+  width: 800px
+
+
+canvas
+  display: block
+  z-index: 1
+  height: 100vh
+  width: 100vw
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+h1 
+  padding: 4em 0 2em
+  line-height: 1.5em
+
+.story
+  padding: 2em 3em
+
+.cash
+  color: red
+  font-family: Monaco
+
+span 
+  &.hide-story 
+    &:not(:first-of-type)
+      display: none
+
+
+.highlight
+  border: 1px solid red
+
+
+
+.desert
+  background: #F9D479
+
+.tundra
+  background: blue
+
+.tropical
+  background: green
+
+.moderate
+  background: gray
+
+.weather_desert
+  //background: url(http://images.iop.org/objects/phw/news/16/7/2/cartlidge1.jpg)
+  -webkit-filter: grayscale(100%)
+  filter: gray;
