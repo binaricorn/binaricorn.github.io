@@ -13,24 +13,134 @@ class Region {
     this.lat_coord = biome.lat_coord;
     this.countries = biome.countries;
     this.population = _.map(_.range(populationSize), i => { return new People(this, peoplePrefs) });
+    this.feeling_like = biome.feeling_like;
+    this.cash = biome.budget;
+    this.machineBroken = false;
+    this.machineRepairing = false;
+    this.machineRepairCountdown = 0;
+    this.resources = config.RESOURCES;
+    this.indv_coop_score;
+    this.indv_total_personality_score = [];
+    this.population_total_coop_array = [];
+    this.population_total_coop_score;
+    this.feature_threshold = 6;
+    this.feature_threshold_highest = 8;
   }
 
   step() {
+
+    //console.log(CCweather);
+
+    //this.resources -= this.population.length; // one edible/drinkable resource for each person
+    //var resources = [];
+
+
+    console.log(this.resources);
+    var most_brave;
+
+    _.each(this.population, (person, i) => {
+      person.traits.cooperative = _.random(0, 10);
+      this.indv_total_personality_score.push(person.traits)
+      this.indv_coop_score = this.indv_total_personality_score[i].cooperative;
+      this.population_total_coop_array.push(this.indv_coop_score);
+
+      console.log(person.traits.bravery)
+
+      // most_brave = _.max(person.traits, _.property('bravery'));
+      
+      // most_brave = _.sortBy(person.traits, function(item){
+      //     return item.bravery;
+      // });
+
+      console.log(most_brave)
+
+
+      if(person.features.height > this.feature_threshold) {
+              person.features.height = 'tall';
+            } else {
+              person.features.height = 'short';
+            }
+
+            if(person.features.weight > this.feature_threshold) {
+              person.features.weight = 'plump';
+            } else {
+              person.features.weight = 'thin';
+            }
+
+            if(person.features.hair_darkness > this.feature_threshold) {
+              person.features.hair_darkness = 'raven';
+            } else {
+              person.features.hair_darkness = 'blond';
+            }
+
+            if(person.features.face_blemishedness > this.feature_threshold) {
+              person.features.face_blemishedness = 'pimply';
+            } else {
+              person.features.face_blemishedness = 'smooth';
+            }
+
+            
+
+            // if(person.traits.bravery > feature_threshold) {
+            //   person.traits.bravery = 'brave';
+            // } else {     
+            //   person.traits.bravery = 'cowardly';
+            // }
+
+            // if(person.traits.cooperative > feature_threshold) {
+            //   person.traits.cooperative = 'community';
+            // } else {
+            //   person.traits.cooperative = 'individualistic';
+            // }
+
+            // if(person.traits.dilligence > feature_threshold) {
+            //   person.traits.dilligence = 'hard-working';
+            // } else {
+            //   person.traits.dilligence = 'lazy';
+            // }
+
+            // if(person.traits.dexterous > feature_threshold) {
+            //   person.traits.dexterous = 'flexible';
+            // } else {
+            //   person.traits.dexterous = 'stubborn';
+            // }
+
+
+            if(person.traits.countries <= 3) {
+              person.country_region = 'Tundra';
+              person.country = config.TUNDRA_COUNTRIES[0];
+            } else if (person.traits.countries >= 4 && person.traits.countries <= 7) {
+              person.country_region = 'Desert';
+              person.country = config.DESERT_COUNTRIES[0]
+            } else if (person.traits.countries >= 8 && person.traits.countries <= 10) {
+              person.country_region = 'Tropics';
+              person.country = config.TROPICAL_COUNTRIES[0]
+            }
+    });
+
+    this.population_total_coop_score = _.reduce(this.population_total_coop_array, function(memo, num){ return memo + num; }, 0)
     
-    this.weatherStory(this.population, this.biome, this.long_coord, this.lat_coord);
-   // this.synonym();
+
+    this.weatherStory(this.resources, this.population, this.biome, this.long_coord, this.lat_coord);
   }
 
 
-  weatherStory(_population, _biome, _lati, _longi){
+  weatherStory(resources, _population, _biome, _lati, _longi){
+    var _this_population_total_coop_score = this.potential(this.population_total_coop_score);
+
     var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
     var url = 'https://api.darksky.net/forecast/';
+    
+   
+
     console.log(_biome);
 
     var data;
       $.getJSON(url + apiKey + "/" + _lati + "," + _longi + "?callback=?", function(data) {
         console.log(data);
+        
         var summary = data.currently.summary;
+        var weekSummary = data.daily.summary;
         var apparentTemperature = data.currently.apparentTemperature;
         var apparentTemperatureFeeling;
         var cloudCover = data.currently.cloudCover;
@@ -40,21 +150,17 @@ class Region {
         var summaryToday = data.daily.data[0].summary;
         var windSpeed = data.currently.windSpeed;
 
-        var arraySummary = summary.split(" ");
-        var arraySummaryToday = summaryToday.split(" ");
+        // var arraySummary = summary.split(" ");
+        // var arraySummaryToday = summaryToday.split(" ");
         var apiKey_thesaurus = 'cec24de13422f99ecbcda6603f345497';
         var url_thesaurus = 'http://words.bighugelabs.com/api/2/';
         var data_thesaurus;
 
-        console.log(_population);
+        //console.log(_population);
         var person_details_into_text = _population;
-
-        // var population_total_coop_score;
-        // var indv_total_coop_score;
-        // var population_total_coop_array = [];
         // var temperature_feelings;
 
-        var feature_threshold = 6;
+        
 
         if (apparentTemperature <= 10 && apparentTemperature >= 28) {
           apparentTemperatureFeeling = config.COMFORTS[0];
@@ -72,61 +178,21 @@ class Region {
 
 
 
-        $('.story').append(`You wake again, welcomed by a morning in a place that could be . You hope this is the endpoint of your migration. You take in the sight of the others who ended up with you, as they also slowly awaken from sleep. You dont yet know their names.`);
+        $('.story').append(`Morning comes in the Alaskan sustenance project, ${apparentTemperature} degrees, ${apparentTemperatureFeeling} but with a ${windDescription(windSpeed)}. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, this has been your home. You look to them to see if work can be done, in the fields, and in the small makeshift factory for at the end of the day `);
 
-        _.each(person_details_into_text, (person, i) => {
-            if(person.features.height > feature_threshold) {
-              person.features.height = 'tall';
-            } else {
-              person.features.height = 'short';
-            }
-
-            if(person.features.weight > feature_threshold) {
-              person.features.weight = 'plump';
-            } else {
-              person.features.weight = 'thin';
-            }
-
-            if(person.features.hair_darkness > feature_threshold) {
-              person.features.hair_darkness = 'brunette';
-            } else {
-              person.features.hair_darkness = 'blond';
-            }
-
-            if(person.features.skin_darkness > feature_threshold) {
-              person.features.skin_darkness = 'tan';
-            } else {
-              person.features.skin_darkness = 'pale';
-            }
-
-            if(person.features.face_blemishedness > feature_threshold) {
-              person.features.face_blemishedness = 'pimply';
-            } else {
-              person.features.face_blemishedness = 'smooth';
-            }
+        _.each(resources, (amount, resource) => {
+          console.log(`there is ${amount} remaining for ${resource}`);
+          if (resource == 'food') {
+            $('.story').append(` there will only be enough food for ${amount - _population.length} people.`);  
+          } 
         });
 
-        _.each(person_details_into_text, (person, i) => {
-          $('.story').append(`One is ${person.features.height}, ${person.features.weight}, ${person.features.hair_darkness}, ${person.features.skin_darkness}, and ${person.features.face_blemishedness}.`);
-          console.log(person)
-        });
+        $('.story').append(`<p>`);
 
-        //console.log(person_details_into_text);  
-          
-          //person.deta
+        //$('.story').append(` all vague and nameless still. `);
 
-          // var indv_total_coop_score_text;
-          // var indv_appearance_text = [];
-          // var indv_height, indv_weight;
-          // var indv_total_personality_score = [];
-        //  console.log(person.comfort(apparentTemperature));
 
-          
-          // _.each(person.traits, (traits, j) => {
-          //   indv_total_personality_score.push(traits)
-          // });
 
-          // indv_total_coop_score = indv_total_personality_score[0]; // 0 place is where that characteristic is
 
           // if (indv_total_coop_score <= 3) {
           //   indv_total_coop_score_text = 'angry and solitary. ';
@@ -136,128 +202,156 @@ class Region {
           //   indv_total_coop_score_text = 'middle of the road and swayable. ';
           // }
 
-          // population_total_coop_array.push(indv_total_coop_score);
 
-          //var indv_appearance_text_array = []
+        _.each(person_details_into_text, (person, i) => {    
+            person.traits.dilligence -= person.comfort(apparentTemperature, person.country_region); 
 
-          // _.each(person.features, (features, i) => {
-          //   indv_appearance_text.push({
-          //     name: i,
-          //     value: features
+            // thesaurus(' ', person.features.height, ' while');
+            // thesaurus(' ', person.features.weight, ', ');
+            // thesaurus(' ', person.features.hair_darkness, ', ');
+            // //thesaurus(' ', person.features.skin_darkness, ' while');
+            // thesaurus(' ', person.features.face_blemishedness, ', ');
+
+            // $('.story').append(`${person.features.height}, ${person.features.weight} one with the ${person.features.hair_darkness} hair from ${person.country}, `);
+            if(person.traits.dilligence >= 1 && person.traits.cooperative <= 4) {
+              $('.story').append(`${config.THESAURUS.negative[_.random(0, config.THESAURUS.negative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}.`);
+            } else {
+              // thesaurus('', 'possible', ' says the ' + person.features.hair_darkness + ' one from the ' + person.country_region + ', ');
+            }
+            
+
+        });
+        console.log(_this_population_total_coop_score);
+
+        
+          
+
+        
+        
+          var containsStory = _.contains(_this_population_total_coop_score, 'storytelling');
+          var containsPlanting = _.contains(_this_population_total_coop_score, 'planting');
+
+          //$('.story').append(`<p>then they turn to ask you a question with the same eyes.`); 
+          console.log(_this_population_total_coop_score);
+          // if (_this_population_total_coop_score.length == 1) {
+          //   $('.story').append(`<br><br>you heave a sigh. Seems like only ${_this_population_total_coop_score} can be accomplished today.`);   
+          // } else {
+          //   $('.story').append(`<br><br>good news. Seems like`);
+          //   _.each(_this_population_total_coop_score, (action, i) => {
+          //     $('.story').append(` ${action},`);
           //   });
-            //console.log(features);
-            // if(j == 'height') {
-            //   if(features > feature_threshold) {
-            //     indv_appearance_text.push('tall');
-            //   } else {
-            //     indv_appearance_text.push('short');
-            //   }
-            // }
-            // if(j == 'weight') {
-            //   if(features > feature_threshold) {
-            //     indv_appearance_text.push('plump');
-            //   } else {
-            //     indv_appearance_text.push('thin');
-            //   }
-            // }
-            // if(j == 'hair_darkness') {
-            //   if(features > feature_threshold) {
-            //     indv_appearance_text.push('brunette');
-            //   } else {
-            //     indv_appearance_text.push('blond');
-            //   }
-            // }
-           // console.log(`id: ${j} ${features}`);
-           // $('.story').append(`person ${j}: ${indv_appearance_text}`);
-           //   _.each(indv_appearance_text, (features_text, k) => {
-           //    //$('.story').append(`${features_text}`);
-           //    //thesaurus('One was ', `${features_text}`, '. ');
-           //  });
+          //   $('.story').append(` are all possible.`);
+          // }
+          $('.story').append(`<br><br>`);
 
-      //    });
+          if(containsStory == true) {
+            $('.story').append(`a voice speaks telling a story of the ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]}.`);
+          };
 
+          if(containsPlanting == true) {
+            $('.story').append(`Shirt sleeves roll up, seeding and harvesting the ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]} and preparing the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]}. Rakes, fashioned out of detritus from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raised to meet the sun shine with the light of agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}.<p>`);
+          };
 
+          
+        
 
         
 
-
-          //$('.story').append(`The ${indv_appearance_text} one seems ${indv_total_coop_score_text}`);
-       
-
         
 
-        // population_total_coop_score = _.reduce(population_total_coop_array, function(memo, num){ 
-        //     return memo + num; }
-        //   , 0)
-        // population_total_coop_score = population_total_coop_score/100 + apparentTemperature/100;
+        //if (precipProbability > 0.2) arraySummary.push(precipTypeToday);
         
-
-
-        if (precipProbability > 0.2) arraySummary.push(precipTypeToday);
-        //arraySummary.push(apparentTemperatureFeeling);
-        //console.log(arraySummary);
-        //console.log('It was shallowly ', thesaurus(arraySummary), '.');
-     //   thesaurus('It was shallowly ', 'sad', '.');
-        
-        
-
         
     });
-    function thesaurus(_stringBefore, _word, _stringAfter) {
-      var apiKey_thesaurus = 'cec24de13422f99ecbcda6603f345497';
-        var url_thesaurus = 'http://words.bighugelabs.com/api/2/';
-        var w_array_length;
-        var data_thesaurus;
-            $.ajax({
-              url: url_thesaurus + apiKey_thesaurus + "/" + _word + "/json",
-              dataType: 'json',
-              success: function(data_thesaurus) {
-                for (var name in data_thesaurus) {
-              //    console.log(`${_word}: ${data_thesaurus}`);
-                  if (data_thesaurus.hasOwnProperty(name)) {
-                    if (name == 'adjective') {
-                      // some adjectives have small corpus
-                      if(data_thesaurus.adjective.sim.length <= 1) {
-                        data_thesaurus = data_thesaurus.adjective.syn[0];  
-                      } else {
-                        w_array_length = _.random(0, data_thesaurus.adjective.sim.length)
-                        data_thesaurus = data_thesaurus.adjective.sim[w_array_length];  
-                      }
-                    } else if (name == 'noun') {
-                      w_array_length = _.random(0, data_thesaurus.noun.syn.length);
-                      data_thesaurus = data_thesaurus.noun.syn[0];
-                    } else if (name == 'adverb') {
-                      w_array_length = _.random(0, data_thesaurus.adverb.syn.length);
-                      data_thesaurus = data_thesaurus.adverb.syn[w_array_length];
-                    } else if (name == 'verb') { 
-                      w_array_length = _.random(0, data_thesaurus.verb.syn.length);
-                      data_thesaurus = data_thesaurus.verb.syn[w_array_length];
-                    }
-                  }                  
-                }
-                $('.story').append(`${_stringBefore} ${data_thesaurus}${_stringAfter}`);
+
+    // function thesaurus(_stringBefore, _word, _stringAfter) {
+    //   var apiKey_thesaurus = 'cec24de13422f99ecbcda6603f345497';
+    //     var url_thesaurus = 'http://words.bighugelabs.com/api/2/';
+    //     var w_array_length;
+    //     var data_thesaurus;
+    //         $.ajax({
+    //           url: url_thesaurus + apiKey_thesaurus + "/" + _word + "/json",
+    //           dataType: 'json',
+    //           success: function(data_thesaurus) {
+    //             for (var name in data_thesaurus) {
+    //           //    console.log(`${_word}: ${data_thesaurus}`);
+    //               if (data_thesaurus.hasOwnProperty(name)) {
+    //                 if (name == 'adjective') {
+    //                   // some adjectives have small corpus
+    //                   if(data_thesaurus.adjective.sim.length <= 1) {
+    //                     data_thesaurus = data_thesaurus.adjective.syn[0];  
+    //                   } else {
+    //                     w_array_length = _.random(0, data_thesaurus.adjective.sim.length)
+    //                     data_thesaurus = data_thesaurus.adjective.sim[w_array_length];  
+    //                   }
+    //                 } else if (name == 'noun') {
+    //                   w_array_length = _.random(0, data_thesaurus.noun.syn.length);
+    //                   data_thesaurus = data_thesaurus.noun.syn[0];
+    //                 } else if (name == 'adverb') {
+    //                   w_array_length = _.random(0, data_thesaurus.adverb.syn.length);
+    //                   data_thesaurus = data_thesaurus.adverb.syn[w_array_length];
+    //                 } else if (name == 'verb') { 
+    //                   w_array_length = _.random(0, data_thesaurus.verb.syn.length);
+    //                   data_thesaurus = data_thesaurus.verb.syn[w_array_length];
+    //                 }
+    //               }                  
+    //             }
+    //             $('.story').append(`${_stringBefore} ${data_thesaurus}${_stringAfter}`);
                 
-              },
-              error: function( req, status, err ) {
-                console.log( 'something went wrong', status, err );
-              }
-            });
-        
+    //           },
+    //           error: function( req, status, err ) {
+    //             console.log( 'something went wrong', status, err );
+    //           }
+    //         });
+    // }
 
-    
-        
+    function windDescription(_windSpeed) {
+      // wind
+      var windSpeed = _windSpeed;
+      var windText;
+
+      if (windSpeed < 1) {
+        windText = "calmness in the air";
+      } else if (windSpeed >= 1 && windSpeed < 3) {
+        windText = "a little bit of stillness in the air";
+      } else if (windSpeed >= 3 && windSpeed < 7) {
+        windText = "light breeze that rustle the leaves, and caress your face";
+      } else if (windSpeed >= 7 && windSpeed < 12) {
+        windText = "gentle breeze that causes detritus to scatter sounds of their previously liquid past";
+      } else if (windSpeed >= 12 && windSpeed < 18) {
+        windText = "movement in the air that brings the smell of foods, sway small branches and your clothes";
+      } else if (windSpeed >= 18 && windSpeed < 24) {
+        windText = "fresh fast breeze that makes small bony twigs sway";
+      } else if (windSpeed >= 25 && windSpeed < 38) {
+        windText = 'strong breeze. Large tree branches are bent out of shape';
+      } else if (windSpeed >= 39 && windSpeed <= 46) {
+        windText = 'twigs and small branches are broken from trees and walking is difficult';
+      }
+      return windText;
     }
+
+    
   }
-
-
-
-
   
+  potential(_population_total_coop_score) {
+   var all_actions = [];
+      all_actions = _.pairs(config.COSTS)
+      var possible_actions = [];
+      var chosen_possible_actions = [];
 
-  poll_migration() {
-    
-   
-    
+      _.each(all_actions, (key, value) => {
+
+        possible_actions = _.filter(key, function(action) {
+          // first let's see if the people are even willing to work together
+          if (_population_total_coop_score >= key[1]) {
+            if(_.isString(action)) {
+             chosen_possible_actions.push(action)
+            }
+          }
+        });
+      });
+
+      return chosen_possible_actions;
   }
 }
 

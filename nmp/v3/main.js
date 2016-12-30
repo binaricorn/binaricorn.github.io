@@ -29,9 +29,9 @@ const BIOME = {
   },
   MODERATE: {
     budget: 3000,
-    long_coord: 40.719203,
-    lat_coord: -73.9449426,
-    countries: ["New York", "New York", "New York", "New York", "New York", "New York"],
+    long_coord: 40.6501,
+    lat_coord: -73.9496,
+    countries: ["Alaska", "Canada", "Greenland"],
     temperature_feelings: ["dry", "dusty", "leathery"],
     weather_data: {
       cloudCover: 0,
@@ -47,4 +47,4 @@ const REGIONS = [
 
 
 var world = new World(REGIONS);
-world.run(1);
+world.run(7);
