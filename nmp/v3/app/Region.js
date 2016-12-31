@@ -18,7 +18,7 @@ class Region {
     this.machineBroken = false;
     this.machineRepairing = false;
     this.machineRepairCountdown = 0;
-    this.resources = config.RESOURCES;
+    this.resourcesFoods = config.FOODS;
     this.indv_coop_score;
     this.indv_total_personality_score = [];
     this.population_total_coop_array = [];
@@ -28,32 +28,29 @@ class Region {
   }
 
   step() {
-
-    //console.log(CCweather);
-
     //this.resources -= this.population.length; // one edible/drinkable resource for each person
     //var resources = [];
+    this.resourcesFoods = config.FOODS.count -= this.population.length;
 
-
-    console.log(this.resources);
+    
     var most_brave;
 
+
     _.each(this.population, (person, i) => {
-      person.traits.cooperative = _.random(0, 10);
+      person.traits.bravery = i+2;
+      person.traits.dilligence = i+1;
+      person.traits.dexterous = i+1;
+      person.traits.cooperative = i+1;
+      person.traits.migration = i;
+      console.log(person.traits.bravery)
       this.indv_total_personality_score.push(person.traits)
       this.indv_coop_score = this.indv_total_personality_score[i].cooperative;
       this.population_total_coop_array.push(this.indv_coop_score);
-
-      console.log(person.traits.bravery)
-
       // most_brave = _.max(person.traits, _.property('bravery'));
       
       // most_brave = _.sortBy(person.traits, function(item){
       //     return item.bravery;
       // });
-
-      console.log(most_brave)
-
 
       if(person.features.height > this.feature_threshold) {
               person.features.height = 'tall';
@@ -117,15 +114,14 @@ class Region {
               person.country = config.TROPICAL_COUNTRIES[0]
             }
     });
-
     this.population_total_coop_score = _.reduce(this.population_total_coop_array, function(memo, num){ return memo + num; }, 0)
     
 
-    this.weatherStory(this.resources, this.population, this.biome, this.long_coord, this.lat_coord);
+    this.weatherStory(this.resourcesFoods, this.population, this.biome, this.long_coord, this.lat_coord);
   }
 
 
-  weatherStory(resources, _population, _biome, _lati, _longi){
+  weatherStory(resourcesFoods, _population, _biome, _lati, _longi){
     var _this_population_total_coop_score = this.potential(this.population_total_coop_score);
 
     var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
@@ -163,29 +159,31 @@ class Region {
         
 
         if (apparentTemperature <= 10 && apparentTemperature >= 28) {
-          apparentTemperatureFeeling = config.COMFORTS[0];
-        } else if (apparentTemperature >= 29 && apparentTemperature >= 46) {
-          apparentTemperatureFeeling = config.COMFORTS[1];
-        } else if (apparentTemperature >= 47 && apparentTemperature >= 59) {
-          apparentTemperatureFeeling = config.COMFORTS[2];
-        } else if (apparentTemperature >= 47 && apparentTemperature >= 59) {
-          apparentTemperatureFeeling = config.COMFORTS[3];
-        } else if (apparentTemperature >= 60 && apparentTemperature >= 74) {
-          apparentTemperatureFeeling = config.COMFORTS[4];
+          COMFORTS: ['hot', 'warm', 'comfortable', 'chilly', 'cold', 'freezing'],
+          apparentTemperatureFeeling = 'bone-chilling subzeo'; //subzero
+        } else if (apparentTemperature >= 29 && apparentTemperature <= 34) {
+          apparentTemperatureFeeling = 'frigid';
+        } else if (apparentTemperature >= 35 && apparentTemperature <= 46) {
+          apparentTemperatureFeeling = 'freezing';
+        } else if (apparentTemperature >= 42 && apparentTemperature <= 48) {
+          apparentTemperatureFeeling = 'cold';
+        } else if (apparentTemperature >= 49 && apparentTemperature <= 58) {
+          apparentTemperatureFeeling = 'chilly'
         } else {
-          apparentTemperatureFeeling = config.COMFORTS[5];
+          apparentTemperatureFeeling = 'just fine';
         }
 
 
 
-        $('.story').append(`Morning comes in the Alaskan sustenance project, ${apparentTemperature} degrees, ${apparentTemperatureFeeling} but with a ${windDescription(windSpeed)}. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, this has been your home. You look to them to see if work can be done, in the fields, and in the small makeshift factory for at the end of the day `);
-
-        _.each(resources, (amount, resource) => {
-          console.log(`there is ${amount} remaining for ${resource}`);
-          if (resource == 'food') {
-            $('.story').append(` there will only be enough food for ${amount - _population.length} people.`);  
-          } 
-        });
+        $('.story').append(`Morning comes over the Alaskan horizon, ${apparentTemperature} degrees, ${apparentTemperatureFeeling} but with a ${windDescription(windSpeed)}. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, this has been your home. You look to them to see if work can be done, in the fields, and in the small makeshift factory for at the end of the day `); // new mercy parks?
+        
+        console.log(resourcesFoods);
+        
+          if (resourcesFoods > 0) {
+            $('.story').append(` there will only be enough food for ${resourcesFoods - _population.length} people.`);  
+          } else {
+            $('.story').append(` there is no more food.`);  
+          }
 
         $('.story').append(`<p>`);
 
@@ -214,8 +212,9 @@ class Region {
 
             // $('.story').append(`${person.features.height}, ${person.features.weight} one with the ${person.features.hair_darkness} hair from ${person.country}, `);
             if(person.traits.dilligence >= 1 && person.traits.cooperative <= 4) {
-              $('.story').append(`${config.THESAURUS.negative[_.random(0, config.THESAURUS.negative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}.`);
+              $('.story').append(`${config.THESAURUS.negative[_.random(0, config.THESAURUS.negative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
             } else {
+              $('.story').append(`${config.THESAURUS.affirmative[_.random(0, config.THESAURUS.affirmative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
               // thesaurus('', 'possible', ' says the ' + person.features.hair_darkness + ' one from the ' + person.country_region + ', ');
             }
             
@@ -232,7 +231,7 @@ class Region {
           var containsPlanting = _.contains(_this_population_total_coop_score, 'planting');
 
           //$('.story').append(`<p>then they turn to ask you a question with the same eyes.`); 
-          console.log(_this_population_total_coop_score);
+          
           // if (_this_population_total_coop_score.length == 1) {
           //   $('.story').append(`<br><br>you heave a sigh. Seems like only ${_this_population_total_coop_score} can be accomplished today.`);   
           // } else {
@@ -249,8 +248,11 @@ class Region {
           };
 
           if(containsPlanting == true) {
-            $('.story').append(`Shirt sleeves roll up, seeding and harvesting the ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]} and preparing the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]}. Rakes, fashioned out of detritus from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raised to meet the sun shine with the light of agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}.<p>`);
+
+            $('.story').append(` Rakes, fashioned out of detritus from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raised to meet the sun shine with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}. seeds into the ground, ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]} harvested, ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]} prepared. <p>`);
           };
+
+          $('.story').append(`<br><br>`);
 
           
         
