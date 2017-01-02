@@ -47,4 +47,4 @@ const REGIONS = [
 
 
 var world = new World(REGIONS);
-world.run(4);
+world.run(5);

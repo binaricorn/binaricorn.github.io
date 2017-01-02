@@ -3,7 +3,7 @@ const config = {
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
   	cooking: 15,
-    planting: 65,
+    planting: 21.2,
   	storytelling: 10,
   	building: 55,
     migrating: 130
@@ -20,6 +20,7 @@ const config = {
   TROPICAL_COUNTRIES: ["Bangladesh", "India", "Sierra Leone", "South Sudan", "Nigeria", "Chad", "Haiti", "Ethiopia", "Philippines", "Central African Republic", "Eritrea", "Bolivia"],
   THESAURUS: {
     progress: ['advancement', 'betterment', 'breakthroughs', 'development', 'enrichment'],
+    gentle: ['benign', 'moderate', 'tender', 'mellow', 'placid', 'genial'],
     fertile: ['ample', 'bountiful', 'copious', 'development', 'generous', 'rich', 'lavish'],
     affirmative: ['affirmative', 'amen', 'fine', 'gladly', 'granted', 'by all means', 'positively', 'yes'],
     negative: ['maybe', 'by no means', 'probably not', 'not today']
