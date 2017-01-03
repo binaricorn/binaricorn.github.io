@@ -1,6 +1,7 @@
 import './css/main.sass';
 import $ from 'jquery';
 import World from './app/World';
+import config from './config';
 
 const BIOME = {
   DESERT: {
@@ -47,4 +48,4 @@ const REGIONS = [
 
 
 var world = new World(REGIONS);
-world.run(2);
+world.run(config.DAYS);
