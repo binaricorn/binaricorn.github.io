@@ -29,8 +29,8 @@ const BIOME = {
   },
   MODERATE: {
     budget: 3000,
-    long_coord: 40.6501,
-    lat_coord: -73.9496,
+    long_coord: 40.7306,
+    lat_coord: -73.9866,
     countries: ["Alaska", "Canada", "Greenland"],
     temperature_feelings: ["dry", "dusty", "leathery"],
     weather_data: {
@@ -47,4 +47,4 @@ const REGIONS = [
 
 
 var world = new World(REGIONS);
-world.run(5);
+world.run(2);

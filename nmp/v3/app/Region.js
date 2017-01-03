@@ -19,16 +19,12 @@ class Region {
     this.machineRepairing = false;
     this.machineRepairCountdown = 0;
     this.resourcesFoods = config.FOODS;
-    //this.indv_coop_score;
-    // this.indv_total_personality_score = [];
-    // this.population_total_coop_array = [];
     this.feature_threshold = 6;
     this.feature_threshold_highest = 8;
   }
 
   step() {
     
-
     _.each(this.population, (person, i) => {
 
       person.traits.bravery = i+2;
@@ -36,8 +32,12 @@ class Region {
       person.traits.dexterous = i+1;
       person.traits.cooperative = i+1;
       person.traits.migration = i;
+      person.traits.countries = i+2;
 
-      console.log("original cooperativeness of person: " + person.traits.cooperative);
+      person.features.height = i+2;
+
+      //console.log("original cooperativeness of person: " + person.traits.cooperative);
+
       
       if(person.features.height > this.feature_threshold) {
               person.features.height = 'tall';
@@ -100,12 +100,9 @@ class Region {
               person.country_region = 'Tropics';
               person.country = config.TROPICAL_COUNTRIES[0]
             }
+
+            console.log("person countries: " + person.country_region);
     });
-
-    
-
-    // this.population_total_coop_score = _.reduce(this.population_total_coop_array, function(memo, num){ return memo + num; }, 0)
-
     
 
     this.weatherStory(this.resourcesFoods, this.population, this.biome, this.long_coord, this.lat_coord);
@@ -116,20 +113,17 @@ class Region {
     resourcesFoods = config.FOODS.count -= _population.length;
     console.log(resourcesFoods);
     var population_total_coop_score = 28;
-    var potential_population_total_coop_score = this.potential(population_total_coop_score);
+    //var potential_population_total_coop_score = this.potential(population_total_coop_score, cc_population_total_coop_score);
 
-    console.log(potential_population_total_coop_score)
+    // console.log(potential_population_total_coop_score)
 
     var apiKey = 'aa28b3a327af49fcad87d4454e1934b7';
     var url = 'https://api.darksky.net/forecast/';
     
-   
-
-    //console.log(_biome);
 
     var data;
       $.getJSON(url + apiKey + "/" + _lati + "," + _longi + "?callback=?", function(data) {
-        //console.log(data);
+        
 
        // console.log(population_total_coop_score);
         
@@ -139,6 +133,7 @@ class Region {
         var apparentTemperatureFeeling;
         var cloudCover = data.currently.cloudCover;
         var precipProbability = data.currently.precipProbability;
+        var precipType = data.currently.precipType;
         var precipProbabilityToday = data.daily.data[0].precipProbability;
         var precipTypeToday = data.daily.data[0].precipType;
         var summaryToday = data.daily.data[0].summary;
@@ -153,6 +148,7 @@ class Region {
         //console.log(_population);
         var person_details_into_text = _population;
         // var temperature_feelings;
+        console.log(data);
 
         
 
@@ -171,104 +167,95 @@ class Region {
           apparentTemperatureFeeling = 'cold but tolerable';
         }
 
+        function precip() {
+          if(precipProbabilityToday > 0) {
+            return "If luck is on your side, there may be " + precipTypeToday + " for the garden";
+          } else {
+            return "";
+          }
+        }
+
+        
 
 
-        $('.story').append(`Morning comes over the Alaskan horizon, ${apparentTemperature} degrees, ${apparentTemperatureFeeling} with a ${windDescription(windSpeed)}. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, this has been your home. You look to them to see if work can be done, in the fields, and in the small makeshift factory for at the end of the day `); // new mercy parks?
+
+        $('.story').append(`Today feels like a <span class='summary'>${apparentTemperatureFeeling}</span> and <span class='summary'>${summary}</span> ${apparentTemperature} degrees, your no longer sentient but still-functional device displays on its cracked and dusty screen. You close your eyes against the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} sky of the Alaskan horizon. ${precip()}. A ${windDescription(windSpeed)}. The device continues to remind you how far away you are from home and stutters attempting to figure out the fastest route from the Park to here. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, you have gotten used to your new home, and immediately go check on the supplies. The crowd sentiment gauge is not an option with such low connectivity, but no need to shout either, as the sustenance project is so small and makeshift. You tell the recruits that`); // new mercy parks?
         
         
         
           if (resourcesFoods > 0) {
-            $('.story').append(` there will only be enough food for ${resourcesFoods - _population.length} people.`);  
+            $('.story').append(` there will only be enough food for ${resourcesFoods - _population.length} more meals`);  
           } else {
-            $('.story').append(` there is no more food.`);  
+            $('.story').append(` there is no more food left`);  
           }
 
-        $('.story').append(`<p>`);
+        $('.story').append(`, and call for a simple majority vote:<p>`);
 
-        //$('.story').append(` all vague and nameless still. `);
-
-
-
-
-          // if (indv_total_coop_score <= 3) {
-          //   indv_total_coop_score_text = 'angry and solitary. ';
-          // } else if (indv_total_coop_score >= 7) {
-          //   indv_total_coop_score_text = 'chatty and eager to start working. ';
-          // } else {
-          //   indv_total_coop_score_text = 'middle of the road and swayable. ';
-          // }
-
+          
           var cc_population_total_coop_score = [];
           var temp_cooperative_score = 0;
 
         _.each(person_details_into_text, (person, i) => {  
             temp_cooperative_score = person.traits.cooperative;
             temp_cooperative_score += person.comfort(apparentTemperature, person.country_region); 
-            console.log("cooperativeness of person: " + temp_cooperative_score);
-            console.log("comfort of person: " + person.comfort(apparentTemperature, person.country_region));
-
-            // $('.story').append(`${person.features.height}, ${person.features.weight} one with the ${person.features.hair_darkness} hair from ${person.country}, `);
+            // console.log("cooperativeness of person: " + temp_cooperative_score);
+            // console.log("comfort of person: " + person.comfort(apparentTemperature, person.country_region));
             if(person.traits.dilligence >= 1 && person.traits.cooperative <= 4) {
-              $('.story').append(`${config.THESAURUS.negative[_.random(0, config.THESAURUS.negative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
+              $('.story').append(`<span class="sentence-start">${config.THESAURUS.negative[_.random(0, config.THESAURUS.negative.length-1)]}</span> says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
             } else {
-              $('.story').append(`${config.THESAURUS.affirmative[_.random(0, config.THESAURUS.affirmative.length-1)]} says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
-              // thesaurus('', 'possible', ' says the ' + person.features.hair_darkness + ' one from the ' + person.country_region + ', ');
+              $('.story').append(`<span class="sentence-start">${config.THESAURUS.affirmative[_.random(0, config.THESAURUS.affirmative.length-1)]}</span> says the ${person.features.height} ${person.features.face_blemishedness} one from the ${person.country_region}, `);
             }
             
             cc_population_total_coop_score.push(temp_cooperative_score);
 
-
         });
-        
-        console.log(cc_population_total_coop_score)
-
-        cc_population_total_coop_score = _.reduce(cc_population_total_coop_score, function(memo, num){ return memo + num; }, 0);
-
-        console.log(cc_population_total_coop_score)
-        
-        
-
-        
           
 
-        
-        
-          var containsStory = _.contains(potential_population_total_coop_score, 'storytelling');
-          var containsPlanting = _.contains(potential_population_total_coop_score, 'planting');
+          cc_population_total_coop_score = _.reduce(cc_population_total_coop_score, function(memo, num){ return memo + num; }, 0);
+          cc_population_total_coop_score = potential(cc_population_total_coop_score);
+          console.log(cc_population_total_coop_score)
 
-          //$('.story').append(`<p>then they turn to ask you a question with the same eyes.`); 
-          
-          // if (_this_population_total_coop_score.length == 1) {
-          //   $('.story').append(`<br><br>you heave a sigh. Seems like only ${_this_population_total_coop_score} can be accomplished today.`);   
-          // } else {
-          //   $('.story').append(`<br><br>good news. Seems like`);
-          //   _.each(_this_population_total_coop_score, (action, i) => {
-          //     $('.story').append(` ${action},`);
-          //   });
-          //   $('.story').append(` are all possible.`);
-          // }
-          $('.story').append(`<br><br>`);
+          var containsStory = _.contains(cc_population_total_coop_score, 'storytelling');
+          var containsPlanting = _.contains(cc_population_total_coop_score, 'planting');
+          var containsCooking = _.contains(cc_population_total_coop_score, 'cooking');
 
           if(containsStory == true) {
-            $('.story').append(`a voice speaks telling a story of the ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]}.`);
-          };
-
+            $('.story').append(`<p>and so after a pause, a voice speaks over the silence to start the story of the ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]} that would provide entertainment for the entire day.`);
+          }
+          if(containsCooking == true) {
+            $('.story').append(` The ${_population[_.random(0, _population.length-1)].features.height} newcomer from ${_population[_.random(0, _population.length-1)].country} prepares the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]} harvested yesterday over a fire.`); 
+          }
           if(containsPlanting == true) {
+            $('.story').append(` The rest eat and the grips of ambivalence seems to releases a few of them. They sow the seeds, harvest the ripe ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]}. Farm implements, scavenged out of whatever detritus remained from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raise to meet the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} clouds. with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}.`);
+          }
+          
 
-            $('.story').append(` Rakes, fashioned out of detritus from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raised to meet the sun shine with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}. seeds into the ground, ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]} harvested, ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]} prepared. <p>`);
-          };
-
+          console.log(_population[_.random(0, _population.length-1)]);
           $('.story').append(`<br><br>`);
 
-          
-        
 
-        
+          function potential(cc_population_total_coop_score) {
+            console.log(cc_population_total_coop_score)
 
-        
+             var all_actions = [];
+                all_actions = _.pairs(config.COSTS)
+                var possible_actions = [];
+                var chosen_possible_actions = [];
 
-        //if (precipProbability > 0.2) arraySummary.push(precipTypeToday);
-        
+                _.each(all_actions, (key, value) => {
+
+                  possible_actions = _.filter(key, function(action) {
+                    // first let's see if the people are even willing to work together
+                    if (cc_population_total_coop_score >= key[1]) {
+                      if(_.isString(action)) {
+                       chosen_possible_actions.push(action)
+                      }
+                    }
+                  });
+                });
+
+                return chosen_possible_actions;
+          }    
         
     });
 
@@ -282,7 +269,7 @@ class Region {
       } else if (windSpeed >= 1 && windSpeed < 3) {
         windText = "a little bit of stillness in the air";
       } else if (windSpeed >= 3 && windSpeed < 7) {
-        windText = "light breeze that rustle the leaves, and caress your face";
+        windText = "light breeze rustles the corn stalks and " + config.THESAURUS.caress[_.random(0, config.THESAURUS.caress.length-1)] + " your face";
       } else if (windSpeed >= 7 && windSpeed < 12) {
         windText = `${config.THESAURUS.gentle[_.random(0, config.THESAURUS.gentle.length-1)]} breeze that causes detritus to scatter sounds of their previously liquid past`;
       } else if (windSpeed >= 12 && windSpeed < 18) {
@@ -300,26 +287,7 @@ class Region {
     
   }
   
-  potential(_population_total_coop_score) {
-   var all_actions = [];
-      all_actions = _.pairs(config.COSTS)
-      var possible_actions = [];
-      var chosen_possible_actions = [];
-
-      _.each(all_actions, (key, value) => {
-
-        possible_actions = _.filter(key, function(action) {
-          // first let's see if the people are even willing to work together
-          if (_population_total_coop_score >= key[1]) {
-            if(_.isString(action)) {
-             chosen_possible_actions.push(action)
-            }
-          }
-        });
-      });
-
-      return chosen_possible_actions;
-  }
+  
 }
 
 export default Region;

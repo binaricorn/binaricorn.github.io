@@ -17,6 +17,7 @@ class World {
   run(days) {
     _.each(_.range(days), i => {
       this.step();
+      
     });
   }
 }
