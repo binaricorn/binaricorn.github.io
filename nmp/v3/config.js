@@ -1,12 +1,12 @@
 const config = {
-  DAYS: 2,
+  DAYS: 3,
   WINTER_TEMPERATURE: [50, 60],
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
   	cooking: 34.48,
     fooding: 34.55,
   	storytelling: 15,
-  	building: 34.92,
+  	building: 34.7,
     migrating: 36
   },
   FOODS: {
@@ -20,10 +20,11 @@ const config = {
   DESERT_COUNTRIES: ["Kazakhstan", "Pakistan", "Afghanistan", "Yemen", "Saudi Arabia", "Iraq", "Iran", "Texas, United States of America", "New Mexico, United States of America", "Southern California, United States of America"],
   TROPICAL_COUNTRIES: ["Bangladesh", "India", "Sierra Leone", "South Sudan", "Nigeria", "Chad", "Haiti", "Ethiopia", "Philippines", "Central African Republic", "Eritrea", "Bolivia"],
   THESAURUS: {
-    progress: ['advancement', 'betterment', 'breakthroughs', 'development', 'enrichment', 'progress'],
+    progress: ['advancement', 'betterment', 'breakthroughs', 'development', 'enrichment', 'progress', 'evolution', 'momentum', 'stride'],
     gentle: ['benign', 'moderate', 'tender', 'mellow', 'placid', 'genial', 'gentle'],
     fertile: ['ample', 'bountiful', 'copious', 'development', 'generous', 'rich', 'lavish', 'fertile'],
     affirmative: ['affirmative', 'amen', 'fine', 'gladly', 'granted', 'by all means', 'positively', 'yes'],
+    fine: ['OK', 'alright', 'no problem'],
     eager: ['eager', 'keen', 'fervent', 'dedicated', 'impatient', 'ready', 'intent'],
     negative: ['maybe', 'by no means', 'probably not', 'not today'],
     hesitant: ['halting', 'doubtful', 'indecisive', 'reluctant', 'hesitant', 'skeptical', 'unwilling'],

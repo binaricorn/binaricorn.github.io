@@ -30,6 +30,7 @@ class Person {
    comfort(CCfeelsLikeTemp, country_region) {
     var comfort_temp;
     var collaboration_score;
+    var comfort_level = {};
 
     if(country_region == 'Tundra') {
       comfort_temp = [30, 50];
@@ -40,20 +41,24 @@ class Person {
     }
 
     if (CCfeelsLikeTemp <= comfort_temp[1] && CCfeelsLikeTemp >= comfort_temp[0]) {
-      return 1;
+      comfort_level.num = 1;
+      comfort_level.text = 'fine'
+      return comfort_level;
       // if colder than preferred
     } else if (CCfeelsLikeTemp < comfort_temp[0]) {
-      return (1 - (comfort_temp[0] - CCfeelsLikeTemp)/100);
+      comfort_level.num = (1 - (comfort_temp[0] - CCfeelsLikeTemp)/100);
+      comfort_level.text = 'cold';
+      return comfort_level;
       // if hotter than preferred
     } else if (CCfeelsLikeTemp > comfort_temp[1]) {
-      return (1 - (CCfeelsLikeTemp - comfort_temp[0])/100);
+      comfort_level.num = (1 - (CCfeelsLikeTemp - comfort_temp[0])/100);
+      comfort_level.text = 'hot';
+      return comfort_level;
+      
     }
 
   }
 
-  do_work() {
-
-  }
 
 }
 

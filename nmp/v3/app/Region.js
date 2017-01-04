@@ -41,6 +41,7 @@ class Region {
       person.traits.countries = i+2;
 
       person.features.height = i+2;
+      person.features.face_blemishedness = i*3;
 
       //console.log("original cooperativeness of person: " + person.traits.cooperative);
 
@@ -68,6 +69,7 @@ class Region {
             } else {
               person.features.face_blemishedness = 'smooth';
             }
+
 
             // if(person.traits.bravery > feature_threshold) {
             //   person.traits.bravery = 'brave';
@@ -183,9 +185,9 @@ class Region {
         }
 
 
-        $('.story').append(`<span class='hide-story'>Today feels like a </span>${apparentTemperature} degrees, your <span class='hide-story'>no longer sentient but still-functional</span>device displays<span class='hide-story'> on its cracked and dusty screen. You close your eyes</span>against the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} sky<span class='hide-story'> of the Alaskan horizon</span>. ${precip()}. A ${windDescription(windSpeed)}. The device continues to remind you how far away you are from home <span class='hide-story'> and stutters attempting to figure out the fastest route from the Park to here</span>. </span> The others are slow to rise. <span class='hide-story'>Some still have not yet acclimated to the current migration location climate.</span> But you<span class='hide-story'>, you have gotten used to your new home, and</span> immediately go check on the supplies. <span class='hide-story'>The crowd sentiment gauge is not an option with such low connectivity, but no need to shout either, as the sustenance project is so small and makeshift. You tell the recruits that</span>`); // new mercy parks?
+        $('.story').append(`<span class='hide-story'>Today feels like a </span>${apparentTemperature} degrees and <span class='summary'>${summary}</span>, your <span class='hide-story'>no longer sentient but still-functional</span> device displays<span class='hide-story'>on its cracked and dusty screen. You close your eyes against the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} sky of the Alaskan horizon</span>. ${precip()}. A ${windDescription(windSpeed)}. <span class='hide-story'>The device continues to remind you how far away you are from home and stutters attempting to figure out the fastest route from the Park to here. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, you have gotten used to your new home, and immediately go check on the supplies. </span><p>The crowd: <span class='hide-story'>sentiment gauge is not an option with such low connectivity, but no need to shout either, as the sustenance project is so small and makeshift. You tell the recruits that</span>`); // new mercy parks?
         
-          $('.story').append(`Given the <span class='summary'>${apparentTemperatureFeeling}</span> and <span class='summary'>${summary}</span> state of the weather, `);
+          // $('.story').append(`Given the  and <span class='summary'>${summary}</span> state of the weather, `);
         
         
           // if (resourcesFoods > 0) {
@@ -199,17 +201,43 @@ class Region {
           
           var cc_population_total_coop_score = [];
           var temp_cooperative_score = 0;
+          var person_comfort;
+          var person_comfort_num;
+          var person_comfort_text;
 
         _.each(person_details_into_text, (person, i) => {  
+          console.log(person.features);
+            person_comfort = person.comfort(apparentTemperature, person.country_region);
+            person_comfort_num = person_comfort.num;
+            person_comfort_text = person_comfort.text;
+            console.log(`${person_comfort_text} ${person.country_region}`); 
+
             temp_cooperative_score = person.traits.cooperative;
-            temp_cooperative_score += person.comfort(apparentTemperature, person.country_region); 
-            console.log("cooperativeness of person: " + temp_cooperative_score);
-            // console.log("comfort of person: " + person.comfort(apparentTemperature, person.country_region));
-            if(person.traits.dilligence >= 1 && temp_cooperative_score <= 4.9) {
-              $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.hesitant[_.random(0, config.THESAURUS.hesitant.length-1)]}, `);
+            temp_cooperative_score += person_comfort_num;
+            
+            $('.story').append(`the one from the ${person.country_region} `);
+
+            if(person_comfort_num < 1) {
+              $('.story').append("complains it's too " + `${person_comfort.text}, `);
             } else {
-              $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.eager[_.random(0, config.THESAURUS.eager.length-1)]}, `);
+              $('.story').append("says it's " + `${person_comfort.text}, `); 
+
+              if(person.traits.dilligence >= 1 && temp_cooperative_score <= 4.9) {
+                $('.story').append(` and is ${config.THESAURUS.eager[_.random(0,config.THESAURUS.eager.length-1)]} for renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}, `);
+              } else {
+                $('.story').append(` that work is work, `);
+              }
             }
+            
+            
+
+            // console.log("cooperativeness of person: " + temp_cooperative_score);
+            
+            // if(person.traits.dilligence >= 1 && temp_cooperative_score <= 4.9) {
+            //   $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.hesitant[_.random(0, config.THESAURUS.hesitant.length-1)]}, `);
+            // } else {
+            //   $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.eager[_.random(0, config.THESAURUS.eager.length-1)]}, `);
+            // }
             
             cc_population_total_coop_score.push(temp_cooperative_score);
 
@@ -223,19 +251,22 @@ class Region {
           var containsStory = _.contains(cc_population_total_coop_score, 'storytelling');
           var containsFooding = _.contains(cc_population_total_coop_score, 'fooding');
           var containsCooking = _.contains(cc_population_total_coop_score, 'cooking');
+          var containsBuilding = _.contains(cc_population_total_coop_score, 'building');
 
           if(containsCooking == true) {
-            $('.story').append(` but after awhile the ${_population[_.random(0, _population.length-1)].features.height} newcomer from ${_population[_.random(0, _population.length-1)].country} prepares the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]} harvested <span class='hide-story'>yesterday</span> over a fire. `); 
+            
+             $('.story').append(` but after awhile a ${_population[3].features.face_blemishedness}-faced newcomer prepares the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]}<span class='hide-story'>harvested yesterday</span> over a fire, `); 
           }
 
           if(containsStory == true) {
-            $('.story').append(`And so after a pause, a voice speaks over the silence to start the story of the ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]}<span class='hide-story'> that would provide entertainment for the entire day</span>.`);
+            $('.story').append(` and stories of ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]} <span class='hide-story'> that would</span>provide entertainment for the entire day.`);
           }
-          
 
-          // if(_resourceFoods < _population.length) {
-          //     _planting.is_planting = true;  
-          //   }
+          if(containsBuilding == true) {
+            $('.story').append(` The recruits are even feeling good enough with the weather to make much-needed repairs on their sustenance center. `);
+          }
+
+          
 
           if(containsFooding == true) { // if there is enough cooperation to deal with the food. if the plants are already being grown, no need to grow more, so best to harvest and hunt and prepare the food. meanwhile food is being consumed the whole time.
             _planting.is_planting = true;
@@ -257,9 +288,8 @@ class Region {
               }
             
           }
-          console.log(val)
             
-            $('.story').append(` The rest eat and <span class='hide-story'>the grips of ambivalence seems to releases a few of them.</span> <span class='hide-story'>They</span> sow the seeds, harvest the ripe ${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]}. <span class='hide-story'>Farm implements, scavenged out of whatever detritus remained from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raise to meet the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} clouds. with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}<span>.`); 
+            $('.story').append(` The rest eat <span class='hide-story'>and </span>the <span class='hide-story'>grips of ambivalence seems to releases a few of them. Theysow the seeds, harvest the ripe </span>${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]}. <span class='hide-story'>Farm implements, scavenged out of whatever detritus remained from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raise to meet the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} clouds. with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}<span>.`); 
             $('.story').append(`Remaining from the harvest are ${val} total items of `);
 
           _.each(config.FOODS.main, (item, i) => {
@@ -268,8 +298,7 @@ class Region {
           _.each(config.FOODS.hunt, (item, i) => {
             $('.story').append(`${item}, `);
           });
-          console.log(apparentTemperature)
-          $('.story').append(` that you hope can last some time. It is difficult for you to imagine how anyone lived without these super-growth seeds. Without them and their four day harvesting cycle, you would all be dead.`);
+          $('.story').append(` and after all is done, <p>you allow yourself to wonder: who were they before all this? How did they end up here?`);
             
           //}
 
@@ -277,7 +306,8 @@ class Region {
           
           
 
-          console.log(_population[_.random(0, _population.length-1)]);
+          //console.log(_population);
+
           $('.story').append(`<br>---------------------------------------<br>`);
 
 
@@ -317,11 +347,11 @@ class Region {
       } else if (windSpeed >= 1 && windSpeed < 3) {
         windText = "a little bit of stillness in the air";
       } else if (windSpeed >= 3 && windSpeed < 7) {
-        windText = "light breeze rustles the corn stalks and " + config.THESAURUS.caress[_.random(0, config.THESAURUS.caress.length-1)] + " your face";
+        windText = "light breeze rustles<span class='hide-story'>the corn stalks and " + config.THESAURUS.caress[_.random(0, config.THESAURUS.caress.length-1)] + " your face</span>";
       } else if (windSpeed >= 7 && windSpeed < 12) {
         windText = `${config.THESAURUS.gentle[_.random(0, config.THESAURUS.gentle.length-1)]} breeze that causes brittle debris to scatter where there used to sit heavy and stubborn sheets of ice`;
       } else if (windSpeed >= 12 && windSpeed < 18) {
-        windText = "movement in the air that brings the smell of foods, sway small branches and your clothes";
+        windText = "a wind that blows sand into your eyes and coats your clothes in dust";
       } else if (windSpeed >= 18 && windSpeed < 24) {
         windText = "fresh fast breeze that makes small bony twigs sway";
       } else if (windSpeed >= 25 && windSpeed < 38) {
