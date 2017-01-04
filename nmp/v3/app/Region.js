@@ -148,9 +148,6 @@ class Region {
         
         console.log(data);
 
-        console.log(solarPower(cloudCover));
-        
-        
         
 
         if (apparentTemperature >= 10 && apparentTemperature <= 28) {
@@ -168,16 +165,17 @@ class Region {
           apparentTemperatureFeeling = 'tolerable';
         }
 
-        function precip() {
-          if(precipProbabilityToday > 0) {
-            return "If luck is on your side, there may still be " + precipTypeToday + " for the garden";
-          } else {
-            return "If there is no rain, the vegetation would take longer to harvest. Moral would be low";
-          }
-        }
+        // function precip() {
+        //   if(precipProbabilityToday > 0) {
+        //     return "If luck is on your side, there may still be " + precipTypeToday + " for the garden";
+        //   } else {
+        //     return "If there is no rain, the vegetation would take longer to harvest. Moral would be low";
+        //   }
+        // }
+        var solarPowerText = solarPower(cloudCover).text;
 
 
-        $('.story').append(`<span class='hide-story'>Today feels like a </span>${apparentTemperature} degrees and <span class='summary'>${summary}</span>, your <span class='hide-story'>no longer sentient but still-functional</span> device displays<span class='hide-story'>on its cracked and dusty screen. You close your eyes against the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} sky of the Alaskan horizon</span>. ${precip()}. A ${windDescription(windSpeed)}. <span class='hide-story'>The device continues to remind you how far away you are from home and stutters attempting to figure out the fastest route from the Park to here. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, you have gotten used to your new home, and immediately go check on the supplies. </span><p>The crowd: <span class='hide-story'>sentiment gauge is not an option with such low connectivity, but no need to shout either, as the sustenance project is so small and makeshift. You tell the recruits that</span>`); // new mercy parks?
+        $('.story').append(`<span class='hide-story'>Today feels like a </span>${apparentTemperature} degrees and <span class='summary'>${summary}</span> with ${solarPowerText} solar connectivity, your <span class='hide-story'>no longer sentient but still-functional</span> device displays<span class='hide-story'>on its cracked and dusty screen. You close your eyes against the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} sky of the Alaskan horizon</span>. A ${windDescription(windSpeed)}. <span class='hide-story'>The device continues to remind you how far away you are from home and stutters attempting to figure out the fastest route from the Park to here. The others are slow to rise. Some still have not yet acclimated to the current migration location climate. But you, you have gotten used to your new home, and immediately go check on the supplies. </span><p>The crowd: <span class='hide-story'>sentiment gauge is not an option with such low connectivity, but no need to shout either, as the sustenance project is so small and makeshift. You tell the recruits that</span>`); // new mercy parks?
         
           // $('.story').append(`Given the  and <span class='summary'>${summary}</span> state of the weather, `);
         
@@ -290,7 +288,7 @@ class Region {
           _.each(config.FOODS.hunt, (item, i) => {
             $('.story').append(`${item}, `);
           });
-          $('.story').append(` and after all is done, <p>you allow yourself to wonder: who were they before all this? How did they end up here?`);
+          $('.story').append(` and after all is done, you allow yourself to wonder: who were they before all this? How did they end up here?`);
             
           //}
 
