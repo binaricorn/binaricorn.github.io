@@ -47,28 +47,25 @@ class Region {
 
       
       if(person.features.height > this.feature_threshold) {
-              person.features.height = 'tall';
-            } else {
-              person.features.height = 'short';
-            }
-
-            if(person.features.weight > this.feature_threshold) {
-              person.features.weight = 'plump';
-            } else {
-              person.features.weight = 'thin';
-            }
-
-            if(person.features.hair_darkness > this.feature_threshold) {
-              person.features.hair_darkness = 'raven';
-            } else {
-              person.features.hair_darkness = 'blond';
-            }
-
-            if(person.features.face_blemishedness > this.feature_threshold) {
-              person.features.face_blemishedness = 'pimply';
-            } else {
-              person.features.face_blemishedness = 'smooth';
-            }
+        person.features.height = 'tall';
+      } else {
+        person.features.height = 'short';
+      }
+      if(person.features.weight > this.feature_threshold) {
+        person.features.weight = 'plump';
+      } else {
+        person.features.weight = 'thin';
+      }
+      if(person.features.hair_darkness > this.feature_threshold) {
+        person.features.hair_darkness = 'raven';
+      } else {
+        person.features.hair_darkness = 'blond';
+      }
+      if(person.features.face_blemishedness > this.feature_threshold) {
+        person.features.face_blemishedness = 'pimply';
+      } else {
+        person.features.face_blemishedness = 'smooth';
+      }
 
 
             // if(person.traits.bravery > feature_threshold) {
@@ -131,8 +128,6 @@ class Region {
         
         $('.story').append(`<h1>Days ${_days}</h1>`);
 
-
-
        // console.log(population_total_coop_score);
         
         var summary = data.currently.summary;
@@ -146,17 +141,14 @@ class Region {
         var precipTypeToday = data.daily.data[0].precipType;
         var summaryToday = data.daily.data[0].summary;
         var windSpeed = data.currently.windSpeed;
-
-        // var arraySummary = summary.split(" ");
-        // var arraySummaryToday = summaryToday.split(" ");
-        var apiKey_thesaurus = 'cec24de13422f99ecbcda6603f345497';
-        var url_thesaurus = 'http://words.bighugelabs.com/api/2/';
-        var data_thesaurus;
-
-        //console.log(_population);
+        
         var person_details_into_text = _population;
-        // var temperature_feelings;
-        //console.log(data);
+        //console.log(_population);
+        
+        
+        console.log(data);
+
+        console.log(solarPower(cloudCover));
         
         
         
@@ -218,9 +210,9 @@ class Region {
             $('.story').append(`the one from the ${person.country_region} `);
 
             if(person_comfort_num < 1) {
-              $('.story').append("complains it's too " + `${person_comfort.text}, `);
+              $('.story').append(`${config.THESAURUS.complain[_.random(0,config.THESAURUS.complain.length-1)]}` + "s it's too " + `${person_comfort.text}, `);
             } else {
-              $('.story').append("says it's " + `${person_comfort.text}, `); 
+              $('.story').append(`${config.THESAURUS.say[_.random(0,config.THESAURUS.say.length-1)]}` + "s says it's " + `${person_comfort.text}, `); 
 
               if(person.traits.dilligence >= 1 && temp_cooperative_score <= 4.9) {
                 $('.story').append(` and is ${config.THESAURUS.eager[_.random(0,config.THESAURUS.eager.length-1)]} for renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}, `);
@@ -336,6 +328,24 @@ class Region {
           }    
         
     });
+
+    function solarPower(_cloudCover) {
+      var cloudCover = _cloudCover;
+      var connectivity = {};
+
+      if (cloudCover == 1) {
+        connectivity.num = 0;
+        connectivity.text = 'no';
+      } else if (cloudCover <= 0.99 && cloudCover >= 0.7) {
+        connectivity.num = 0.5;
+        connectivity.text = 'low';
+      } else  {
+        connectivity.num = 1;
+        connectivity.text = 'acceptable';
+      }
+
+      return connectivity;
+    }
 
     function windDescription(_windSpeed) {
       // wind

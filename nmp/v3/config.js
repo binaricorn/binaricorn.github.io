@@ -29,8 +29,9 @@ const config = {
     negative: ['maybe', 'by no means', 'probably not', 'not today'],
     hesitant: ['halting', 'doubtful', 'indecisive', 'reluctant', 'hesitant', 'skeptical', 'unwilling'],
     caress: ['pets', 'kisses', 'strokes', 'embraces', 'like a vapor of smoke, envelops', 'caresses'],
-    bright: ['shadeless', 'bright', 'piercing', 'merciless', 'cold', 'bright but listless', 'terse', 'oppressive']
-
+    bright: ['shadeless', 'bright', 'piercing', 'merciless', 'cold', 'bright but listless', 'terse', 'oppressive'],
+    complain: ['gripe', 'oppose', 'protest', 'fret', 'nag', 'object', 'moan'],
+    say: ['announce', 'claim', 'declare', 'mention', 'communicate', 'say']
   }
 }
 
