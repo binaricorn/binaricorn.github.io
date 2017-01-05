@@ -1,5 +1,5 @@
 const config = {
-  DAYS: 3,
+  DAYS: 1,
   WINTER_TEMPERATURE: [50, 60],
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
@@ -19,6 +19,7 @@ const config = {
   TUNDRA_COUNTRIES: ["Iceland", "Quebec", "Greenland"],
   DESERT_COUNTRIES: ["Kazakhstan", "Pakistan", "Afghanistan", "Yemen", "Saudi Arabia", "Iraq", "Iran", "Texas, United States of America", "New Mexico, United States of America", "Southern California, United States of America"],
   TROPICAL_COUNTRIES: ["Bangladesh", "India", "Sierra Leone", "South Sudan", "Nigeria", "Chad", "Haiti", "Ethiopia", "Philippines", "Central African Republic", "Eritrea", "Bolivia"],
+  NAMES: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'Y'],
   THESAURUS: {
     progress: ['advancement', 'betterment', 'breakthroughs', 'development', 'enrichment', 'progress', 'evolution', 'momentum', 'stride'],
     gentle: ['benign', 'moderate', 'tender', 'mellow', 'placid', 'genial', 'gentle'],

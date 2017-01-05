@@ -11,10 +11,12 @@ class Person {
     this.traits = {
       cooperative: _.random(0, 10), 
       bravery: _.random(0, 10),
+      strength: 0,
       dilligence: 2,
       dexterous: _.random(0, 10),
       migration_tendencies: _.random(0, 10),
-      countries: _.random(0, 10)
+      countries: _.random(0, 10),
+      name: 0
     }  
 
     this.features = {
