@@ -13,7 +13,37 @@ class Region {
     this.lat_coord = biome.lat_coord;
     this.countries = biome.countries;
     this.population = _.map(_.range(populationSize), i => { return new People(this, peoplePrefs) });
-    this.feeling_like = biome.feeling_like;
+    this.past_weather = [{
+      day: 1,
+      apparentTemperature: 0,
+      windSpeed: 0
+    },
+    {
+      day: 2,
+      apparentTemperature: 0,
+      windSpeed: 0
+    },
+    {
+      day: 3,
+      apparentTemperature: 45,
+      windSpeed: 12,
+      cloudCover: 0.60
+    },
+    { 
+      day: 4,
+      apparentTemperature: 29,
+      windSpeed: 9,
+      cloudCover: 0.66
+    },
+    {
+      day: 5,
+      apparentTemperature: 29,
+      windSpeed: 9,
+      cloudCover: 0.66,
+      precipType: 'snow',
+      summary: 'Snow (under 1 in.) overnight.'
+    }];
+    // how to deal with the snow?
     this.cash = biome.budget;
     this.feature_threshold = 6;
     this.feature_threshold_highest = 8;
@@ -30,6 +60,7 @@ class Region {
   step() {
     this.days++;
     this.resourceFoods -= this.population.length; // at baseline, food is going bad. food is rationed so that no one eats when there is no food to conserve energy
+    console.log(this.past_weather);
 
     _.each(this.population, (person, i) => {
       
@@ -38,13 +69,12 @@ class Region {
       person.traits.strength = 9-(i*2);
       person.traits.bravery = i+2;
       person.traits.dilligence = i+1;
-      person.traits.dexterous = i+1;
       person.traits.cooperative = i+1;
       person.traits.migration = i;
       person.traits.countries = i+2;
-
       person.features.height = i+2;
       person.features.face_blemishedness = i*3;
+      person.features.sex = i*2;
 
       //console.log("original cooperativeness of person: " + person.traits.cooperative);
 
@@ -70,6 +100,11 @@ class Region {
         person.features.face_blemishedness = 'smooth';
       }
 
+      if(person.features.sex > this.feature_threshold) {
+        person.features.sex = 'male';
+      } else {
+        person.features.sex = 'female';
+      }
 
             // if(person.traits.bravery > feature_threshold) {
             //   person.traits.bravery = 'brave';
@@ -113,11 +148,11 @@ class Region {
     
     
 
-    this.weatherStory(this.days, this.resourceFoods, this.planting, this.population, this.biome, this.long_coord, this.lat_coord);
+    this.weatherStory(this.days, this.resourceFoods, this.planting, this.past_weather, this.population, this.biome, this.long_coord, this.lat_coord);
   }
 
 
-  weatherStory(_days, _resourceFoods, _planting, _population, _biome, _lati, _longi){
+  weatherStory(_days, _resourceFoods, _planting, _pastWeather, _population, _biome, _lati, _longi){
 
     
     var population_total_coop_score = 28;
@@ -174,20 +209,9 @@ class Region {
           var person_comfort;
           var person_comfort_num;
           var person_comfort_text;
-          // tie this to the weather. the person who loses needs to do something.
-        $('.story').append(`A ${55 - apparentTemperature} degree difference in weather from day to day is nothing to be shocked by anymore. You oversleep, nonetheless, and wake up to slamming of the door and gusts of ${apparentTemperatureFeeling} wind. A pile of branches and sticks is growing on the floor in front of you.` + "<p>Whoever is the weakest has to do all the cooking today. We write our initials so we can call each other by name from now on.");
-
-        $('.story').append(`<p>The recruit points at the pile, takes a piece of stone and etches into the wooden wall: ${_population[4].traits.firstname}${_population[4].traits.lastname}. Bundles of dead branches are snapped in half, and an orchestra of cracking wood fills the room as each take their turn.</p>`);
-          
 
         _.each(person_details_into_text, (person, i) => { 
-          var broken_sticks = person.traits.strength + _.random(8, 10);
-          $('.story').append(`<div class="person-div"><span class="person-initial">${person.traits.firstname}${person.traits.lastname}</span></div> `);  
 
-          
-          for (i = 0; i < broken_sticks; i++) {
-            $('.person-div').eq(i-1).append(`<span class="person-sticks">&brvbar;</span>`);
-          }
             person_comfort = person.comfort(apparentTemperature, person.country_region);
             person_comfort_num = person_comfort.num;
             person_comfort_text = person_comfort.text;
@@ -195,16 +219,8 @@ class Region {
 
             temp_cooperative_score = person.traits.cooperative;
             temp_cooperative_score += person_comfort_num;
-            
-            
 
             console.log("cooperativeness of person: " + temp_cooperative_score);
-            
-            // if(person.traits.dilligence >= 1 && temp_cooperative_score <= 4.9) {
-            //   $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.hesitant[_.random(0, config.THESAURUS.hesitant.length-1)]}, `);
-            // } else {
-            //   $('.story').append(`the <span class='hide-story'>${person.features.height} ${person.features.face_blemishedness}</span> one from the ${person.country_region} looks ${config.THESAURUS.eager[_.random(0, config.THESAURUS.eager.length-1)]}, `);
-            // }
             
             cc_population_total_coop_score.push(temp_cooperative_score);
 
@@ -221,37 +237,33 @@ class Region {
           var containsCooking = _.contains(cc_population_total_coop_score, 'cooking');
           var containsBuilding = _.contains(cc_population_total_coop_score, 'building');
 
-          if(containsCooking) {
-            var gripe;
+          if(containsStory == true) {
+            var sperson;
+            var md = dexterousPerons();
 
-            if(_population[6].traits.cooperative > 3 && _population[6].traits.dilligence > 3) {
-              gripe = 'does not ' + config.THESAURUS.complain[_.random(0, config.THESAURUS.complain.length-1)];
+            if(md.features.sex == 'female') {
+              sperson = 'she';
             } else {
-              gripe = config.THESAURUS.complain[_.random(0, config.THESAURUS.complain.length-1)] + 's';
+              sperson = 'he';
             }
-            $('.story').append(`${_population[6].traits.firstname}${_population[6].traits.lastname} ${gripe} and prepares the ${config.FOODS.starches[_.random(0,config.FOODS.starches.length-1)]} as promised. `); 
-          } else {
-            $('.story').append(`The weather makes everyone ${config.THESAURUS.hesitant[_.random(0, config.THESAURUS.hesitant.length-3)]} and ${config.THESAURUS.hesitant[_.random(4, config.THESAURUS.hesitant.length-1)]}. Nothing gets cooked: `);
 
-            _.each(config.FOODS.main, (item, i) => {
-            $('.story').append(`${item}, `);
-            });
-            _.each(config.FOODS.hunt, (item, i) => {
-              $('.story').append(`${item}, `);
-            });
-
-            $('.story').append(`are all consumed raw and everyone ${config.THESAURUS.complain[_.random(0, config.THESAURUS.complain.length-1)]}s but eats anyway. `);
-
+              //.traits.firstname + most_dexterous_person.traits.lastname
+            $('.story').append(`${md.traits.firstname}${md.traits.lastname} tells the story today. Up until this point, they speak very little about their lives. You strain to hear but can only catch every other word because of the heavy accent: ${sperson} brought this ${config.SOLAR_POWERED.name} all the way from home, an item passed down from family member to family member. Something about someone who ${config.THESAURUS.actions[_.random(0, config.THESAURUS.actions.length-1)]} ———— ${config.THESAURUS.actions[_.random(0, config.THESAURUS.actions.length-1)]} ———————— this or that ${config.THESAURUS.actions[_.random(0, config.THESAURUS.actions.length-1)]} and ${config.THESAURUS.actions[_.random(0, config.THESAURUS.actions.length-1)]} —— something or other. `); 
           }
 
-          // if(containsStory == true) {
-          //   $('.story').append(` and stories of ${config.MEMORIES[_.random(0,config.MEMORIES.length-1)]} <span class='hide-story'> that would</span>provide entertainment for the entire day.`);
-          // }
 
+          if(containsCooking) {
+          } else {
+            var md = dexterousPerons();
+            $('.story').append(`The ${apparentTemperature} degree weather makes everyone ${config.THESAURUS.hesitant[_.random(0, config.THESAURUS.hesitant.length-3)]} and ${config.THESAURUS.hesitant[_.random(4, config.THESAURUS.hesitant.length-1)]} and no one wants to go outdoors, even though it is <span class="summary">${summary}</span> outside. Nothing gets cooked, but someone had the wisdom a few days ago to leave some ${config.FOODS.main[_.random(0, 2)]} and ${config.FOODS.main[_.random(3, config.FOODS.main.length-1)]} to dry and turn into vegetable leather. They dust off the snow and chew in silence, remembering parables of once ${config.THESAURUS.fertile[_.random(3, config.THESAURUS.fertile.length-1)]} lands. Did ${md.traits.firstname}${md.traits.lastname}'s ancestors great-grandparents, or their great-great-grandparents have an endless supply of ${config.FOODS.starches[_.random(0, config.FOODS.starches.length-1)]} to harvest with the ${config.SOLAR_POWERED.name}?<br><br>`);
+          }
+
+          
           if(containsBuilding) {
             $('.story').append(` The recruits are even feeling good enough with the weather to make much-needed repairs on their sustenance center. `);
+          chargeTools(data.currently, config.WIND_POWERED);
           } else {
-            $('.story').append(`No ${config.THESAURUS.progress[_.random(0, 4)]} on building. `);
+            $('.story').append(` No one gets up. `);
           }
 
           
@@ -276,18 +288,44 @@ class Region {
               }
             
           } else {
-            $('.story').append(`No ${config.THESAURUS.progress[_.random(4, config.THESAURUS.progress.length-1)]} on planting or harvesting either. `);
+            // $('.story').append(`No ${config.THESAURUS.progress[_.random(4, config.THESAURUS.progress.length-1)]} on planting or harvesting either. `);
+            $('.story').append(` Or leaves the room, other than to use the outhouse. `);
+            chargeTools(data.currently, config.WIND_POWERED); 
           }
-          
-            
-            // $('.story').append(` The rest eat <span class='hide-story'>and </span>the <span class='hide-story'>grips of ambivalence seems to releases a few of them. Theysow the seeds, harvest the ripe </span>${config.FOODS.main[_.random(0,config.FOODS.main.length-1)]}. <span class='hide-story'>Farm implements, scavenged out of whatever detritus remained from a more ${config.THESAURUS.fertile[_.random(0,config.THESAURUS.fertile.length-1)]} time, raise to meet the ${config.THESAURUS.bright[_.random(0,config.THESAURUS.bright.length-1)]} clouds. with the light of renewed agrarian ${config.THESAURUS.progress[_.random(0,config.THESAURUS.progress.length-1)]}<span>.`); 
-            // $('.story').append(`Remaining from the harvest are ${val} total items of `);
-
-          
-          // $('.story').append(` and after all is done, you allow yourself to wonder: who were they before all this? How did they end up here?`);
-          $('.story').append(`<br>---------------------------------------<br>`);
-
         
+          $('.story').append(`<p></p>`);
+
+          _.each(person_details_into_text, (person, i) => { 
+            $('.story').append(`${person.traits.firstname}${person.traits.lastname}, `);  
+          });
+          
+          $('.story').append(" the names remain on the walls. Someone has carved the scores from " +  "yesterday's game underneath, and they take on an eerie quality.");
+          
+          
+
+          $('.story').append(`<br>---------------------------------------<br>`);
+  
+          function chargeTools(weather, tool) {
+            console.log(weather);            
+
+            if(weather.windSpeed > tool.threshold) {
+              console.log(`wind power threshold passed`);
+              $('.story').append(`The wind powered ${config.WIND_POWERED.tool} kicks, and the steam expands and fills up their little refuge, and a ${config.THESAURUS.caress[_.random(3, config.THESAURUS.caress.length-1)]} makes you instantly sleepy.`);
+            } else {
+              $('.story').append(`If only the wind powered ${tool.tool} kicked in, the steam could warm up their refuge. `);
+            }
+            console.log(weather.cloudCover);
+
+            if(weather.cloudCover < config.SOLAR_POWERED.threshold) {
+              $('.story').append(`The ${config.SOLAR_POWERED.name} was charged up from the previous ` +  "days' solar power, but there are not many trees left to fell and no one volunteers to help. ");
+            }
+            
+          }
+
+          function dexterousPerons() {
+            var most_dexterous_person = _.max(_population, function(_population){ return _population.traits.dexterous; });
+            return most_dexterous_person;
+          }
 
           function potential(cc_population_total_coop_score) {
             console.log(cc_population_total_coop_score)

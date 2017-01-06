@@ -14,6 +14,8 @@ class Person {
       strength: 0,
       dilligence: 2,
       dexterous: _.random(0, 10),
+      sentimental: _.random(0, 10),
+      brought_object: _.random(0, 10),
       migration_tendencies: _.random(0, 10),
       countries: _.random(0, 10),
       name: 0

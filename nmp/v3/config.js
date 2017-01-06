@@ -11,9 +11,21 @@ const config = {
   },
   FOODS: {
     count: 24,
-    starches: ['casava', 'potato', 'wheat'],
-    main: ['beans', 'berries', 'rice', 'casava', 'carrots', 'cauliflower', 'broccoli'],
+    starches: ['casava', 'potato', 'wheat', 'rice'],
+    main: ['beans', 'berries', 'casava', 'carrots', 'cauliflower', 'broccoli'],
     hunt: ['fish', 'birds']
+  },
+  SOLAR_POWERED: {
+    tool: 'chainsaw',
+    name: 'Oregon 40-Volt Battery Powered Chainsaw',
+    power: 'solar',
+    threshold: 0.7
+  },
+  WIND_POWERED: {
+    tool: 'heater',
+    name: 'heater',
+    power: 'wind',
+    threshold: 7
   },
   MEMORIES: ["broken noses over a dying cornfield", "how to make water last", "day the United States backed out of the Paris Agreement, and the bloody riots afterwards", "learning how to count with your own ribcage", "running water and dental hygiene"],
   TUNDRA_COUNTRIES: ["Iceland", "Quebec", "Greenland"],
@@ -23,7 +35,7 @@ const config = {
   THESAURUS: {
     progress: ['advancement', 'betterment', 'breakthroughs', 'development', 'enrichment', 'progress', 'evolution', 'momentum', 'stride'],
     gentle: ['benign', 'moderate', 'tender', 'mellow', 'placid', 'genial', 'gentle'],
-    fertile: ['ample', 'bountiful', 'copious', 'development', 'generous', 'rich', 'lavish', 'fertile'],
+    fertile: ['ample', 'bountiful', 'copious', 'generous', 'rich', 'lavish', 'fertile'],
     affirmative: ['affirmative', 'amen', 'fine', 'gladly', 'granted', 'by all means', 'positively', 'yes'],
     fine: ['OK', 'alright', 'no problem'],
     eager: ['eager', 'keen', 'fervent', 'dedicated', 'impatient', 'ready', 'intent'],
@@ -32,7 +44,8 @@ const config = {
     caress: ['pets', 'kisses', 'strokes', 'embraces', 'like a vapor of smoke, envelops', 'caresses'],
     bright: ['shadeless', 'bright', 'piercing', 'merciless', 'cold', 'bright but listless', 'terse', 'oppressive'],
     complain: ['gripe', 'oppose', 'protest', 'fret', 'nag', 'object', 'moan'],
-    say: ['announce', 'claim', 'declare', 'mention', 'communicate', 'say']
+    say: ['announce', 'claim', 'declare', 'mention', 'communicate', 'say'],
+    actions: ['jumped', 'climbed', 'lost', 'killed', 'died', 'continued', 'won', 'cried', 'laughed', 'took', 'returned', 'cut', 'built', 'sunk', 'drowned', 'starved']
   }
 }
 
