@@ -1,5 +1,5 @@
 const config = {
-  DAYS: 1,
+  DAYS: 8,
   WINTER_TEMPERATURE: [50, 60],
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
@@ -10,7 +10,7 @@ const config = {
     migrating: 36
   },
   FOODS: {
-    count: 24,
+    count: 35,
     starches: ['casava', 'potato', 'wheat', 'rice'],
     main: ['beans', 'berries', 'casava', 'carrots', 'cauliflower', 'broccoli'],
     hunt: ['fish', 'birds']
