@@ -37,9 +37,9 @@ class Person {
     var comfort_level = {};
 
     if(country_region == 'Tundra') {
-      comfort_temp = [30, 50];
+      comfort_temp = [30, 60];
     } else if(country_region == 'Desert') {
-      comfort_temp = [40, 80];
+      comfort_temp = [30, 80];
     } else {
       comfort_temp = [50, 70];
     }

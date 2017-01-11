@@ -1,13 +1,13 @@
 const config = {
-  DAYS: 8,
+  DAYS: 7,
   WINTER_TEMPERATURE: [50, 60],
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
-  	cooking: 34.48,
-    fooding: 34.55,
+  	cooking: 14,
+    fooding: 14.5,
   	storytelling: 15,
-  	building: 34.7,
-    migrating: 36
+  	building: 14.8,
+    migrating: 98
   },
   FOODS: {
     count: 35,

@@ -105,12 +105,26 @@ class Region {
     $.getJSON(url + apiKey + "/" + _lati + "," + _longi + "?callback=?", function(data) {
       var summary = data.currently.summary;
       var apparentTemperature = data.currently.apparentTemperature;
+      var apparentTemperatureFeeling;
       var cloudCover = data.currently.cloudCover;
       var precipProbability = data.currently.precipProbability;
       var precipType = data.currently.precipType;
       var summaryToday = data.daily.data[0].summary;
       var windSpeed = data.currently.windSpeed;
 
+      if (apparentTemperature >= 10 && apparentTemperature <= 28) {
+          apparentTemperatureFeeling = 'bone-chilling'; //subzero
+      } else if (apparentTemperature >= 29 && apparentTemperature <= 34.99) {
+          apparentTemperatureFeeling = 'frigid';
+      } else if (apparentTemperature >= 35 && apparentTemperature <= 41.99) {
+          apparentTemperatureFeeling = 'freezing';
+      } else if (apparentTemperature >= 42 && apparentTemperature <= 48.99) {
+          apparentTemperatureFeeling = 'cold';
+      } else if (apparentTemperature >= 49 && apparentTemperature <= 58.99) {
+          apparentTemperatureFeeling = 'chilly'
+      } else {
+          apparentTemperatureFeeling = 'tolerable';
+      }
       $('.story').append(`<h1>${days}</h1>`);
 
       countFood();
@@ -127,6 +141,7 @@ class Region {
           temp_cooperative_score = person.traits.cooperative;
           temp_cooperative_score += person_comfort_num;           
           cc_population_total_coop_score.push(temp_cooperative_score);
+          console.log(`${person_comfort_num} ${person.country_region}`)
         });
         cc_population_total_coop_score = _.reduce(cc_population_total_coop_score, function(memo, num){ return memo + num; }, 0);
 
@@ -142,20 +157,23 @@ class Region {
         } 
 
         if(emergency) {
-          pickBestTeam();
           pills = true;
         }
 
         if(pills) {
-          resourcesFoods += 4;
+          resourcesFoods += 5;
+          pickBestTeam()
           console.log(bestTeam.most_cooperative.traits.cooperative);
           pillsLasts--;
           //console.log(getCooperationScores(bestTeam));            
           if(pillsLasts > 0 ) {
-            bestTeam.most_cooperative.traits.cooperative += 5;
-
-            $('.story').append(` There were obviously times when you didn't witness it either, because you were asleep yourself. When their voices sound raw and their faces marked with signs of loneliness. One time you were out for almost a week. A week for you looked like a month on their faces. You mentally run through the steps, miming with your hands in the air when they slept on. In the morning you feed everyone the best scraps of whatever's left of the very negligible foodstuffs. The ones who you chose - some looked startled. It would be shocking if they've never witnessed it. <p>Are--are they dead? What happened? One stammered, eyes darting back and forth, possibly looking for a weapon. This is normal. Depending on their personality, they may try to reason with you instead of attacking you. Aren't you going to help? You pack the soft snow into small water resitant bags and strap them to the armpits of the sleeping. That's their water source. I've seen this done at the other projects before I met you. You don't mention that you've never done it yourself. Help me move them closer together, or else they'll die in their sleep. Your hands actually shake as you do this but you try not to let others see. That's one of the many unwritten rules.`);
-            $('.story').append(`pills now. reduced amount of food consumed: ${resourcesFoods}`);         
+            //bestTeam.most_cooperative.traits.cooperative += 5;
+            // 
+            $('.story').append(`The recruits, through some great feats of creativity, mustered up some edible foodstuffs, but ate without tasting it. The ones who had been through these bouts before tried to assure the others, but without believing it. This had gone on for the past three days, and now it is ${apparentTemperature} degrees and still ${apparentTemperatureFeeling}.  `);
+            $('.story').append(`<p>You made the decision, told yourself this is what you had to do, and spent the past 72 hours running through the steps in your mind when only the moon bears witness to your robotic routines. It was many projects ago that Viktor handed you the small box and told you to keep it safe, that you might need it. The others will benefit from this, you think. A team that requires less work to reach consensus will result in more output. You will definitely wake up the others when the time is right, you think, as you take out the nanos and drop them into the drinking water. Tonight, thousands of indiscernible parts will enter the bloodstream and put the bodies in a regulated and stable state of sleep. In the morning, you will work with the ones who wake up.`);
+            //The  , as long as some form of heating and hydration were provided.
+            //${bestTeam.most_strong.traits.firstname}${bestTeam.most_strong.traits.lastname} from ${bestTeam.most_strong.country}, ${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname} ${bestTeam.most_cooperative.country}, and ${bestTeam.medium_dilligent.traits.firstname}${bestTeam.medium_dilligent.traits.lastname} from ${bestTeam.medium_dilligent.country}`
+            // $('.story').append(`While in this emergency state, they would reduce the amount of food that needed to be consumed, and the amount of consensus needed, by half. The first time he saw the nanos used, the project leader had just picked random people to keep awake. Some used the signs in the stars and moon. You learned from all these and knew you had to be strategic.`);         
           } else {
             $('.story').append(`no more pills, we good now? ${resourcesFoods}`);         
           }
@@ -181,7 +199,7 @@ class Region {
         bestTeam.most_strong = most_strong;
         bestTeam.medium_dilligent = medium_dilligent;
 
-        $('.story').append(`You pick ${bestTeam.most_strong.traits.firstname}${bestTeam.most_strong.traits.lastname} from ${bestTeam.most_strong.country}, ${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname} ${bestTeam.most_cooperative.country}, and ${bestTeam.medium_dilligent.traits.firstname}${bestTeam.medium_dilligent.traits.lastname} from ${bestTeam.medium_dilligent.country}`);
+        return bestTeam;
       }
 
 
