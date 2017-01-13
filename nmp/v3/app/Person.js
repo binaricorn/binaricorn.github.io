@@ -14,10 +14,13 @@ class Person {
       strength: 0,
       dilligence: 2,
       dexterous: _.random(0, 10),
+      gentleness: _.random(0, 10),
+      temper: _.random(0, 10),
       sentimental: _.random(0, 10),
       brought_object: _.random(0, 10),
       migration_tendencies: _.random(0, 10),
       countries: _.random(0, 10),
+      veteran: 0,
       name: 0
     }  
 
@@ -37,7 +40,7 @@ class Person {
     var comfort_level = {};
 
     if(country_region == 'Tundra') {
-      comfort_temp = [30, 60];
+      comfort_temp = [30, 70];
     } else if(country_region == 'Desert') {
       comfort_temp = [30, 80];
     } else {

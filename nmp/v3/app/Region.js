@@ -31,12 +31,15 @@ class Region {
     person.traits.lastname = config.NAMES[(i+2)*2];
     person.traits.bravery = i+2;
     person.traits.dilligence = i+1;
+    person.traits.sentimental = i*2;
     person.traits.dexterous = i+1;
     person.traits.cooperative = i+1;
     person.traits.migration = i;
+    person.traits.veteran = i+2;
     person.traits.countries = i+2;
     person.features.height = i+2;
     person.features.sex = i*2;
+    person.traits.veteran = i*2;
 
     if(person.features.height > this.feature_threshold) {
       person.features.height = 'tall';
@@ -123,7 +126,7 @@ class Region {
       } else if (apparentTemperature >= 49 && apparentTemperature <= 58.99) {
           apparentTemperatureFeeling = 'chilly'
       } else {
-          apparentTemperatureFeeling = 'tolerable';
+          apparentTemperatureFeeling = 'comfortable';
       }
       $('.story').append(`<h1>${days}</h1>`);
 
@@ -167,13 +170,26 @@ class Region {
           pillsLasts--;
           //console.log(getCooperationScores(bestTeam));            
           if(pillsLasts > 0 ) {
-            //bestTeam.most_cooperative.traits.cooperative += 5;
-            // 
-            $('.story').append(`The recruits, through some great feats of creativity, mustered up some edible foodstuffs, but ate without tasting it. The ones who had been through these bouts before tried to assure the others, but without believing it. This had gone on for the past three days, and now it is ${apparentTemperature} degrees and still ${apparentTemperatureFeeling}.  `);
-            $('.story').append(`<p>You made the decision, told yourself this is what you had to do, and spent the past 72 hours running through the steps in your mind when only the moon bears witness to your robotic routines. It was many projects ago that Viktor handed you the small box and told you to keep it safe, that you might need it. The others will benefit from this, you think. A team that requires less work to reach consensus will result in more output. You will definitely wake up the others when the time is right, you think, as you take out the nanos and drop them into the drinking water. Tonight, thousands of indiscernible parts will enter the bloodstream and put the bodies in a regulated and stable state of sleep. In the morning, you will work with the ones who wake up.`);
+            // config coop decrease to something feasible for "3" people
+            $('.story').append("You stayed awake through the night, allowing yourself to sleep only for small stretches, each time feeling relieved to find your shelter warming as the sun rose. You let yourself find optimism in the chance that those who awake would start their day feeling comfort first before apprehension. At sunrise you began shoveling the pristine and powder white snow into large biodegradable sacs. These would go between the bodies, melt, and become tube-fed water sources for those sleeping. <p>The nanos have seen and known more lifetimes than you could ever conceive of. They know the interconnections and mechanics, the deep-rooted causes of arguments, of embittered rivalries that form over linguistic nuances, the mechanisms of insecurity and of coping. Their knowledge is vast and deep, and your intuition long gone. ");
+
+            $('.story').append(`You daydream a little by yourself outside under the sun. Perhaps after the meal you will be able to really go outside for the first time as a group, in what feels like forever. Plant and harvest, fix and rebuild, cook and clean, and tell each other stories. Let yourselves get distracted by tracing the path of a leaf, led around by a warm, ${windDescription(windSpeed)}, loose and slow and open. You remember having been at a project where the people had built their homes out of shiny parts, and how the people marveled at the reflections when the days were bright. No one used their devices to remember anything, there would never be enough memory to hold all the strange and bizarre, the beautiful and the devastating scenes you would come to witness. You learned early on.`);
+
+            $('.story').append(`<p>${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname} was the first to approach you, having heard you struggle to drag the first slumbering body across the crude floor.`);
+            bestTeamBehaviors(bestTeam.most_cooperative, 0);
+            $('.story').append(`Then, voices from from another corner: Are they dead? What did you do to them? `);
+            bestTeamBehaviors(bestTeam.most_strong, 0);
+            //, taking off the outer layer of their clothes and throwing them in a pile.
+
+            // $('.story').append(`Then ${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname}, and then finally ${bestTeam.medium_dilligent.traits.firstname}${bestTeam.medium_dilligent.traits.lastname}`).
+
+            
+            bestTeamBehaviors(bestTeam.medium_dilligent, 0);
+            
+            $('.story').append(` ${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname} speaks with reassuring tones, no doubt honed over the decades, and calms everyone down. Including you. It's late now, and the sky gray again. But maybe everything is still possible.`);
+            
             //The  , as long as some form of heating and hydration were provided.
             //${bestTeam.most_strong.traits.firstname}${bestTeam.most_strong.traits.lastname} from ${bestTeam.most_strong.country}, ${bestTeam.most_cooperative.traits.firstname}${bestTeam.most_cooperative.traits.lastname} ${bestTeam.most_cooperative.country}, and ${bestTeam.medium_dilligent.traits.firstname}${bestTeam.medium_dilligent.traits.lastname} from ${bestTeam.medium_dilligent.country}`
-            // $('.story').append(`While in this emergency state, they would reduce the amount of food that needed to be consumed, and the amount of consensus needed, by half. The first time he saw the nanos used, the project leader had just picked random people to keep awake. Some used the signs in the stars and moon. You learned from all these and knew you had to be strategic.`);         
           } else {
             $('.story').append(`no more pills, we good now? ${resourcesFoods}`);         
           }
@@ -186,14 +202,60 @@ class Region {
         //console.log(getCooperationScores(_population));
         
       }
+
       
-      //function 
+      
+      function bestTeamBehaviors(bestTeamMember, state) {
+        // states --
+        // 0 : waking up
+        // 1 : being told what's happening
+        // 2 : helping or not helping
+        // 3 : doing what's possible together or not
+
+        console.log(bestTeamMember.traits.dexterous);
+        console.log(bestTeamMember.traits.veteran);
+       
+
+          if(bestTeamMember.traits.veteran > 5 && bestTeamMember.traits.dexterous > 5) { 
+            $('.story').append(`${bestTeamMember.traits.firstname}${bestTeamMember.traits.lastname} is a veteran of many projects past and has seen and been through everything, sighs, as if to question and accept your judgement in the same breath. `);
+          } else if(bestTeamMember.traits.veteran > 5 && bestTeamMember.traits.dexterous < 5) {
+            $('.story').append(`${bestTeamMember.traits.firstname}${bestTeamMember.traits.lastname} has been through these but still cant cope.`);
+          } else if(bestTeamMember.traits.veteran < 5 && bestTeamMember.traits.dexterous < 5) {
+            $('.story').append(` ${bestTeamMember.traits.firstname}${bestTeamMember.traits.lastname} stammered, eyes darting back and forth, possibly looking for a weapon. `); 
+          }
+        
+        
+
+        // if(bestTeamMember.traits.cooperative > 5) {
+        //   $('.story').append(`At some point he is willing to help `);
+        // } else {
+        //   $('.story').append(`He is not willing to help `);
+        // }
+
+        // if(bestTeamMember.traits.sentimental > 5) {
+        //  $('.story').append(`even though he is sentimental and misses the rest. Espcially this one.`);
+        // } else {
+        //   $('.story').append(`and he formed no attachments.`);
+        // }
+
+         
+
+
+        // if(bestTeam.most_strong.traits.sentimental > 5) {
+        //   console.log('the most strong is sentimental')
+        // } else {
+        //   console.log('the most strong is not sentimental')
+        // } else if(bestTeam.most_strong.traits.cooperative > 5) {
+        //   console.log('the most strong is not sentimental')
+        // }
+      }
 
       function pickBestTeam() {        
           
         var most_cooperative = _.max(_population, function(_population){ return _population.traits.dexterous; });
         var most_strong = _.max(_population, function(_population){ return _population.traits.strength; });
         var medium_dilligent = _population[3];
+        var most_veteran = _.max(bestTeam, function(bestTeam){ return bestTeam.traits.veteran; });
 
         bestTeam.most_cooperative = most_cooperative;
         bestTeam.most_strong = most_strong;
@@ -232,6 +294,31 @@ class Region {
           });
         });
         return chosen_possible_actions;
+      }
+
+      function windDescription(_windSpeed) {
+      // wind
+        var windSpeed = _windSpeed;
+        var windText;
+
+        if (windSpeed < 1) {
+          windText = "calmness in the air";
+        } else if (windSpeed >= 1 && windSpeed < 3) {
+          windText = "a little bit of stillness in the air";
+        } else if (windSpeed >= 3 && windSpeed < 7) {
+          windText = "light breeze rustles the corn stalks and " + config.THESAURUS.caress[_.random(0, config.THESAURUS.caress.length-1)] + " your face";
+        } else if (windSpeed >= 7 && windSpeed < 12) {
+          windText = `${config.THESAURUS.gentle[_.random(0, config.THESAURUS.gentle.length-1)]} breeze that causes detritus to scatter sounds of their previously liquid past`;
+        } else if (windSpeed >= 12 && windSpeed < 18) {
+          windText = "movement in the air that brings the smell of foods, sway small branches and your clothes";
+        } else if (windSpeed >= 18 && windSpeed < 24) {
+          windText = "fresh fast breeze that makes small bony twigs sway";
+        } else if (windSpeed >= 25 && windSpeed < 38) {
+          windText = 'strong breeze. Large tree branches are bent out of shape';
+        } else if (windSpeed >= 39 && windSpeed <= 46) {
+          windText = 'twigs and small branches are broken from trees and walking is difficult';
+        }
+        return windText;
       }
 
 

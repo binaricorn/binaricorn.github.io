@@ -1,5 +1,5 @@
 const config = {
-  DAYS: 7,
+  DAYS: 8,
   WINTER_TEMPERATURE: [50, 60],
   SUMMER_TEMPERATURE: [81, 110],
   COSTS: {
